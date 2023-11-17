@@ -1,0 +1,17 @@
+To be developed
+
+#-------------------------------------------------------------------------------------------------------------------
+[Simulation 01]
+file_N01 = 
+file_N02 = 
+file_N03 = r"F:\Simulation_Comparison\web_streamlit\data\kn_4096x4096_base\konstanz_4096x4096_v4_xy_N03.000.nc"
+
+#-------------------------------------------------------------------------------------------------------------------
+[Simulation 02]
+file_N01 = 
+file_N02 = 
+file_N03 = r"F:\Simulation_Comparison\web_streamlit\data\kn_4096x4096_test\konstanz_4096x4096_v5_xy_N03.000.nc"
+
+#-------------------------------------------------------------------------------------------------------------------
+Static Driver
+file_static = r"F:\Simulation_Comparison\web_streamlit\data\kn_4096x4096_base\konstanz_4096x4096_v4_xy_N03.000.nc"

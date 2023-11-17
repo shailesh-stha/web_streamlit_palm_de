@@ -1,0 +1,85 @@
+/* menu on top :right */
+/* #MainMenu {visibility: hidden;} */
+
+/* layout */
+.st-emotion-cache-1y4p8pa {
+    width: 85%;
+    /* width: 700px, */
+    padding: 1.5rem 1rem 1rem 1rem;
+    background-color: #d8d8d8;
+    min-width: auto;
+    max-width: initial;
+    /* max-width: initial; */
+}
+/* header index 1 */
+[tabindex="-1"][data-testid="stHeader"]{
+    background-color:#DD0065;
+    opacity: 0;
+}
+
+/* sidebar width */
+[data-testid="stSidebar"][aria-expanded="true"]{
+    min-width: 350px; 
+    max-width: 350px;
+}
+/* expander style */
+[data-testid="stExpander"]{
+    background-color: #dadada;
+}
+.st-emotion-cache-p5msec {
+    background-color: #DD0065;
+    color: white;
+    height: 2.25rem;
+}
+[data-testid="stExpanderDetails"]{
+    padding: 0.5rem;
+}
+
+/* tab */
+.stTabs [data-baseweb="tab"] {
+    height: 25px;
+    width: 75px;
+    background-color: #F0F2F6;
+    border-radius: 5px 5px 0px 0px;
+    padding: 0% 0% 0% 0%;
+    margin: 0% 0% 0% 0%
+}
+
+.leaflet-tile-container.leaflet-zoom-animated {
+    margin:5px,
+}
+
+
+
+/* text classes */
+.centered-text {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff00;
+    height: 30px;
+    padding: 1px;
+}
+
+/* text elements style */
+.css-10trblm {
+    text-align: center;
+}
+[data-testid="stMarkdownContainer"] {
+    text-align: justify;
+    font-size: 12px;
+}
+h2, h2, h3, p {
+    padding: 0;
+    margin: 4px;
+
+  }
+/* 
+p {
+    font-size: 1.1rem;
+}
+
+.st-emotion-cache-5rimss li {
+    font-size: 1.1rem;
+} */
