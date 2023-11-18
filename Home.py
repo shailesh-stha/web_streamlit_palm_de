@@ -259,7 +259,7 @@ elif selected_menu == "OpenStreet Map Integration":
             display_markers = st.checkbox(label="Location Markers ", value=True)
                 
         with columns_main[1]:
-            display_map.dual_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
+            display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
         with columns_main[2]:
             # Add image as scale
             image_url = r"./images/scale.png"

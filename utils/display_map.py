@@ -16,7 +16,7 @@ gdf_child = gpd.read_file(shapefile_child)
 gdf_aoi_sim = gpd.read_file(shapefile_aoi_sim)
 gdf_buildings = gpd.read_file(shapefile_buildings)
 
-def single_raster_overlay(time_index, opacity):
+def single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index):
     # Create a Folium map
     m = folium.Map(location=[47.661129, 9.175209], tiles='openstreetmap', zoom_start=16, scrollWheelZoom=False)
     
@@ -54,7 +54,7 @@ def single_raster_overlay(time_index, opacity):
 
     # Overlay saved image
     ImageOverlay(name=f"Color Map: {time_index}", 
-                 image=f".\images\{image_index}.png",
+                 image=f"./images/base_simulation/N03/base_{image_index}.png",
                  bounds=bounds, opacity=opacity
                  ).add_to(m)
     
