@@ -82,7 +82,7 @@ selected_menu = option_menu(
     options=["3D Map Integration", "OpenStreet Map Integration", "Farbkarte", "About"],
     # icons=["house", "book", "envelope"],
     # menu_icon=["cast"],
-    default_index=2,
+    default_index=1,
     orientation="horizontal",
     )
 
@@ -244,24 +244,19 @@ elif selected_menu == "OpenStreet Map Integration":
         # Create columns for variable and maps
         columns_main = st.columns((2,7,1), gap="small")
         with columns_main[0]:
-            columns = st.columns((2,1))
-            with columns[0]:
-                time_index = st.select_slider(label="Select a time of the day: ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-            with columns[1]:
-                opacity = st.number_input(label="Opacity ", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
-                
-            columns = st.columns((1,1))
-            with columns[0]:
-                # Read AOI shapefile and toggle plot display
-                display_shapefile = st.checkbox(label="Domain Boundaries", value=True)
-                shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
-                # Toggle marker display
-                display_markers = st.checkbox(label="Markers ", value=True)
-            
+            time_index = st.select_slider(label="Select a time of the day: ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+            opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
+
             # Option to select which domain to visualize
             options=["Large (Low Resolution)", "Medium (Medium Resolution)", "Small (High Resolution)"]
-            domain = st.selectbox(label="Select a domain to visualize:", options=options, index=2)
+            domain = st.selectbox(label="Select the domain to visualize:", options=options, index=2)
             domain_index = options.index(domain) + 1
+
+            # Read AOI shapefile and toggle plot display
+            display_shapefile = st.checkbox(label="Domain Boundary", value=True)
+            shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
+            # Toggle marker display
+            display_markers = st.checkbox(label="Location Markers ", value=True)
                 
         with columns_main[1]:
             display_map.dual_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
@@ -275,32 +270,38 @@ elif selected_menu == "3D Map Integration":
         # Create columns for variable and maps
         columns_main = st.columns((2,8), gap="small")
         with columns_main[0]:
-            columns = st.columns((2,1))
-            with columns[0]:
-                time_index_3d = st.select_slider(label="Select a time of the day:  ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-            with columns[1]:
-                opacity_3d = st.number_input(label="Opacity  ", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
+            # Select time of the day visualize the image overlay
+            time_index_3d = st.select_slider(label="Select a time of the day:  ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
             
-            columns = st.columns((1,1))
-            with columns[0]:
-                lat = st.number_input("Latitude", value = 47.661129)
-            with columns[1]:
-                lon = st.number_input("Longitude", value = 9.175209)
+            # Define opacity of overlayed image
+            opacity_3d = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
+
+            # Take user input for map settings    
+            # columns = st.columns((1,1))
+            # with columns[0]:
+            #     lat = st.number_input("Latitude", value = 47.661129)
+            # with columns[1]:
+            #     lon = st.number_input("Longitude", value = 9.175209)
             
-            columns = st.columns((1,1,1))
-            with columns[0]:
-                zoom = st.number_input("Zoom", value = 15.5)
-            with columns[1]:
-                pitch = st.number_input("Pitch", value = 50)
-            with columns[2]:
-                bearing = st.number_input("Bearing", value = -40)
+            # columns = st.columns((1,1,1))
+            # with columns[0]:
+            #     zoom = st.number_input("Zoom", value = 15.5)
+            # with columns[1]:
+            #     pitch = st.number_input("Pitch", value = 50)
+            # with columns[2]:
+            #     bearing = st.number_input("Bearing", value = -40)
             
-            columns = st.columns((1,1))
-            with columns[0]:
-                # Toggle image overlay
-                display_image = st.checkbox(label="Overlay", value=True)
-                # Toggle added trees
-                display_added_trees = st.checkbox(label="Test Simulation (Added Trees)", value=True)
+            lat = 47.661129
+            lon = 9.175209
+            zoom = 15.5
+            pitch = 50
+            bearing = -40 
+            
+            # Toggle image overlay
+            display_image = st.checkbox(label="Overlay", value=True)
+            # Toggle added trees
+            display_added_trees = st.checkbox(label="Test Simulation (Added Trees)", value=True)
+            
         with columns_main[1]:
             display_map.pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing)
 

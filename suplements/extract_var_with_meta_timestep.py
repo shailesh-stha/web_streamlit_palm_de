@@ -50,8 +50,9 @@ with nc.Dataset(input, mode="r") as ds:
 
                 for band_index in band_sequence:
                     # Extract the subset of data and save it to the output variable
-                    out_variable[:] = ds[variable_name_1][band_index, :, :, :]
-
+                    band_data = ds[variable_name_1][band_index, :, :, :]
+                    out_variable[band_index] = band_data
+                    
                 print(f"Variable data with name '{variable_name_1}' has been extracted and saved to '{output}'")
             else:
                 print(f"Variable '{variable_name_1}' not found in the input dataset")

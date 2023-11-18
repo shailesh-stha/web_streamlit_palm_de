@@ -87,12 +87,26 @@ def single_raster_overlay(time_index, opacity):
 def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index):
     # Create a Folium map
     latlong = [47.661129, 9.175209]
+    
+    if domain_index == 1:
+        zoom_start = 13
+    elif domain_index == 2:
+        zoom_start = 14
+    elif domain_index == 3:
+        zoom_start = 16
+        
     # Add custom basemap to folium
     basemaps = {
-    'Google Satellite': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Satellite'),
+    'Google Maps': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Maps', control = True),
+    'Google Satellite': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Satellite', control = True),
+    'Google Terrain': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Terrain', control = True),
+    'Google Satellite Hybrid': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Satellite', control = True),
+    'Esri Satellite': folium.TileLayer(tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr = 'Esri', name = 'Esri Satellite', control = True)
     }
-    m = folium.plugins.DualMap(location=latlong, zoom_start=16, max_zoom=20, scrollWheelZoom=False, layout='horizontal')
-    basemaps['Google Satellite'].add_to(m)
+
+    
+    m = folium.plugins.DualMap(location=latlong, zoom_start=zoom_start, max_zoom=20, scrollWheelZoom=False, layout='horizontal')
+    # basemaps['Google Satellite'].add_to(m)
     
     # add minimap and mouse position
     plugins.MiniMap(position='bottomleft', height=125, width=125, toggle_display=True).add_to(m.m1)
@@ -103,9 +117,9 @@ def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers,
     fg_2 = folium.FeatureGroup(name="markers_2").add_to(m.m2)
     if display_shapefile:
         folium.GeoJson(gdf_child, name="Area of Interest", show=True,
-                    style_function=lambda feature: {'color': 'red', 'fillOpacity': 0.0}).add_to(fg_1)
+                       style_function=lambda feature: {'color': 'red', 'fillOpacity': 0.0}).add_to(fg_1)
         folium.GeoJson(gdf_child, name="Area of Interest", show=True,
-                    style_function=lambda feature: {'color': 'green', 'fillOpacity': 0.0}).add_to(fg_2)
+                       style_function=lambda feature: {'color': 'green', 'fillOpacity': 0.0}).add_to(fg_2)
 
     # Define image bounds (Next update: Import from shapefile)
     bounds_N01 = [[47.6448635964296443, 9.1511199720516103], [47.6818029139078376, 9.2058007936034869]]
