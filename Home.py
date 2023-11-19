@@ -281,6 +281,7 @@ elif selected_menu == "OSM Dual":
     ).add_to(m)
 
     # call to render Folium map in Streamlit
+    m.add_child(folium.LayerControl())
     st_data = st_folium(m, width=725)
 
 elif selected_menu == "3D Map Integration":
