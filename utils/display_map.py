@@ -18,7 +18,7 @@ gdf_buildings = gpd.read_file(shapefile_buildings)
 
 def single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index):
     # Create a Folium map
-    m = folium.Map(location=[47.661129, 9.175209], tiles='openstreetmap', zoom_start=16, scrollWheelZoom=False)
+    m = folium.Map(location=[47.661129, 9.175209], zoom_start=16, scrollWheelZoom=False)
     
     # # Add custom basemap to folium
     # basemaps = {
@@ -58,12 +58,12 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     #              bounds=bounds, opacity=opacity
     #              ).add_to(m)
     
-    # #specify the min and max values of your data
-    # color_codes = [(62, 121, 198), (75, 182, 152), (89, 208, 73), (190, 228, 61), (235, 215, 53), (234, 164, 62), (229, 109, 83), (190, 48, 102), (107, 21, 39), (43, 0, 1)]
-    # values = [-5.0, 0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0]
-    # legend = cm.StepColormap(color_codes, vmin=-5.0, vmax=50.0, tick_labels=values)
-    # legend.caption = 'Temperature'
-    # legend.add_to(m)
+    # # #specify the min and max values of your data
+    # # color_codes = [(62, 121, 198), (75, 182, 152), (89, 208, 73), (190, 228, 61), (235, 215, 53), (234, 164, 62), (229, 109, 83), (190, 48, 102), (107, 21, 39), (43, 0, 1)]
+    # # values = [-5.0, 0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0]
+    # # legend = cm.StepColormap(color_codes, vmin=-5.0, vmax=50.0, tick_labels=values)
+    # # legend.caption = 'Temperature'
+    # # legend.add_to(m)
 
     # # marker
     # folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz").add_to(m)
@@ -77,9 +77,9 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     #     force_separate_button=True,
     #     ).add_to(m)
     
-    # Add a layer control to the map
-    folium.LayerControl().add_to(m)
-    folium.plugins.ScrollZoomToggler().add_to(m)
+    # # Add a layer control to the map
+    # folium.LayerControl().add_to(m)
+    # folium.plugins.ScrollZoomToggler().add_to(m)
     
     # Use streamlit_folium to display the map
     st_folium(m, width='100%', height=500)
