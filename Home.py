@@ -87,7 +87,7 @@ selected_menu = option_menu(
     options=["3D Map Integration", "OSM Single", "OSM Dual", "Farbkarte", "About"],
     # icons=["house", "book", "envelope"],
     # menu_icon=["cast"],
-    default_index=1,
+    default_index=2,
     orientation="horizontal",
     )
 
@@ -276,12 +276,14 @@ elif selected_menu == "OSM Single":
 elif selected_menu == "OSM Dual":
     # center on Liberty Bell, add marker
     m = folium.Map(location=[39.949610, -75.150282], zoom_start=16)
+    m.add_child(folium.LayerControl())
+    
     folium.Marker(
         [39.949610, -75.150282], popup="Liberty Bell", tooltip="Liberty Bell"
     ).add_to(m)
 
     # call to render Folium map in Streamlit
-    m.add_child(folium.LayerControl())
+    
     st_data = st_folium(m, width=725)
 
 elif selected_menu == "3D Map Integration":
