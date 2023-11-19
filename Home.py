@@ -79,7 +79,7 @@ with st.container():
 
 selected_menu = option_menu(
     menu_title = None, # or None to hide title
-    options=["3D Map Integration", "OpenStreet Map Integration", "Farbkarte", "About"],
+    options=["3D Map Integration", "OSM Single", "OSM Dual", "Farbkarte", "About"],
     # icons=["house", "book", "envelope"],
     # menu_icon=["cast"],
     default_index=1,
@@ -143,6 +143,9 @@ if selected_menu == "Farbkarte":
                 shapefile_url_2 = r"./data/area_of_interest/aoi_stations.shp" if display_stations else None
                 display_hatch = st.checkbox(label="Hatch", value=True)
                 hatch = "//" if display_hatch else ''
+            
+            cmap = "turob"
+            
 
         # Plot color maps as per the variables
         with columns_main[1]:
@@ -239,7 +242,7 @@ if selected_menu == "Farbkarte":
                 elif location == "Station 3":
                     display_plotly.histogram(data_run_1_stn_3, data_run_2_stn_3, band_sequence_backup, time_index, variable_description, variable_unit)
 
-elif selected_menu == "OpenStreet Map Integration":
+elif selected_menu == "OSM Single":
     with st.expander("2D Map Viewer", expanded=True): 
         # Create columns for variable and maps
         columns_main = st.columns((2,7,1), gap="small")

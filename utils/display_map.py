@@ -20,43 +20,43 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     # Create a Folium map
     m = folium.Map(location=[47.661129, 9.175209], tiles='openstreetmap', zoom_start=16, scrollWheelZoom=False)
     
-    # Add custom basemap to folium
-    basemaps = {
-    'Google Maps': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Maps', control = True),
-    'Google Satellite': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Satellite', control = True),
-    'Google Terrain': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Terrain', control = True),
-    'Google Satellite Hybrid': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Satellite', control = True),
-    'Esri Satellite': folium.TileLayer(tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr = 'Esri', name = 'Esri Satellite', control = True)
-    }
+    # # Add custom basemap to folium
+    # basemaps = {
+    # 'Google Maps': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Maps', control = True),
+    # 'Google Satellite': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Satellite', control = True),
+    # 'Google Terrain': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Terrain', control = True),
+    # 'Google Satellite Hybrid': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Satellite', control = True),
+    # 'Esri Satellite': folium.TileLayer(tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr = 'Esri', name = 'Esri Satellite', control = True)
+    # }
     
-    basemaps['Google Maps'].add_to(m)
-    basemaps['Google Satellite Hybrid'].add_to(m)
-    basemaps['Esri Satellite'].add_to(m)
+    # basemaps['Google Maps'].add_to(m)
+    # basemaps['Google Satellite Hybrid'].add_to(m)
+    # basemaps['Esri Satellite'].add_to(m)
 
-    # add minimap and mouse position
-    plugins.MiniMap(position='bottomleft', height=150, width=150, toggle_display=True).add_to(m)
-    plugins.MousePosition().add_to(m)
+    # # add minimap and mouse position
+    # plugins.MiniMap(position='bottomleft', height=150, width=150, toggle_display=True).add_to(m)
+    # plugins.MousePosition().add_to(m)
     
-    # Insert shapefiles
-    folium.GeoJson(gdf_buildings, name="Buildings", show=False,
-                   style_function=lambda feature:{'color': 'white', 'fillColor': 'white', 'fillOpacity': 0.5, 'weight': 2,}
-                   ).add_to(m)
-    folium.GeoJson(gdf_child, name="Area of Interest", show=True,
-                   style_function=lambda feature:{'color': 'red', 'fillOpacity': 0.0}
-                   ).add_to(m)
-    folium.GeoJson(gdf_aoi_sim, name="Area of Interest for Simulation", show=False, 
-                   style_function=lambda feature:{'color': 'green', 'fillColor': 'green', 'fillOpacity': 0, 'weight': 2,}
-                   ).add_to(m)
+    # # Insert shapefiles
+    # folium.GeoJson(gdf_buildings, name="Buildings", show=False,
+    #                style_function=lambda feature:{'color': 'white', 'fillColor': 'white', 'fillOpacity': 0.5, 'weight': 2,}
+    #                ).add_to(m)
+    # folium.GeoJson(gdf_child, name="Area of Interest", show=True,
+    #                style_function=lambda feature:{'color': 'red', 'fillOpacity': 0.0}
+    #                ).add_to(m)
+    # folium.GeoJson(gdf_aoi_sim, name="Area of Interest for Simulation", show=False, 
+    #                style_function=lambda feature:{'color': 'green', 'fillColor': 'green', 'fillOpacity': 0, 'weight': 2,}
+    #                ).add_to(m)
     
-    image_index = time_index.replace(":","")
-    # Define AOI bounds
-    bounds = [[47.6588733206033766, 9.1718298413872255], [47.6634905475628230, 9.1786643808656230]]
+    # image_index = time_index.replace(":","")
+    # # Define AOI bounds
+    # bounds = [[47.6588733206033766, 9.1718298413872255], [47.6634905475628230, 9.1786643808656230]]
 
-    # Overlay saved image
-    ImageOverlay(name=f"Color Map: {time_index}", 
-                 image=f"./images/base_simulation/N03/base_{image_index}.png",
-                 bounds=bounds, opacity=opacity
-                 ).add_to(m)
+    # # Overlay saved image
+    # ImageOverlay(name=f"Color Map: {time_index}", 
+    #              image=f"./images/base_simulation/N03/base_{image_index}.png",
+    #              bounds=bounds, opacity=opacity
+    #              ).add_to(m)
     
     # #specify the min and max values of your data
     # color_codes = [(62, 121, 198), (75, 182, 152), (89, 208, 73), (190, 228, 61), (235, 215, 53), (234, 164, 62), (229, 109, 83), (190, 48, 102), (107, 21, 39), (43, 0, 1)]
@@ -65,17 +65,17 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     # legend.caption = 'Temperature'
     # legend.add_to(m)
 
-    # marker
-    folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz").add_to(m)
-    folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
-    folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
+    # # marker
+    # folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz").add_to(m)
+    # folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
+    # folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
     
-    folium.plugins.Fullscreen(
-        position="topleft", 
-        title="Fullscreen",
-        title_cancel="Exit Fullscreen",
-        force_separate_button=True,
-        ).add_to(m)
+    # folium.plugins.Fullscreen(
+    #     position="topleft", 
+    #     title="Fullscreen",
+    #     title_cancel="Exit Fullscreen",
+    #     force_separate_button=True,
+    #     ).add_to(m)
     
     # Add a layer control to the map
     folium.LayerControl().add_to(m)
