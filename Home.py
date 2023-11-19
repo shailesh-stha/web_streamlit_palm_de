@@ -6,7 +6,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 from streamlit_option_menu import option_menu
+import folium
+import streamlit as st
+from streamlit_folium import st_folium
 import geopandas as gpd
+
+
 # local imports
 from utils import read_netcdf, display_map, display_matplots, display_plotly, useful_functions
 
@@ -267,6 +272,16 @@ elif selected_menu == "OSM Single":
             # Add image as scale
             image_url = r"./images/scale.png"
             st.image(image_url, width = 85)
+
+elif selected_menu == "OSM Dual":
+    # center on Liberty Bell, add marker
+    m = folium.Map(location=[39.949610, -75.150282], zoom_start=16)
+    folium.Marker(
+        [39.949610, -75.150282], popup="Liberty Bell", tooltip="Liberty Bell"
+    ).add_to(m)
+
+    # call to render Folium map in Streamlit
+    st_data = st_folium(m, width=725)
 
 elif selected_menu == "3D Map Integration":
     with st.expander("3D Map Viewer", expanded=True):
