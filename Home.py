@@ -275,17 +275,12 @@ elif selected_menu == "OSM Single":
 
 elif selected_menu == "OSM Dual":
     # center on Liberty Bell, add marker
-    m = folium.Map(location=[39.949610, -75.150282], zoom_start=16)
+    m = folium.Map(location=[39.949610, -75.150282],  tiles="cartodbpositron", zoom_start=16)
 
     # Add OSM layers with overlay set to True to make them selected by default
-    folium.TileLayer("openstreetmap", overlay=True, toggle_display=True, control=True).add_to(m)
+    folium.TileLayer("openstreetmap", toggle_display=True).add_to(m)
 
-
-    m.add_child(folium.LayerControl())
-
-    folium.Marker(
-        [39.949610, -75.150282], popup="Liberty Bell", tooltip="Liberty Bell"
-    ).add_to(m)
+    folium.LayerControl().add_to(m)
 
     # call to render Folium map in Streamlit
     st_data = st_folium(m, width=725)
