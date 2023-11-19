@@ -278,8 +278,8 @@ elif selected_menu == "OSM Dual":
     m = folium.Map(location=[39.949610, -75.150282], zoom_start=16)
 
     # Add OSM layers with overlay set to True to make them selected by default
-    folium.TileLayer("openstreetmap", overlay=True).add_to(m)
-    folium.TileLayer("opentopomap", overlay=True).add_to(m)
+    folium.TileLayer("openstreetmap", overlay=True, toggle_display=True, control=True).add_to(m)
+
 
     m.add_child(folium.LayerControl())
 
