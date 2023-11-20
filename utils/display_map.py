@@ -39,8 +39,8 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     }
     
     basemaps['Google Maps'].add_to(m)
-    basemaps['Google Satellite Hybrid'].add_to(m)
-    basemaps['Esri Satellite'].add_to(m)
+    # basemaps['Google Satellite Hybrid'].add_to(m)
+    # basemaps['Esri Satellite'].add_to(m)
     
     # add minimap and mouse position
     plugins.MiniMap(position='bottomleft', height=125, width=125, toggle_display=False).add_to(m)
