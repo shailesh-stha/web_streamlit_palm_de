@@ -3,22 +3,30 @@
 
 /* layout */
 .st-emotion-cache-1y4p8pa {
-    width: 85%;
+    width: 80%;
     /* width: 700px, */
-    padding: 1.5rem 1rem 1rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
+    margin-top: 2.5rem;
     background-color: #d8d8d8;
     min-width: auto;
     max-width: initial;
     /* max-width: initial; */
 }
-/* header index 1 */
+/* header and footer*/
 [tabindex="-1"][data-testid="stHeader"]{
-    background-color:#DD0065;
-    opacity: 0;
+    /* background-color:#DD0065; */
+    opacity: 1;
+    height: 2.5rem;
+    visibility: hidden;
+}
+footer{
+    visibility: hidden;
 }
 
 /* navigation bar */
-
+#app {
+    font-family: Georgia;
+}
 
 /* sidebar width */
 [data-testid="stSidebar"][aria-expanded="true"]{
@@ -52,37 +60,45 @@
     margin:5px,
 }
 
-
+/* header and paragraphs */
+h1, h2 {
+    padding: 2px;
+    margin: 2px;
+    font-family: Georgia;
+    font-size: 1.8rem;
+    /* color: blue; */
+}
+h3, h4 {
+    padding: 0;
+    margin: 2px;
+    margin-top: 10px;
+    font-family: Georgia;
+    font-size: 1.6rem;
+    /* color: red; */
+}  
+p {
+    padding: 2px;
+    margin: 2px;
+    font-size: 1rem;
+    font-family: Georgia;
+    text-align: justify;
+}
 
 /* text classes */
 .centered-text {
     text-align: center;
-    font-size: 1rem;
+    font-size: 2.5rem;
     font-weight: bold;
-    color: rgb(0, 0, 0);
-    background-color: #ffffff00;
-    height: 30px;
-    padding: 1px;
 }
 
-/* text elements style */
-.css-10trblm {
-    text-align: center;
-}
-[data-testid="stMarkdownContainer"] {
-    text-align: justify;
-    font-size: 12px;
-}
-h2, h2, h3, p {
-    padding: 0;
-    margin: 4px;
-
-  }
-/* 
-p {
-    font-size: 1.1rem;
+[data-testid="stTickBarMax"], [data-testid="stTickBarMin"], [data-testid="stThumbValue"] {
+    font-family: Georgia;
+    font-size: 0.8rem;
+    /* color: green; */
 }
 
-.st-emotion-cache-5rimss li {
-    font-size: 1.1rem;
-} */
+.st-c8, .st-bf, .st-c9, .st-ca, .st-cb, .st-bh, .st-cc, .st-cd, .st-ce {
+    font-family: Georgia;
+    font-size: 1rem;
+    /* color: red; */
+}

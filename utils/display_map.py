@@ -113,9 +113,9 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     # folium.plugins.ScrollZoomToggler().add_to(m)
     
     # Use streamlit_folium to display the map
-    st_folium(m, width='100%', height=500)
+    st_folium(m, width='100%', height=700)
     
-def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index):
+def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index, basemap):
     # Create a Folium map
     latlong = [47.661129, 9.175209]
     
@@ -136,7 +136,7 @@ def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers,
     }
 
     m = folium.plugins.DualMap(location=latlong, zoom_start=zoom_start, max_zoom=20, scrollWheelZoom=False, layout='horizontal')
-    # basemaps['Google Satellite'].add_to(m)
+    basemaps['Google Satellite'].add_to(m)
     
     # add minimap and mouse position
     plugins.MiniMap(position='bottomleft', height=125, width=125, toggle_display=True).add_to(m.m1)
@@ -181,7 +181,7 @@ def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers,
 
 
     # Display folium map
-    st_folium(m, width='100%', height=500)
+    st_folium(m, width='100%', height=600)
 
 def pydeck_3d_shapefile(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing):
     latlong = [47.661129, 9.175209]
@@ -408,15 +408,18 @@ def pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_tr
         added_tree_base_crown = added_tree_base_trunk = None
     
     # Define initial view state of pydeck map
-    view_state = pdk.ViewState(latitude=lat, longitude=lon, zoom=zoom, pitch=pitch, bearing=bearing)
+    view_state = pdk.ViewState(latitude=lat, longitude=lon,
+                               zoom=zoom, pitch=pitch, bearing=bearing,
+                               height=600,)
 
     # Define layers to visualize in pydeck map
     layers = [image_layer, building_layer, tree_base_crown, tree_base_trunk, added_tree_base_crown, added_tree_base_trunk]
     
     # Display pydeck map
     r = pdk.Deck(layers=layers,
-                initial_view_state=view_state,
-                map_provider="mapbox",                    
-                map_style=pdk.map_styles.SATELLITE)
+                 initial_view_state=view_state,
+                 map_provider="mapbox",
+                 map_style=pdk.map_styles.SATELLITE,
+                 )
     
     st.pydeck_chart(r)
