@@ -13,7 +13,7 @@ import geopandas as gpd
 
 
 # local imports
-from utils import read_netcdf, display_map, display_matplots, display_plotly, useful_functions
+from utils import read_netcdf, display_map, display_matplots, display_plotly, display_images, useful_functions
 
 # Start clock to test out site load time
 start_time = time.time()
@@ -84,12 +84,16 @@ with st.container():
 
 selected_menu = option_menu(
     menu_title = None, # or None to hide title
-    options=["3D Map Integration", "OSM Single", "OSM Dual", "Farbkarte", "About"],
+    options=["3D Map Integration", "OSM", "OSM Integration", "Farbkarte", "Neu gedacht", "About"],
     # icons=["house", "book", "envelope"],
     # menu_icon=["cast"],
-    default_index=2,
+    default_index=1,
     orientation="horizontal",
     )
+
+# Define session state
+if 'counter' not in st.session_state:
+    st.session_state.counter = 0
 
 if selected_menu == "Farbkarte":
     with st.expander(label="Farbige Flächenrepräsentation", expanded=True):
@@ -119,38 +123,47 @@ if selected_menu == "Farbkarte":
             time_index = st.select_slider(label="Select a time of the day:", options=time_sequence, value="15:00")
             band_index = band_sequence[time_sequence.index(time_index)]
             
-            # Define Colormap for visualization
-            colormap_options = plt.colormaps()
-            colormap_options_list = ["turbo", "jet", "viridis", "plasma", "magma", "cividis"]
-            cmap = st.selectbox(label="Select a Colormap:", options=colormap_options_list, index=colormap_options_list.index("turbo"))
+            # # Define Colormap for visualization
+            # colormap_options = plt.colormaps()
+            # colormap_options_list = ["turbo", "jet", "viridis", "plasma", "magma", "cividis"]
+            # cmap = st.selectbox(label="Select a Colormap:", options=colormap_options_list, index=colormap_options_list.index("turbo"))
             
-            # Define mask color and limits of ColorBar of the plot
-            columns = st.columns((1.25,1,1))
-            with columns[0]:
-                # Define mask color for visualization
-                mask_color = st.color_picker(label="Mask Color", value="#474747")
-            with columns[1]:
-                min_value = min(np.nanmin(variable_data_1_masked), np.nanmin(variable_data_2_masked)) // 5 * 5
-                vmin = st.number_input(label="Cbar Min", value=min_value)
-            with columns[2]:
-                max_value = max(np.nanmax(variable_data_1_masked), np.nanmax(variable_data_2_masked) + 5 - 1) // 5 * 5
-                vmax = st.number_input(label="Cbar Max", value=max_value)
+            # # Define mask color and limits of ColorBar of the plot
+            # columns = st.columns((1.25,1,1))
+            # with columns[0]:
+            #     # Define mask color for visualization
+            #     mask_color = st.color_picker(label="Mask Color", value="#474747")
+            # with columns[1]:
+            #     min_value = min(np.nanmin(variable_data_1_masked), np.nanmin(variable_data_2_masked)) // 5 * 5
+            #     vmin = st.number_input(label="Cbar Min", value=min_value)
+            # with columns[2]:
+            #     max_value = max(np.nanmax(variable_data_1_masked), np.nanmax(variable_data_2_masked) + 5 - 1) // 5 * 5
+            #     vmax = st.number_input(label="Cbar Max", value=max_value)
             
-            columns = st.columns((1.25,2))
-            with columns[0]:
-                # Define shapefile color for visualization
-                shapefile_color = st.color_picker(label="Shapefile Color", value="#FFFFFF")
-            with columns[1]:
-                # Read AOI shapefile and toggle plot display
-                display_shapefile = st.checkbox(label="Shapefile", value=True)
-                display_stations = st.checkbox(label="Stations", value=True)
-                shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
-                shapefile_url_2 = r"./data/area_of_interest/aoi_stations.shp" if display_stations else None
-                display_hatch = st.checkbox(label="Hatch", value=True)
-                hatch = "//" if display_hatch else ''
+            # columns = st.columns((1.25,2))
+            # with columns[0]:
+            #     # Define shapefile color for visualization
+            #     shapefile_color = st.color_picker(label="Shapefile Color", value="#FFFFFF")
+            # with columns[1]:
+            #     # Read AOI shapefile and toggle plot display
+            #     display_shapefile = st.checkbox(label="Shapefile", value=True)
+            #     display_stations = st.checkbox(label="Stations", value=True)
+            #     shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
+            #     shapefile_url_2 = r"./data/area_of_interest/aoi_stations.shp" if display_stations else None
+            #     display_hatch = st.checkbox(label="Hatch", value=True)
+            #     hatch = "//" if display_hatch else ''
             
-            cmap = "turob"
-            
+            cmap = "turbo"
+            mask_color = "#474747"
+            vmin = min(np.nanmin(variable_data_1_masked), np.nanmin(variable_data_2_masked)) // 5 * 5
+            vmax = max(np.nanmax(variable_data_1_masked), np.nanmax(variable_data_2_masked) + 5 - 1) // 5 * 5
+            shapefile_color = "#FFFFFF"
+            display_shapefile = True
+            shapefile_url = r"./data/area_of_interest/aoi_sim.shp"
+            display_stations = True
+            shapefile_url_2 = r"./data/area_of_interest/aoi_stations.shp" 
+            display_hatch = True
+            hatch = "//"
 
         # Plot color maps as per the variables
         with columns_main[1]:
@@ -247,7 +260,40 @@ if selected_menu == "Farbkarte":
                 elif location == "Station 3":
                     display_plotly.histogram(data_run_1_stn_3, data_run_2_stn_3, band_sequence_backup, time_index, variable_description, variable_unit)
 
-elif selected_menu == "OSM Single":
+elif selected_menu == "OSM":
+    with st.expander("Map Viewer", expanded=True): 
+        # Create columns for variable and maps
+        columns_main = st.columns((2,3.5,3.5,1), gap="small")
+        with columns_main[0]:
+            st.write("user input")
+            time_index = st.select_slider(label="Select a time of the day: ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+            opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
+
+            # Option to select which domain to visualize
+            options=["Large (Low Resolution)", "Medium (Medium Resolution)", "Small (High Resolution)"]
+            domain = st.selectbox(label="Select the domain to visualize:", options=options, index=2)
+            domain_index = options.index(domain) + 1
+
+            # Read AOI shapefile and toggle plot display
+            display_shapefile = st.checkbox(label="Domain Boundary", value=True)
+            shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
+            # Toggle marker display
+            display_markers = st.checkbox(label="Location Markers ", value=True)
+              
+        with columns_main[1]:
+            st.write("first osm")
+            display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
+        
+        with columns_main[2]:
+            st.write("second osm")
+
+        # Display scale as image format
+        with columns_main[3]:
+            # Add image as scale
+            image_url = r"./images/scale.png"
+            st.image(image_url, width = 85)
+
+elif selected_menu == "OSM Integration":
     with st.expander("2D Map Viewer", expanded=True): 
         # Create columns for variable and maps
         columns_main = st.columns((2,7,1), gap="small")
@@ -266,24 +312,15 @@ elif selected_menu == "OSM Single":
             # Toggle marker display
             display_markers = st.checkbox(label="Location Markers ", value=True)
                 
+        # Display folium map with raster overlay
         with columns_main[1]:
-            display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
+            display_map.dual_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
+        
+        # Display scale as image format
         with columns_main[2]:
             # Add image as scale
             image_url = r"./images/scale.png"
             st.image(image_url, width = 85)
-
-elif selected_menu == "OSM Dual":
-    # center on Liberty Bell, add marker
-    m = folium.Map(location=[39.949610, -75.150282],  tiles="cartodbpositron", zoom_start=16)
-
-    # Add OSM layers with overlay set to True to make them selected by default
-    folium.TileLayer("openstreetmap", toggle_display=True).add_to(m)
-
-    folium.LayerControl().add_to(m)
-
-    # call to render Folium map in Streamlit
-    st_data = st_folium(m, width=725)
 
 elif selected_menu == "3D Map Integration":
     with st.expander("3D Map Viewer", expanded=True):
@@ -324,6 +361,51 @@ elif selected_menu == "3D Map Integration":
             
         with columns_main[1]:
             display_map.pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing)
-
+    
+elif selected_menu == "Neu gedacht":    
+    def get_file_name_without_extension(file_path):
+        return os.path.splitext(os.path.basename(file_path))[0]
+    
+    def show_next():
+        # Increments the counter to get the next images (Aug: len=5)
+        if st.session_state.counter < len(paths_images)-1:
+            st.session_state.counter += 1
+        else:
+            st.session_state.counter = len(paths_images)-1
+    def show_previous():
+        if st.session_state.counter > 0:
+            st.session_state.counter -= 1
+        else:
+            st.session_state.counter = 0
+    
+    # Initialize Streamlit columns
+    columns_main = st.columns((1,4))
+    
+    with columns_main[0]:
+        # Print counter
+        location = st.selectbox(label="Location", options=["Augustinerplatz", "Marktstätte"])
+        
+        if location == "Augustinerplatz":
+            folder_path = r"./data/image_reimagined/AugustinerPlatz/"
+        elif location == "Marktstätte":
+            folder_path = r"./data/image_reimagined/Marktstätte/"
+            
+        # Get list of images in folder
+        file_names = os.listdir(folder_path)
+        paths_images = []
+        for file_name in file_names:
+            full_path = os.path.join(folder_path, file_name)
+            paths_images.append(full_path)
+            
+        # st.write(f"Image Index: {st.session_state.counter}")
+        
+        # Define columns for buttons
+        columns = st.columns((1,1))
+        columns[0].button("Prevous", on_click=show_previous)
+        columns[1].button("Next", on_click=show_next)
+        # Show current image   
+    with columns_main[1]:
+        st.image(image=paths_images[st.session_state.counter], use_column_width="always")
+    
 end_time = time.time()
-st.write(f"Time taken to load: {end_time - start_time} seconds")
+st.write(f"Time taken to load: {end_time - start_time:.2f} seconds")

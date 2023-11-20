@@ -149,14 +149,8 @@ def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers,
         folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
         folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
 
-    # # Add Custom legend
-    # color_codes = [(62, 121, 198), (75, 182, 152), (89, 208, 73), (190, 228, 61), (235, 215, 53), (234, 164, 62), (229, 109, 83), (190, 48, 102), (107, 21, 39), (43, 0, 1)]
-    # values = [-5.0, 0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0]
-    # legend = cm.StepColormap(color_codes, vmin=-5.0, vmax=50.0, tick_labels=values)
-    # legend.caption = 'Temperature'
-    # legend.add_to(m)
 
-    # Use streamlit_folium to display the map
+    # Display folium map
     st_folium(m, width='100%', height=500)
 
 def pydeck_3d_shapefile(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing):
@@ -280,7 +274,6 @@ def pydeck_3d_shapefile(time_index_3d, opacity_3d, display_image, display_added_
     st.pydeck_chart(r)
 
 def pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing):
-    latlong = [47.661129, 9.175209]
     # image layer
     image_index = time_index_3d.replace(":","")
     image_path = f"./images/base_simulation/N03/base_{image_index}.png"
@@ -310,7 +303,7 @@ def pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_tr
                             extruded=True,
                             pickable=False,)
     
-    # tree shapefile layer (for trunk and crown)
+    # tree geojson layer (for trunk and crown (existing trees))
     trees_base_crown_path = r"./data/geojson/trees_base_crown.geojson"
     trees_base_trunk_path = r"./data/geojson/trees_base_trunk.geojson"
     gdf = gpd.read_file(trees_base_crown_path)
@@ -345,7 +338,7 @@ def pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_tr
                                 opacity=0.5,
                                 pickable=False,)
     
-    # tree shapefile layer (for trunk and crown)
+    # tree geojson layer (for trunk and crown (added trees))
     added_trees_crown_path = r"./data/geojson/added_trees_crown.geojson"
     added_trees_trunk_path = r"./data/geojson/added_trees_trunk.geojson"
     gdf = gpd.read_file(added_trees_crown_path)
@@ -380,16 +373,20 @@ def pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_tr
                                 opacity=0.5,
                                 pickable=False,)
     
+    # Tottle display of added trees
     if display_added_trees == False:
         added_tree_base_crown = added_tree_base_trunk = None
     
-    view_state = pdk.ViewState(latitude=lat, longitude=lon,
-                               zoom=zoom, pitch=pitch, bearing=bearing)
+    # Define initial view state of pydeck map
+    view_state = pdk.ViewState(latitude=lat, longitude=lon, zoom=zoom, pitch=pitch, bearing=bearing)
 
+    # Define layers to visualize in pydeck map
     layers = [image_layer, building_layer, tree_base_crown, tree_base_trunk, added_tree_base_crown, added_tree_base_trunk]
     
+    # Display pydeck map
     r = pdk.Deck(layers=layers,
                 initial_view_state=view_state,
-                map_provider="mapbox",
+                map_provider="mapbox",                    
                 map_style=pdk.map_styles.SATELLITE)
+    
     st.pydeck_chart(r)
