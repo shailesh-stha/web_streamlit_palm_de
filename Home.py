@@ -87,7 +87,7 @@ selected_menu = option_menu(
     options=["3D Map Integration", "OSM", "OSM Integration", "Farbkarte", "Neu gedacht", "About"],
     # icons=["house", "book", "envelope"],
     # menu_icon=["cast"],
-    default_index=0,
+    default_index=1,
     orientation="horizontal",
     )
 
@@ -265,7 +265,6 @@ elif selected_menu == "OSM":
         # Create columns for variable and maps
         columns_main = st.columns((2,3.5,3.5,1), gap="small")
         with columns_main[0]:
-            st.write("user input")
             time_index = st.select_slider(label="Select a time of the day: ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
             opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
 
@@ -281,11 +280,12 @@ elif selected_menu == "OSM":
             display_markers = st.checkbox(label="Location Markers ", value=True)
               
         with columns_main[1]:
-            st.write("first osm")
-            display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
+            simulation_run = "base"
+            display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index, simulation_run)
         
         with columns_main[2]:
-            st.write("second osm")
+            simulation_run = "test"
+            display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index, simulation_run)
 
         # Display scale as image format
         with columns_main[3]:
