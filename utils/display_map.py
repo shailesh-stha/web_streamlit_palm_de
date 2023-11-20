@@ -410,7 +410,7 @@ def pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_tr
     # Define initial view state of pydeck map
     view_state = pdk.ViewState(latitude=lat, longitude=lon,
                                zoom=zoom, pitch=pitch, bearing=bearing,
-                               height=600,)
+                               height=750,)
 
     # Define layers to visualize in pydeck map
     layers = [image_layer, building_layer, tree_base_crown, tree_base_trunk, added_tree_base_crown, added_tree_base_trunk]

@@ -36,11 +36,11 @@ def colormesh(variable_description, variable_unit, variable_data, location, buil
         gdf = gpd.read_file(shapefile_url)
         gdf.plot(ax=ax, edgecolor=shapefile_color, linewidth=4.5, facecolor='none', hatch=hatch, alpha=0.45)
     # Plot Stations shapefile in plot
-    if (shapefile_url_2 is not None) and location == "Overall (Altstadt)":
+    if (shapefile_url_2 is not None) and location == "Altstadt":
         gdf = gpd.read_file(shapefile_url_2)
         gdf.plot(ax=ax, edgecolor=['red', 'green', 'blue'], linewidth=4.5, facecolor='none', hatch=None, alpha=1.0)
         # Add labels to the polygons
-        labels = ["Stn_1", "Stn_2", "Stn_3"]
+        labels = ["RK_1", "RK_2", "RK_3"]
         for i, (geometry, label) in enumerate(zip(gdf['geometry'], labels)):
             centroid_x = geometry.centroid.x
             centroid_y = geometry.centroid.y

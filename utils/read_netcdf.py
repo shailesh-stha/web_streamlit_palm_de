@@ -7,16 +7,16 @@ from utils import useful_functions
 # Dictionary of variable, meaning and units
 variable_dict = {
     # variable:       variable description, variable unit
-    "t*_xy":          ["Near surface characteristic temperature", "K"],
-    "ta_2m*_xy":      ["2m air temperature", "°C"],
-    "tsurf*_xy":      ["Surface temperature", "K"],
-    "theta_2m*_xy":   ["2-m air potential temperature", "K"],
-    "wspeed_10m*_xy": ["10-m wind speed", "m/s"],
-    "rad_net*_xy":    ["Net radiation flux at the surface", "W/m²"],
-    "rad_lw_in*_xy":  ["Incoming longwave radiation flux", "W/m²"],
-    "rad_lw_out*_xy": ["Outgoing longwave radiation flux", "W/m²"],
-    "rad_sw_in*_xy":  ["Incoming shortwave radiation flux", "W/m²"],
-    "rad_sw_out*_xy": ["Outgoing shortwave radiation flux", "W/m²"]
+    "t*_xy":          ["Near surface characteristic temperature", "K", "NA"],
+    "ta_2m*_xy":      ["2m air temperature", "°C", "Lufttemperatur (2m)"],
+    "tsurf*_xy":      ["Surface temperature", "K", "Oberflächentemperatur"],
+    "theta_2m*_xy":   ["2-m air potential temperature", "K", "NA"],
+    "wspeed_10m*_xy": ["10-m wind speed", "m/s", "Windgeschwindigkeit"],
+    "rad_net*_xy":    ["Net radiation flux at the surface", "W/m²", "Nettostrahlung"],
+    "rad_lw_in*_xy":  ["Incoming longwave radiation flux", "W/m²", "NA"],
+    "rad_lw_out*_xy": ["Outgoing longwave radiation flux", "W/m²", "NA"],
+    "rad_sw_in*_xy":  ["Incoming shortwave radiation flux", "W/m²", "NA"],
+    "rad_sw_out*_xy": ["Outgoing shortwave radiation flux", "W/m²", "NA"]
 }
 
 # Read PALM output (base or test) and return list of variables with dimension > 2 and return Metadata
@@ -34,12 +34,14 @@ def variable_list():
     # Create list of variable descriptions and variable units
     variable_descriptions = []
     variable_units = []
+    variable_descriptions_de = []
     for variable in variable_names:
         if variable in variable_dict:
             variable_descriptions.append(variable_dict[variable][0])
             variable_units.append(variable_dict[variable][1])
+            variable_descriptions_de.append(variable_dict[variable][2])
 
-    return variable_names, variable_descriptions, variable_units
+    return variable_names, variable_descriptions, variable_units, variable_descriptions_de
 
 # Retrun netcdf Metadata
 def grid_information():

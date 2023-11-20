@@ -57,13 +57,13 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
     # Add bar traces to the figure for each band
     fig.add_trace(go.Bar(x=filtered_df1['band_index'],
                          y=filtered_df1['mean'],
-                         name='Base Simulation',))
+                         name='Ist-Zustand',))
     
     fig.add_trace(go.Bar(x=filtered_df2['band_index'],
                          y=filtered_df2['mean'],
-                         name='Test Simulation',))
+                         name='Variante Nachbegrünung',))
     
-    fig.update_layout(xaxis_title='Time',
+    fig.update_layout(xaxis_title='Zeit',
                       xaxis = dict(tickmode = 'array',
                                    tickvals = band_sequence,
                                    ticktext = time_sequence ),

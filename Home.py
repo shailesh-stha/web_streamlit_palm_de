@@ -68,21 +68,25 @@ option_menu_styles = {
     "container": {
         "width": "100%",  # Set the width of the entire menu container
         "color": "#DD0065",
-        # "border": "2px solid grey",
+        # "border": "1px solid grey",
     },
     "nav-link": {
         "color": "black",
-        "padding": "1px"
+        "padding": "1.5px",
+        "font-family": "Georgia",
+        "font-size": "1rem",
     },
     "nav-link-selected": {
         "background-color": "#DD0065",
         "color": "white",
+        "font-family": "Georgia",
+        "font-size": "1rem",
     },
 }
 
 selected_menu = option_menu(
     menu_title = None, # or None to hide title
-    options=["Overview", "3D Map Integration", "OpenStreeMap", "Farbkarte", "About"],
+    options=["Szenarien", "3D Visualisierung", "OpenStreetMap", "Flächenrepräsentation", "Info"],
     icons=["house", "globe2", "map", "palette", "info-circle" ],
     menu_icon=None,
     default_index=3,
@@ -94,20 +98,20 @@ selected_menu = option_menu(
 if 'counter' not in st.session_state:
     st.session_state.counter = 0
 
-if selected_menu == "Overview":
-    with st.expander("Location overview", expanded=True):
+if selected_menu == "Szenarien":
+    with st.expander("Klimaanpassungsszenario", expanded=True):
         columns_header = st.columns((1.25,3,3))
         with columns_header[0]:
             st.markdown(f'<p class="centered-text">&#160</p>', unsafe_allow_html=True,)
         with columns_header[1]:
-            st.markdown(f'<p class="centered-text">Before</p>', unsafe_allow_html=True,)
+            st.markdown(f'<p class="centered-text">Ist-Zustand</p>', unsafe_allow_html=True,)
         with columns_header[2]:
-            st.markdown(f'<p class="centered-text">After</p>', unsafe_allow_html=True,)
+            st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
         
         # Read images for folder
         columns = st.columns((1.25,3,3))
         with columns[0]:
-            location = st.selectbox(label="Standort", options=["Augustinerplatz", "Marktstätte"])
+            location = st.selectbox(label="Standort:", options=["Augustinerplatz", "Marktstätte"])
             if location == "Augustinerplatz":
                 folder_path = r"./data/landing_page/Augustinerplatz/"
             elif location == "Marktstätte":
@@ -118,36 +122,36 @@ if selected_menu == "Overview":
         with columns[1]:
             st.image(image = image_addresses[0])
             st.image(image = image_addresses[2])
-
         with columns[2]:
             st.image(image = image_addresses[1])
             st.image(image = image_addresses[3])
 
-elif selected_menu == "Farbkarte":
+elif selected_menu == "Flächenrepräsentation":
     with st.expander(label="Farbige Flächenrepräsentation", expanded=True):
         columns_header = st.columns((1.25,3,3))
         with columns_header[0]:
             st.markdown(f'<p class="centered-text">&#160</p>', unsafe_allow_html=True,)
         with columns_header[1]:
-            st.markdown(f'<p class="centered-text">Before</p>', unsafe_allow_html=True,)
+            st.markdown(f'<p class="centered-text">Ist-Zustand</p>', unsafe_allow_html=True,)
         with columns_header[2]:
-            st.markdown(f'<p class="centered-text">After</p>', unsafe_allow_html=True,)
+            st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
             
         # Create columns for variable and plots
         columns_main = st.columns((1.25,3,3), gap="small")
         with columns_main[0]:
             # Fetch locations
             simulation_domain = "N03"
-            location_list = ["Overall (Altstadt)", "Augstinerplatz", "Markstätte"] # "Sankt-Stephans-Platz"
-            location = st.selectbox(label="Select a Location:", options=location_list, index=location_list.index(location_list[0]))
+            location_list = ["Altstadt", "Augstinerplatz", "Markstätte"] # "Sankt-Stephans-Platz"
+            location = st.selectbox(label="Standort:", options=location_list, index=location_list.index(location_list[0]))
             
             # Fetch masked data from the selected variable
-            variable_description = st.selectbox(label="Select a variable:", options=read_netcdf.variable_list()[1])
-            variable_index = read_netcdf.variable_list()[1].index(variable_description)
+            variable_description = st.selectbox(label="Wahl der zu visualisierenden Variable:", options=read_netcdf.variable_list()[3])
+            variable_index = read_netcdf.variable_list()[3].index(variable_description)
             
             # Read variable name and variable unit from variable dictionary
             variable_name = read_netcdf.variable_list()[0][variable_index]
             variable_unit = read_netcdf.variable_list()[2][variable_index]
+            variable_description_de = read_netcdf.variable_list()[3][variable_index]
 
             # Read data from masked variable data based on variable name
             variable_data_1_masked, variable_data_2_masked, building_id_mask = read_netcdf.variable_data_masked(variable_name)[0:3]
@@ -156,7 +160,7 @@ elif selected_menu == "Farbkarte":
             data_run_1_stn_1, data_run_1_stn_2, data_run_1_stn_3, data_run_2_stn_1, data_run_2_stn_2, data_run_2_stn_3 = read_netcdf.variable_data_masked(variable_name)[7:13]
             
             # Select time of day and equivanlent band_index for plot
-            time_index = st.select_slider(label="Select a time of the day:", options=time_sequence, value="15:00")
+            time_index = st.select_slider(label="Wähle die Tageszeit:", options=time_sequence, value="15:00")
             band_index = band_sequence[time_sequence.index(time_index)]
             
             # # Define Colormap for visualization
@@ -204,7 +208,7 @@ elif selected_menu == "Farbkarte":
         # Plot color maps as per the variables
         with columns_main[1]:
             # Plot color map for base simulation
-            display_matplots.colormesh(variable_description, variable_unit,
+            display_matplots.colormesh(variable_description_de, variable_unit,
                                     variable_data_1_masked, location,
                                     building_id_mask,
                                     band_index, cmap, mask_color,
@@ -212,7 +216,7 @@ elif selected_menu == "Farbkarte":
                                     shapefile_color, shapefile_url, hatch, shapefile_url_2)
         with columns_main[2]:
             # Plot color map for test simulation
-            display_matplots.colormesh(variable_description, variable_unit,
+            display_matplots.colormesh(variable_description_de, variable_unit,
                                     variable_data_2_masked, location,
                                     building_id_mask, 
                                     band_index, cmap, mask_color,
@@ -236,33 +240,33 @@ elif selected_menu == "Farbkarte":
     dataframe_run_2_stn_2 = read_netcdf.compute_statistics_2d(data_run_2_stn_2)
     dataframe_run_2_stn_3 = read_netcdf.compute_statistics_2d(data_run_2_stn_3)
 
-    with st.expander("Graphical Representation", expanded=True):
+    expander_name = f"Grafische Datenauswertung: {variable_description_de}"
+    with st.expander(expander_name, expanded=True):
         # Create columns for variable and plots
         columns_main = st.columns((1.25,6))
         with columns_main[0]:
             # Fetch locations
-            location_list = ["Overall (Altstadt)", "Augstinerplatz", "Markstätte", "Station 1", "Station 2", "Station 3"] # "Sankt-Stephans-Platz"
-            location = st.selectbox(label="Select a Location: ", options=location_list, index=location_list.index(location_list[1]))
+            location_list = ["Altstadt", "Augstinerplatz", "Markstätte", "Räumlicher Knoten 1", "Räumlicher Knoten 2", "Räumlicher Knoten 3"]
+            location = st.selectbox(label="Standort: ", options=location_list, index=location_list.index(location_list[1]))
             
-            # Select time of day and equivanlent band_index for plot
-            time_index = st.select_slider(label="Select a time of the day (Histogram):", options=time_sequence, value="15:00")
-            band_index = band_sequence[time_sequence.index(time_index)]
+            # # Select time of day and equivanlent band_index for plot
+            # time_index = st.select_slider(label="Wähle die Tageszeit: ", options=time_sequence, value="15:00")
+            # band_index = band_sequence[time_sequence.index(time_index)]
             
         with columns_main[1]:
-            if location == "Overall (Altstadt)":
-                display_plotly.bar_graph(dataframe_run_1, dataframe_run_2, band_sequence, time_sequence, variable_description, variable_unit)
+            if location == "Altstadt":
+                display_plotly.bar_graph(dataframe_run_1, dataframe_run_2, band_sequence, time_sequence, variable_description_de, variable_unit)
             elif location == "Augstinerplatz":
-                display_plotly.bar_graph(dataframe_run_1_aoi_1, dataframe_run_2_aoi_1, band_sequence, time_sequence, variable_description, variable_unit)
+                display_plotly.bar_graph(dataframe_run_1_aoi_1, dataframe_run_2_aoi_1, band_sequence, time_sequence, variable_description_de, variable_unit)
             elif location == "Markstätte":
-                display_plotly.bar_graph(dataframe_run_1_aoi_2, dataframe_run_2_aoi_2, band_sequence_backup, time_sequence, variable_description, variable_unit)
-            elif location == "Station 1":
-                display_plotly.bar_graph(dataframe_run_1_stn_1, dataframe_run_2_stn_1, band_sequence, time_sequence, variable_description, variable_unit)
-            elif location == "Station 2":
-                display_plotly.bar_graph(dataframe_run_1_stn_2, dataframe_run_2_stn_2, band_sequence, time_sequence, variable_description, variable_unit)
-            elif location == "Station 3":
-                display_plotly.bar_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, variable_description, variable_unit)
+                display_plotly.bar_graph(dataframe_run_1_aoi_2, dataframe_run_2_aoi_2, band_sequence_backup, time_sequence, variable_description_de, variable_unit)
+            elif location == "Räumlicher Knoten 1":
+                display_plotly.bar_graph(dataframe_run_1_stn_1, dataframe_run_2_stn_1, band_sequence, time_sequence, variable_description_de, variable_unit)
+            elif location == "Räumlicher Knoten 2":
+                display_plotly.bar_graph(dataframe_run_1_stn_2, dataframe_run_2_stn_2, band_sequence, time_sequence, variable_description_de, variable_unit)
+            elif location == "Räumlicher Knoten 3":
+                display_plotly.bar_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, variable_description_de, variable_unit)
                     
-            
             # Add tabs
             # tabs = st.tabs(["Line Plot", "Bar Graph", "Histogram"])
             # with tabs[0]:
@@ -308,32 +312,36 @@ elif selected_menu == "Farbkarte":
             #     elif location == "Station 3":
             #         display_plotly.histogram(data_run_1_stn_3, data_run_2_stn_3, band_sequence_backup, time_index, variable_description, variable_unit)
 
-elif selected_menu == "OpenStreeMap":
-    with st.expander("2D Map Viewer", expanded=True):
+elif selected_menu == "OpenStreetMap":
+    with st.expander("Vergleich Ist-Zustand Planungsvariante", expanded=True):
         columns_header = st.columns((1.25,3,3))
         with columns_header[0]:
             st.markdown(f'<p class="centered-text">&#160</p>', unsafe_allow_html=True,)
         with columns_header[1]:
-            st.markdown(f'<p class="centered-text">Before</p>', unsafe_allow_html=True,)
+            st.markdown(f'<p class="centered-text">Ist-Zustand</p>', unsafe_allow_html=True,)
         with columns_header[2]:
-            st.markdown(f'<p class="centered-text">After</p>', unsafe_allow_html=True,)
+            st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
         
         # Create columns for variable and maps
         columns_main = st.columns((1.25,5.5,0.5), gap="small")
         with columns_main[0]:
-            time_index = st.select_slider(label="Select a time of the day: ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-            opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
-
+            time_index = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+            
+            # opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
+            opacity_2d = 0.75
+            
             # Option to select which domain to visualize
-            options=["Large (Low Resolution)", "Medium (Medium Resolution)", "Small (High Resolution)"]
-            domain = st.selectbox(label="Select the domain to visualize:", options=options, index=2)
+            options=["Gesamtes Stadtgebiet", "Innenstadtbereich", "Zielregion"]
+            domain = st.selectbox(label="Wähle den Auswertungsbereich:", options=options, index=2)
             domain_index = options.index(domain) + 1
 
-            # Read AOI shapefile and toggle plot display
-            display_shapefile = st.checkbox(label="Domain Boundary", value=True)
-            shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
+            # # Read AOI shapefile and toggle plot display
+            # display_shapefile = st.checkbox(label="Domain Boundary", value=True)
+            # shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
+            display_shapefile = False
+            
             # Toggle marker display
-            display_markers = st.checkbox(label="Location Markers ", value=True)
+            display_markers = st.checkbox(label="Position Zielszenario", value=True)
             
             # Option to select basemap
             # basemap = st.selectbox(label="Basemap", options=["OpenStreetMap", "Google Satellite Image"], index=1)
@@ -341,32 +349,30 @@ elif selected_menu == "OpenStreeMap":
                                      
         # Display folium map with raster overlay
         with columns_main[1]:
-            display_map.dual_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index, basemap)
+            display_map.dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index, basemap)
         
         # Display scale as image format
         with columns_main[2]:
             # Add image as scale
             image_url = r"./images/scale.png"
-            st.image(image_url, width = 70)
+            st.image(image_url, width = 75)
 
-elif selected_menu == "3D Map Integration":
+elif selected_menu == "3D Visualisierung":
     with st.expander("3D Map Viewer", expanded=True):
         # Create columns for variable and maps
         columns_main = st.columns((1.25,6))
         with columns_main[0]:
             # Select time of the day visualize the image overlay
-            time_index_3d = st.select_slider(label="Select a time of the day:  ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-            
-            # Define opacity of overlayed image
-            opacity_3d = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
+            time_index_3d = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
 
-            # Take user input for map settings    
+            # Take user input for map settings   
+            # Define opacity of overlayed image
+            # opacity_3d = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
             # columns = st.columns((1,1))
             # with columns[0]:
             #     lat = st.number_input("Latitude", value = 47.661129)
             # with columns[1]:
             #     lon = st.number_input("Longitude", value = 9.175209)
-            
             # columns = st.columns((1,1,1))
             # with columns[0]:
             #     zoom = st.number_input("Zoom", value = 15.5)
@@ -375,6 +381,7 @@ elif selected_menu == "3D Map Integration":
             # with columns[2]:
             #     bearing = st.number_input("Bearing", value = -40)
             
+            opacity_3d = 0.75
             lat = 47.661129
             lon = 9.175209
             zoom = 15.5
@@ -382,14 +389,14 @@ elif selected_menu == "3D Map Integration":
             bearing = -40 
             
             # Toggle image overlay
-            display_image = st.checkbox(label="Overlay", value=True)
+            display_image = st.checkbox(label="Flächenrepräsentation", value=True)
             # Toggle added trees
-            display_added_trees = st.checkbox(label="Test Simulation (Added Trees)", value=True)
+            display_added_trees = st.checkbox(label="Variante Nachbegrünung", value=True)
             
         with columns_main[1]:
             display_map.pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing)
 
-elif selected_menu == "About":
+elif selected_menu == "Info":
     # Website Introduction
     with st.expander("About the Project", expanded=True):
         with st.container():
