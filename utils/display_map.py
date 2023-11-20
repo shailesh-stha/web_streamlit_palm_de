@@ -96,21 +96,21 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     # legend.caption = 'Temperature'
     # legend.add_to(m)
 
-    # marker
-    folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz").add_to(m)
-    folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
-    folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
+    if display_markers:
+        folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz").add_to(m)
+        folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
+        folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
     
-    folium.plugins.Fullscreen(
-        position="topleft", 
-        title="Fullscreen",
-        title_cancel="Exit Fullscreen",
-        force_separate_button=True,
-        ).add_to(m)
+    # folium.plugins.Fullscreen(
+    #     position="topleft", 
+    #     title="Fullscreen",
+    #     title_cancel="Exit Fullscreen",
+    #     force_separate_button=True,
+    #     ).add_to(m)
     
     # Add a layer control to the map
     folium.LayerControl().add_to(m)
-    folium.plugins.ScrollZoomToggler().add_to(m)
+    # folium.plugins.ScrollZoomToggler().add_to(m)
     
     # Use streamlit_folium to display the map
     st_folium(m, width='100%', height=500)

@@ -87,7 +87,7 @@ selected_menu = option_menu(
     options=["3D Map Integration", "OSM", "OSM Integration", "Farbkarte", "Neu gedacht", "About"],
     # icons=["house", "book", "envelope"],
     # menu_icon=["cast"],
-    default_index=1,
+    default_index=0,
     orientation="horizontal",
     )
 
