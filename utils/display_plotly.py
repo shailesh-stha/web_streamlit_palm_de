@@ -63,18 +63,25 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
                          y=filtered_df2['mean'],
                          name='Variante Nachbegrünung',))
     
-    fig.update_layout(xaxis_title='Zeit',
-                      xaxis = dict(tickmode = 'array',
-                                   tickvals = band_sequence,
-                                   ticktext = time_sequence ),
-                      yaxis_title= f'{variable_description} [{variable_unit}]',
-                      # width=500,
-                      height = 400,
+    fig.update_layout(height = 450, # width=500,
                       margin=dict(l=20, r=20, t=20, b=20),
                       plot_bgcolor='white',
-                      paper_bgcolor="#F2F2F2",)
-    # Set the y-axis tick range
-    fig.update_yaxes(range=[value_min, value_max],
+                      paper_bgcolor="#F2F2F2",
+                      legend_font = dict(size=14,),
+                      )
+    fig.update_xaxes(title='Zeit',
+                     title_font = dict(size=18),
+                     tickfont = dict(size=15),
+                     tickangle = 90,
+                     tickmode = 'array',
+                     tickvals = band_sequence,
+                     ticktext = time_sequence,
+                     )
+    
+    fig.update_yaxes(title= f'{variable_description} [{variable_unit}]',
+                     title_font = dict(size=18),
+                     tickfont = dict(size=15),
+                     range=[value_min, value_max],
                      nticks=10,
                      showspikes=True,)
     

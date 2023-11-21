@@ -16,7 +16,7 @@ gdf_child = gpd.read_file(shapefile_child)
 gdf_aoi_sim = gpd.read_file(shapefile_aoi_sim)
 gdf_buildings = gpd.read_file(shapefile_buildings)
 
-def single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index, simulation_run):
+def single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index):
     # Create a Folium map
     latlong = [47.661129, 9.175209]
     
@@ -27,8 +27,6 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     elif domain_index == 3:
         zoom_start = 16
 
-    m = folium.Map(location=latlong, zoom_start=zoom_start, max_zoom=20, scrollWheelZoom=False)
-    
     # Add custom basemap to folium
     basemaps = {
     'Google Maps': folium.TileLayer(tiles = 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', attr = 'Google', name = 'Google Maps', control = True),
@@ -38,28 +36,25 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     'Esri Satellite': folium.TileLayer(tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr = 'Esri', name = 'Esri Satellite', control = True)
     }
     
+    m = folium.Map(location=latlong, tiles=basemaps['Google Satellite'], zoom_start=zoom_start, max_zoom=20, scrollWheelZoom=False)
     basemaps['Google Maps'].add_to(m)
-    # basemaps['Google Satellite Hybrid'].add_to(m)
-    # basemaps['Esri Satellite'].add_to(m)
     
     # add minimap and mouse position
-    plugins.MiniMap(position='bottomleft', height=125, width=125, toggle_display=False).add_to(m)
+    plugins.MiniMap(position='bottomleft', height=125, width=125, toggle_display=True).add_to(m)
     plugins.MousePosition(position='bottomright', empty_string=[47.661129, 9.175209]).add_to(m)
     
-    
-    # Insert shapefiles
-    folium.GeoJson(gdf_buildings, name="Buildings", show=False,
-                   style_function=lambda feature:{'color': 'white', 'fillColor': 'white', 'fillOpacity': 0.5, 'weight': 2,}
-                   ).add_to(m)
-    folium.GeoJson(gdf_child, name="Area of Interest", show=True,
-                   style_function=lambda feature:{'color': 'red', 'fillOpacity': 0.0}
-                   ).add_to(m)
-    folium.GeoJson(gdf_aoi_sim, name="Area of Interest for Simulation", show=False, 
-                   style_function=lambda feature:{'color': 'green', 'fillColor': 'green', 'fillOpacity': 0, 'weight': 2,}
-                   ).add_to(m)
-    
-    
-    
+    # # Insert shapefiles
+    # if display_shapefile:
+    #     folium.GeoJson(gdf_buildings, name="Gebäude", show=False,
+    #                 style_function=lambda feature:{'color': 'white', 'fillColor': 'white', 'fillOpacity': 0.5, 'weight': 2,}
+    #                 ).add_to(m)
+    #     folium.GeoJson(gdf_child, name="Interessenbereich", show=False,
+    #                 style_function=lambda feature:{'color': 'red', 'fillOpacity': 0.0}
+    #                 ).add_to(m)
+    #     folium.GeoJson(gdf_aoi_sim, name="Area of Interest for Simulation", show=False, 
+    #                 style_function=lambda feature:{'color': 'blue', 'fillColor': 'green', 'fillOpacity': 0, 'weight': 2,}
+    #                 ).add_to(m)
+
     # Define image bounds (Next update: Import from shapefile)
     bounds_N01 = [[47.6448635964296443, 9.1511199720516103], [47.6818029139078376, 9.2058007936034869]]
     bounds_N02 = [[47.6519467198030569, 9.1615802814169225], [47.6704156271541351, 9.1889184400719444]]
@@ -68,63 +63,40 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     image_index = time_index.replace(":","")
 
     if domain_index==1:
-        if simulation_run == "base":
-            ImageOverlay(name=f"Color Map: {time_index} (Base Simulation N01)", image=f"./images/base_simulation/N01/base_{image_index}.png",
-                         bounds=bounds_N01, opacity=opacity).add_to(m)
-        elif simulation_run == "test":
-            ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N01)", image=f"./images/test_simulation/N01/test_{image_index}.png",
-                         bounds=bounds_N01, opacity=opacity).add_to(m)
+        ImageOverlay(name=f"Flächenrepräsentation at {time_index}", image=f"./images/base_simulation/N01/base_{image_index}.png",
+                     bounds=bounds_N01, opacity=opacity).add_to(m)
     elif domain_index==2:
-        if simulation_run == "base":
-            ImageOverlay(name=f"Color Map: {time_index} (Base Simulation N02)", image=f"./images/base_simulation/N02/base_{image_index}.png",
-                         bounds=bounds_N02, opacity=opacity).add_to(m)
-        elif simulation_run == "test":
-            ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N02)", image=f"./images/test_simulation/N02/test_{image_index}.png",
-                         bounds=bounds_N02, opacity=opacity).add_to(m)
+        ImageOverlay(name=f"Flächenrepräsentation at {time_index}", image=f"./images/base_simulation/N02/base_{image_index}.png",
+                     bounds=bounds_N02, opacity=opacity).add_to(m)
     elif domain_index==3:
-        if simulation_run == "base":
-            ImageOverlay(name=f"Color Map: {time_index} (Base Simulation N03)", image=f"./images/base_simulation/N03/base_{image_index}.png",
-                         bounds=bounds_N03, opacity=opacity).add_to(m)
-        elif simulation_run == "test":
-            ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N03)", image=f"./images/test_simulation/N03/test_{image_index}.png",
-                         bounds=bounds_N03, opacity=opacity).add_to(m)
-
-    # #specify the min and max values of your data
-    # color_codes = [(62, 121, 198), (75, 182, 152), (89, 208, 73), (190, 228, 61), (235, 215, 53), (234, 164, 62), (229, 109, 83), (190, 48, 102), (107, 21, 39), (43, 0, 1)]
-    # values = [-5.0, 0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0]
-    # legend = cm.StepColormap(color_codes, vmin=-5.0, vmax=50.0, tick_labels=values)
-    # legend.caption = 'Temperature'
-    # legend.add_to(m)
+        ImageOverlay(name=f"Flächenrepräsentation at {time_index}", image=f"./images/base_simulation/N03/base_{image_index}.png",
+                     bounds=bounds_N03, opacity=opacity).add_to(m)
 
     if display_markers:
-        folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz").add_to(m)
-        folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
-        folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
+        folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz")
+        folium.Marker(location=[47.660351,9.175822],popup="Markstätte")
+        folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz")
     
-    # folium.plugins.Fullscreen(
-    #     position="topleft", 
-    #     title="Fullscreen",
-    #     title_cancel="Exit Fullscreen",
-    #     force_separate_button=True,
-    #     ).add_to(m)
+    folium.plugins.Fullscreen(
+        position="topleft", 
+        title="Fullscreen",
+        title_cancel="Exit Fullscreen",
+        force_separate_button=True,
+        ).add_to(m)
     
     # Add a layer control to the map
     folium.LayerControl().add_to(m)
-    # folium.plugins.ScrollZoomToggler().add_to(m)
+    folium.plugins.ScrollZoomToggler().add_to(m)
     
     # Use streamlit_folium to display the map
-    st_folium(m, width='100%', height=700)
+    st_folium(m, width='100%', height=500)
     
-def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index, basemap):
+def dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index):
     # Create a Folium map
-    latlong = [47.661129, 9.175209]
+    latlong = [47.660029, 9.175209]
     
-    if domain_index == 1:
-        zoom_start = 13
-    elif domain_index == 2:
-        zoom_start = 14
-    elif domain_index == 3:
-        zoom_start = 16
+    if domain_index:
+        zoom_start = 17
         
     # Add custom basemap to folium
     basemaps = {
@@ -139,7 +111,7 @@ def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers,
     basemaps['Google Satellite'].add_to(m)
     
     # add minimap and mouse position
-    plugins.MiniMap(position='bottomleft', height=125, width=125, toggle_display=True).add_to(m.m1)
+    plugins.MiniMap(position='bottomleft', height=125, width=125, toggle_display=True, minimized=True).add_to(m.m1)
     plugins.MousePosition(position='bottomright', empty_string=[47.661129, 9.175209]).add_to(m)
     
     # Insert features (shapefiles using FeatureGroup)
@@ -157,21 +129,11 @@ def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers,
     bounds_N03 = [[47.6588733206033766, 9.1718298413872255], [47.6634905475628230, 9.1786643808656230]]
     # Overlay saved image
     image_index = time_index.replace(":","")
-    if domain_index==1:
-        ImageOverlay(name=f"Color Map: {time_index} (Base Simulation N01)", image=f"./images/base_simulation/N01/base_{image_index}.png",
-                     bounds=bounds_N01, opacity=opacity).add_to(m.m1)
-        ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N01)", image=f"./images/test_simulation/N01/test_{image_index}.png",
-                     bounds=bounds_N01, opacity=opacity).add_to(m.m2)
-    elif domain_index==2: 
-        ImageOverlay(name=f"Color Map: {time_index} (Base Simulation N02)", image=f"./images/base_simulation/N02/base_{image_index}.png",
-                bounds=bounds_N02, opacity=opacity).add_to(m.m1)
-        ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N02)", image=f"./images/test_simulation/N02/test_{image_index}.png",
-                     bounds=bounds_N02, opacity=opacity).add_to(m.m2)
-    elif domain_index==3:
+    if domain_index:
         ImageOverlay(name=f"Color Map: {time_index} (Base Simulation N03)", image=f"./images/base_simulation/N03/base_{image_index}.png",
-                     bounds=bounds_N03, opacity=opacity).add_to(m.m1)
+                     bounds=bounds_N03, opacity=opacity_2d).add_to(m.m1)
         ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N03)", image=f"./images/test_simulation/N03/test_{image_index}.png",
-                     bounds=bounds_N03, opacity=opacity).add_to(m.m2)
+                     bounds=bounds_N03, opacity=opacity_2d).add_to(m.m2)
 
     # Insert Location Markers to map
     if display_markers:
@@ -179,9 +141,8 @@ def dual_raster_overlay(time_index, opacity, display_shapefile, display_markers,
         folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
         folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
 
-
     # Display folium map
-    st_folium(m, width='100%', height=600)
+    st_folium(m, width='100%', height=350)
 
 def pydeck_3d_shapefile(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing):
     latlong = [47.661129, 9.175209]

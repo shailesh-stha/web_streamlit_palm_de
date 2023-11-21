@@ -89,7 +89,7 @@ selected_menu = option_menu(
     options=["Szenarien", "3D Visualisierung", "OpenStreetMap", "Flächenrepräsentation", "Info"],
     icons=["house", "globe2", "map", "palette", "info-circle" ],
     menu_icon=None,
-    default_index=0,
+    default_index=3,
     orientation="horizontal",
     styles= option_menu_styles,
     )
@@ -244,40 +244,34 @@ elif selected_menu == "OpenStreetMap":
             st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
         
         # Create columns for variable and maps
-        columns_main = st.columns((1.25,5.5,0.5), gap="small")
+        columns_main = st.columns((1.25,5.5,0.35), gap="small")
         with columns_main[0]:
             time_index = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-            
-            # opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
-            opacity_2d = 0.75
             
             # Option to select which domain to visualize
             options=["Gesamtes Stadtgebiet", "Innenstadtbereich", "Zielregion"]
             domain = st.selectbox(label="Wähle den Auswertungsbereich:", options=options, index=2)
             domain_index = options.index(domain) + 1
 
-            # # Read AOI shapefile and toggle plot display
-            # display_shapefile = st.checkbox(label="Domain Boundary", value=True)
-            # shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
-            display_shapefile = False
-            
             # Toggle marker display
             display_markers = st.checkbox(label="Position Zielszenario", value=True)
-            
-            # Option to select basemap
-            # basemap = st.selectbox(label="Basemap", options=["OpenStreetMap", "Google Satellite Image"], index=1)
-            basemap = "OpenStreetMap"
+
+            opacity_2d = 0.75
+            display_shapefile = False
                                      
         # Display folium map with raster overlay
         with columns_main[1]:
-            display_map.dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index, basemap)
+            display_map.dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index)
+            
+            display_map.single_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index)
             if domain == "Gesamtes Stadtgebiet":
-                st.markdown(f'<p class="note-text">Note: Resolution=16m</p>', unsafe_allow_html=True,)
+                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 4096 x 4096 m², Auflösung=16m</p>', unsafe_allow_html=True,)
             elif domain == "Innenstadtbereich":
-                st.markdown(f'<p class="note-text">Note: Resolution=8m</p>', unsafe_allow_html=True,)
+                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 2048 x 2048 m², Auflösung=8m</p>', unsafe_allow_html=True,)
             elif domain == "Zielregion":
-                st.markdown(f'<p class="note-text">Note: Resolution=2m</p>', unsafe_allow_html=True,)
-                
+                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 512 x 512 m², Auflösung=2m</p>', unsafe_allow_html=True,)
+            
+            
         # Display scale as image format
         with columns_main[2]:
             # Add image as scale
@@ -340,82 +334,82 @@ elif selected_menu == "Info":
 
 
 # --------BACKUP PAGES------------ #
-elif selected_menu == "OSM new":
-    with st.expander("Map Viewer", expanded=True): 
-        # Create columns for variable and maps
-        columns_main = st.columns((2,3.5,3.5,1), gap="small")
-        with columns_main[0]:
-            time_index = st.select_slider(label="Select a time of the day: ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-            opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
+# elif selected_menu == "OSM new":
+#     with st.expander("Map Viewer", expanded=True): 
+#         # Create columns for variable and maps
+#         columns_main = st.columns((2,3.5,3.5,1), gap="small")
+#         with columns_main[0]:
+#             time_index = st.select_slider(label="Select a time of the day: ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+#             opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
 
-            # Option to select which domain to visualize
-            options=["Large (Low Resolution)", "Medium (Medium Resolution)", "Small (High Resolution)"]
-            domain = st.selectbox(label="Select the domain to visualize:", options=options, index=2)
-            domain_index = options.index(domain) + 1
+#             # Option to select which domain to visualize
+#             options=["Large (Low Resolution)", "Medium (Medium Resolution)", "Small (High Resolution)"]
+#             domain = st.selectbox(label="Select the domain to visualize:", options=options, index=2)
+#             domain_index = options.index(domain) + 1
 
-            # Read AOI shapefile and toggle plot display
-            display_shapefile = st.checkbox(label="Domain Boundary", value=True)
-            shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
-            # Toggle marker display
-            display_markers = st.checkbox(label="Location Markers ", value=True)
+#             # Read AOI shapefile and toggle plot display
+#             display_shapefile = st.checkbox(label="Domain Boundary", value=True)
+#             shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
+#             # Toggle marker display
+#             display_markers = st.checkbox(label="Location Markers ", value=True)
               
-        with columns_main[1]:
-            simulation_run = "base"
-            display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index, simulation_run)
+#         with columns_main[1]:
+#             simulation_run = "base"
+#             display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
         
-        with columns_main[2]:
-            simulation_run = "test"
-            display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index, simulation_run)
+#         with columns_main[2]:
+#             simulation_run = "test"
+#             display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
 
-        # Display scale as image format
-        with columns_main[3]:
-            # Add image as scale
-            image_url = r"./images/scale.png"
-            st.image(image_url, width = 85)
+#         # Display scale as image format
+#         with columns_main[3]:
+#             # Add image as scale
+#             image_url = r"./images/scale.png"
+#             st.image(image_url, width = 85)
 
-elif selected_menu == "Image folders":
-    def get_file_name_without_extension(file_path):
-        return os.path.splitext(os.path.basename(file_path))[0]
+# elif selected_menu == "Image folders":
+#     def get_file_name_without_extension(file_path):
+#         return os.path.splitext(os.path.basename(file_path))[0]
     
-    def show_next():
-        # Increments the counter to get the next images (Aug: len=5)
-        if st.session_state.counter < len(paths_images)-1:
-            st.session_state.counter += 1
-        else:
-            st.session_state.counter = len(paths_images)-1
-    def show_previous():
-        if st.session_state.counter > 0:
-            st.session_state.counter -= 1
-        else:
-            st.session_state.counter = 0
+#     def show_next():
+#         # Increments the counter to get the next images (Aug: len=5)
+#         if st.session_state.counter < len(paths_images)-1:
+#             st.session_state.counter += 1
+#         else:
+#             st.session_state.counter = len(paths_images)-1
+#     def show_previous():
+#         if st.session_state.counter > 0:
+#             st.session_state.counter -= 1
+#         else:
+#             st.session_state.counter = 0
     
-    # Initialize Streamlit columns
-    columns_main = st.columns((1,4))
+#     # Initialize Streamlit columns
+#     columns_main = st.columns((1,4))
     
-    with columns_main[0]:
-        location = st.selectbox(label="Location", options=["Augustinerplatz", "Marktstätte"])
+#     with columns_main[0]:
+#         location = st.selectbox(label="Location", options=["Augustinerplatz", "Marktstätte"])
         
-        if location == "Augustinerplatz":
-            folder_path = r"./data/image_reimagined/AugustinerPlatz/"
-        elif location == "Marktstätte":
-            folder_path = r"./data/image_reimagined/Marktstätte/"
+#         if location == "Augustinerplatz":
+#             folder_path = r"./data/image_reimagined/AugustinerPlatz/"
+#         elif location == "Marktstätte":
+#             folder_path = r"./data/image_reimagined/Marktstätte/"
             
-        # Get list of images in folder
-        file_names = os.listdir(folder_path)
-        paths_images = []
-        for file_name in file_names:
-            full_path = os.path.join(folder_path, file_name)
-            paths_images.append(full_path)
+#         # Get list of images in folder
+#         file_names = os.listdir(folder_path)
+#         paths_images = []
+#         for file_name in file_names:
+#             full_path = os.path.join(folder_path, file_name)
+#             paths_images.append(full_path)
             
-        # st.write(f"Image Index: {st.session_state.counter}")
+#         # st.write(f"Image Index: {st.session_state.counter}")
         
-        # Define columns for buttons
-        columns = st.columns((1,1))
-        columns[0].button("Prevous", on_click=show_previous)
-        columns[1].button("Next", on_click=show_next)
-        # Show current image   
-    with columns_main[1]:
-        st.image(image=paths_images[st.session_state.counter], use_column_width="always")
+#         # Define columns for buttons
+#         columns = st.columns((1,1))
+#         columns[0].button("Prevous", on_click=show_previous)
+#         columns[1].button("Next", on_click=show_next)
+#         # Show current image   
+#     with columns_main[1]:
+#         st.image(image=paths_images[st.session_state.counter], use_column_width="always")
 
 end_time = time.time()
 st.write(f"Time taken to load: {end_time - start_time:.2f} seconds")

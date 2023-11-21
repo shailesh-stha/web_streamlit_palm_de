@@ -75,21 +75,38 @@ def colormesh(variable_description, variable_unit, variable_data, location, buil
         ax.set_xlim(x[0]+180,x[-1]-62)
         ax.set_ylim(y[0]+20,y[-1]-202)
     
-    # Add colorbar
-    divider = make_axes_locatable(ax)
-    cax = divider.append_axes("right", size="5%", pad=0.15)
-    cb = fig.colorbar(pcm, cax=cax, extend='both', format='%.2f', spacing='uniform')
+    if variable_description != "Thermal Sensation Index":
+        # Add colorbar
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes("right", size="5%", pad=0.15)
+        cb = fig.colorbar(pcm, cax=cax, extend='both', format='%.2f', spacing='uniform')
+        
+        # Add °C where unit is K
+        if variable_unit == "K":
+            tick_positions_kelvin = cb.get_ticks()
+            tick_positions_celsius = tick_positions_kelvin - 273.15
+            cb.set_ticks(tick_positions_kelvin)
+            cb.set_ticklabels(["%.2f" % temp_celsius for temp_celsius in tick_positions_celsius])
+            variable_unit = "°C"
+        cb.ax.tick_params(labelsize=font_size, rotation=0)
+        cb.ax.xaxis.set_ticks_position("top")
+        cb.ax.set_ylabel(f"{variable_description} [{variable_unit}]", fontsize=font_size, weight="bold")
     
-    # Add °C where unit is K
-    if variable_unit == "K":
-        tick_positions_kelvin = cb.get_ticks()
-        tick_positions_celsius = tick_positions_kelvin - 273.15
-        cb.set_ticks(tick_positions_kelvin)
-        cb.set_ticklabels(["%.2f" % temp_celsius for temp_celsius in tick_positions_celsius])
-        variable_unit = "°C"
-    cb.ax.tick_params(labelsize=font_size, rotation=0)
-    cb.ax.xaxis.set_ticks_position("top")
-    cb.ax.set_ylabel(f"{variable_description} [{variable_unit}]", fontsize=font_size, weight="bold")
+    elif variable_description == "Thermal Sensation Index":
+        # Add colorbar
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes("right", size="5%", pad=0.15)
+        # pcm.set_clim(vmin=0, vmax=9) # Set vmin and vmax on the ScalarMappable object (pcm)
+        
+        cb = fig.colorbar(pcm, cax=cax, extend='both', format='%.2f', spacing='uniform')
+        
+        # tick_positions_initial = cb.get_ticks()
+        # tick_positons_final = 
+        
+        cb.ax.tick_params(labelsize=font_size, rotation=0)
+        cb.ax.xaxis.set_ticks_position("top")
+        cb.ax.set_ylabel(f"{variable_description} [{variable_unit}]", fontsize=font_size, weight="bold")
+    
     
     # plot
     st.pyplot(fig)
