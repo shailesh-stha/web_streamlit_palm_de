@@ -89,7 +89,7 @@ selected_menu = option_menu(
     options=["Szenarien", "3D Visualisierung", "OpenStreetMap", "Flächenrepräsentation", "Info"],
     icons=["house", "globe2", "map", "palette", "info-circle" ],
     menu_icon=None,
-    default_index=3,
+    default_index=0,
     orientation="horizontal",
     styles= option_menu_styles,
     )
