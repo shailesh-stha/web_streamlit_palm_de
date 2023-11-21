@@ -306,7 +306,10 @@ def pydeck_3d_shapefile(time_index_3d, opacity_3d, display_image, display_added_
 def pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing):
     # image layer
     image_index = time_index_3d.replace(":","")
-    image_path = f"./images/base_simulation/N03/base_{image_index}.png"
+    if display_added_trees:
+        image_path = f"./images/test_simulation/N03/test_{image_index}.png"
+    else:
+        image_path = f"./images/base_simulation/N03/base_{image_index}.png"
     image_bounds = [[9.1718298413872255, 47.6588733206033766],  # Southwest corner
                     [9.1718298413872255, 47.663490547562823],  # Northwest corner
                     [9.1786643808656230, 47.663490547562823],  # Northeast corner

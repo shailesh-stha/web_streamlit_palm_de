@@ -1,16 +1,11 @@
-/* menu on top :right */
-/* #MainMenu {visibility: hidden;} */
-
 /* layout */
 .st-emotion-cache-1y4p8pa {
     width: 80%;
-    /* width: 700px, */
     padding: 1rem 1rem 1rem 1rem;
     margin-top: 2.5rem;
-    background-color: #d8d8d8;
-    min-width: auto;
+    background-color: #c8c8c8;
+    min-width: 800px;
     max-width: initial;
-    /* max-width: initial; */
 }
 /* header and footer*/
 [tabindex="-1"][data-testid="stHeader"]{
@@ -19,69 +14,68 @@
     height: 2.5rem;
     visibility: hidden;
 }
-footer{
-    visibility: hidden;
-}
-
-/* navigation bar */
-#app {
-    font-family: Georgia;
-}
+header{visibility: hidden;}
+footer{visibility: hidden;}
+#MainMenu {visibility: hidden;}
 
 /* sidebar width */
 [data-testid="stSidebar"][aria-expanded="true"]{
-    min-width: 350px; 
-    max-width: 350px;
-}
+    min-width: 350px; max-width: 350px;}
+
 /* expander style */
 [data-testid="stExpander"]{
-    background-color: #dadada;
+    background-color: #dfdfdf;
+    border-radius: 0.5rem;
 }
 .st-emotion-cache-p5msec {
     background-color: #DD0065;
     color: white;
     height: 2.25rem;
+    border-radius: 0.25rem;
 }
 [data-testid="stExpanderDetails"]{
     padding: 0.5rem;
-}
-
-/* tab */
-.stTabs [data-baseweb="tab"] {
-    height: 25px;
-    width: 75px;
-    background-color: #F0F2F6;
-    border-radius: 5px 5px 0px 0px;
-    padding: 0% 0% 0% 0%;
-    margin: 0% 0% 0% 0%
-}
-
-.leaflet-tile-container.leaflet-zoom-animated {
-    margin:5px,
+    border: 1px solid #DD0065;
+    border-radius: 0.25rem;
 }
 
 /* header and paragraphs */
 h1, h2 {
-    padding: 2px;
-    margin: 2px;
-    font-family: Georgia;
+    padding: 2px; margin: 2px;
     font-size: 1.8rem;
-    /* color: blue; */
+    font-family: 'Times New Roman', Times, serif;
+    /* color: yellow; */
 }
 h3, h4 {
-    padding: 0;
-    margin: 2px;
-    margin-top: 10px;
-    font-family: Georgia;
+    padding: 2px; margin: 2px;
     font-size: 1.6rem;
-    /* color: red; */
-}  
+    font-family: 'Times New Roman', Times, serif;
+    /* color: yellow; */
+}
 p {
     padding: 2px;
     margin: 2px;
-    font-size: 1rem;
-    font-family: Georgia;
+    padding-top: 1px;
+    margin-top: 1px;
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
     text-align: justify;
+    /* color: yellow; */
+}
+
+/* expander button and text*/
+.st-emotion-cache-16idsys p {
+    font-size: 1.1rem;
+    font-family: 'Times New Roman', Times, serif;
+    
+}
+
+.st-emotion-cache-1vbkxwb p {
+    font-size: 1rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+.st-ae {
+    font-family: 'Times New Roman', Times, serif;
 }
 
 /* text classes */
@@ -89,16 +83,11 @@ p {
     text-align: center;
     font-size: 1.6rem;
     font-weight: bold;
+    /* color: yellow; */
 }
 
 [data-testid="stTickBarMax"], [data-testid="stTickBarMin"], [data-testid="stThumbValue"] {
-    font-family: Georgia;
-    font-size: 0.8rem;
-    /* color: green; */
-}
-
-.st-c8, .st-bf, .st-c9, .st-ca, .st-cb, .st-bh, .st-cc, .st-cd, .st-ce {
-    font-family: Georgia;
     font-size: 1rem;
-    /* color: red; */
+    font-family: 'Times New Roman', Times, serif;
+    /* color: yellow; */
 }

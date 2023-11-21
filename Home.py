@@ -73,14 +73,14 @@ option_menu_styles = {
     "nav-link": {
         "color": "black",
         "padding": "1.5px",
-        "font-family": "Georgia",
-        "font-size": "1rem",
+        "font-size": "1.2rem",
+        "font-family": "Times New Roman"
     },
     "nav-link-selected": {
         "background-color": "#DD0065",
         "color": "white",
-        "font-family": "Georgia",
-        "font-size": "1rem",
+        "font-size": "1.2rem",
+        "font-family": "Times New Roman"
     },
 }
 
@@ -89,7 +89,7 @@ selected_menu = option_menu(
     options=["Szenarien", "3D Visualisierung", "OpenStreetMap", "Flächenrepräsentation", "Info"],
     icons=["house", "globe2", "map", "palette", "info-circle" ],
     menu_icon=None,
-    default_index=3,
+    default_index=0,
     orientation="horizontal",
     styles= option_menu_styles,
     )
@@ -355,7 +355,7 @@ elif selected_menu == "OpenStreetMap":
         with columns_main[2]:
             # Add image as scale
             image_url = r"./images/scale.png"
-            st.image(image_url, width = 75)
+            st.image(image_url, use_column_width=True)
 
 elif selected_menu == "3D Visualisierung":
     with st.expander("3D Map Viewer", expanded=True):
@@ -504,6 +504,6 @@ elif selected_menu == "Image folders":
         # Show current image   
     with columns_main[1]:
         st.image(image=paths_images[st.session_state.counter], use_column_width="always")
-    
+
 end_time = time.time()
 st.write(f"Time taken to load: {end_time - start_time:.2f} seconds")
