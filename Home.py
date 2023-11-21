@@ -203,7 +203,7 @@ elif selected_menu == "Flächenrepräsentation":
             display_stations = True
             shapefile_url_2 = r"./data/area_of_interest/aoi_stations.shp" 
             display_hatch = True
-            hatch = "//"
+            hatch = "//" 
 
         # Plot color maps as per the variables
         with columns_main[1]:
@@ -428,7 +428,7 @@ elif selected_menu == "Info":
 
 
 # --------BACKUP PAGES------------ #
-elif selected_menu == "OSM":
+elif selected_menu == "OSM new":
     with st.expander("Map Viewer", expanded=True): 
         # Create columns for variable and maps
         columns_main = st.columns((2,3.5,3.5,1), gap="small")
@@ -461,7 +461,7 @@ elif selected_menu == "OSM":
             image_url = r"./images/scale.png"
             st.image(image_url, width = 85)
 
-elif selected_menu == "Neu gedacht":
+elif selected_menu == "Image folders":
     def get_file_name_without_extension(file_path):
         return os.path.splitext(os.path.basename(file_path))[0]
     
