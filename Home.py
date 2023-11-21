@@ -412,4 +412,4 @@ elif selected_menu == "Info":
 #         st.image(image=paths_images[st.session_state.counter], use_column_width="always")
 
 end_time = time.time()
-st.write(f"Time taken to load: {end_time - start_time:.2f} seconds")
+# st.write(f"Time taken to load: {end_time - start_time:.2f} seconds")
