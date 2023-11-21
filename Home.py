@@ -162,37 +162,7 @@ elif selected_menu == "Flächenrepräsentation":
             # Select time of day and equivanlent band_index for plot
             time_index = st.select_slider(label="Wähle die Tageszeit:", options=time_sequence, value="15:00")
             band_index = band_sequence[time_sequence.index(time_index)]
-            
-            # # Define Colormap for visualization
-            # colormap_options = plt.colormaps()
-            # colormap_options_list = ["turbo", "jet", "viridis", "plasma", "magma", "cividis"]
-            # cmap = st.selectbox(label="Select a Colormap:", options=colormap_options_list, index=colormap_options_list.index("turbo"))
-            
-            # # Define mask color and limits of ColorBar of the plot
-            # columns = st.columns((1.25,1,1))
-            # with columns[0]:
-            #     # Define mask color for visualization
-            #     mask_color = st.color_picker(label="Mask Color", value="#474747")
-            # with columns[1]:
-            #     min_value = min(np.nanmin(variable_data_1_masked), np.nanmin(variable_data_2_masked)) // 5 * 5
-            #     vmin = st.number_input(label="Cbar Min", value=min_value)
-            # with columns[2]:
-            #     max_value = max(np.nanmax(variable_data_1_masked), np.nanmax(variable_data_2_masked) + 5 - 1) // 5 * 5
-            #     vmax = st.number_input(label="Cbar Max", value=max_value)
-            
-            # columns = st.columns((1.25,2))
-            # with columns[0]:
-            #     # Define shapefile color for visualization
-            #     shapefile_color = st.color_picker(label="Shapefile Color", value="#FFFFFF")
-            # with columns[1]:
-            #     # Read AOI shapefile and toggle plot display
-            #     display_shapefile = st.checkbox(label="Shapefile", value=True)
-            #     display_stations = st.checkbox(label="Stations", value=True)
-            #     shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
-            #     shapefile_url_2 = r"./data/area_of_interest/aoi_stations.shp" if display_stations else None
-            #     display_hatch = st.checkbox(label="Hatch", value=True)
-            #     hatch = "//" if display_hatch else ''
-            
+
             cmap = "turbo"
             mask_color = "#474747"
             vmin = min(np.nanmin(variable_data_1_masked), np.nanmin(variable_data_2_masked)) // 2.5 * 2.5
@@ -249,10 +219,6 @@ elif selected_menu == "Flächenrepräsentation":
             location_list = ["Altstadt", "Augstinerplatz", "Markstätte", "Räumlicher Knoten 1", "Räumlicher Knoten 2", "Räumlicher Knoten 3"]
             location = st.selectbox(label="Standort: ", options=location_list, index=location_list.index(location_list[1]))
             
-            # # Select time of day and equivanlent band_index for plot
-            # time_index = st.select_slider(label="Wähle die Tageszeit: ", options=time_sequence, value="15:00")
-            # band_index = band_sequence[time_sequence.index(time_index)]
-            
         with columns_main[1]:
             if location == "Altstadt":
                 display_plotly.bar_graph(dataframe_run_1, dataframe_run_2, band_sequence, time_sequence, variable_description_de, variable_unit)
@@ -266,51 +232,6 @@ elif selected_menu == "Flächenrepräsentation":
                 display_plotly.bar_graph(dataframe_run_1_stn_2, dataframe_run_2_stn_2, band_sequence, time_sequence, variable_description_de, variable_unit)
             elif location == "Räumlicher Knoten 3":
                 display_plotly.bar_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, variable_description_de, variable_unit)
-                    
-            # Add tabs
-            # tabs = st.tabs(["Line Plot", "Bar Graph", "Histogram"])
-            # with tabs[0]:
-            #     if location == "Overall (Altstadt)":
-            #         display_plotly.line_graph(dataframe_run_1, dataframe_run_2, band_sequence, time_sequence, band_index, variable_description, variable_unit)
-            #     elif location == "Augstinerplatz":
-            #         display_plotly.line_graph(dataframe_run_1_aoi_1, dataframe_run_2_aoi_1, band_sequence, time_sequence, band_index, variable_description, variable_unit)
-            #     elif location == "Markstätte":
-            #         display_plotly.line_graph(dataframe_run_1_aoi_2, dataframe_run_2_aoi_2, band_sequence_backup, time_sequence, band_index, variable_description, variable_unit)
-            #     elif location == "Station 1":
-            #         display_plotly.line_graph(dataframe_run_1_stn_1, dataframe_run_2_stn_1, band_sequence, time_sequence, band_index, variable_description, variable_unit)
-            #     elif location == "Station 2":
-            #         display_plotly.line_graph(dataframe_run_1_stn_2, dataframe_run_2_stn_2, band_sequence, time_sequence, band_index, variable_description, variable_unit)
-            #     elif location == "Station 3":
-            #         display_plotly.line_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, band_index, variable_description, variable_unit)
-            
-            # with tabs[1]:
-            #     if location == "Overall (Altstadt)":
-            #         display_plotly.bar_graph(dataframe_run_1, dataframe_run_2, band_sequence, time_sequence, variable_description, variable_unit)
-            #     elif location == "Augstinerplatz":
-            #         display_plotly.bar_graph(dataframe_run_1_aoi_1, dataframe_run_2_aoi_1, band_sequence, time_sequence, variable_description, variable_unit)
-            #     elif location == "Markstätte":
-            #         display_plotly.bar_graph(dataframe_run_1_aoi_2, dataframe_run_2_aoi_2, band_sequence_backup, time_sequence, variable_description, variable_unit)
-            #     elif location == "Station 1":
-            #         display_plotly.bar_graph(dataframe_run_1_stn_1, dataframe_run_2_stn_1, band_sequence, time_sequence, variable_description, variable_unit)
-            #     elif location == "Station 2":
-            #         display_plotly.bar_graph(dataframe_run_1_stn_2, dataframe_run_2_stn_2, band_sequence, time_sequence, variable_description, variable_unit)
-            #     elif location == "Station 3":
-            #         display_plotly.bar_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, variable_description, variable_unit)
-                    
-            # with tabs[2]:
-            #     # band_index = 90 if band_index == 89 else band_index
-            #     if location == "Overall (Altstadt)":
-            #         display_plotly.histogram(variable_data_1_masked, variable_data_2_masked, band_index, time_index, variable_description, variable_unit)
-            #     elif location == "Augstinerplatz":
-            #         display_plotly.histogram(variable_data_masked_run_1_aoi_1, variable_data_masked_run_2_aoi_1, band_index, time_index, variable_description, variable_unit)
-            #     elif location == "Markstätte":
-            #         display_plotly.histogram(variable_data_masked_run_1_aoi_2, variable_data_masked_run_2_aoi_2, band_sequence_backup, time_index, variable_description, variable_unit)
-            #     elif location == "Station 1":
-            #         display_plotly.histogram(data_run_1_stn_1, data_run_2_stn_1, band_index, time_index, variable_description, variable_unit)
-            #     elif location == "Station 2":
-            #         display_plotly.histogram(data_run_1_stn_2, data_run_2_stn_2, band_index, time_index, variable_description, variable_unit)
-            #     elif location == "Station 3":
-            #         display_plotly.histogram(data_run_1_stn_3, data_run_2_stn_3, band_sequence_backup, time_index, variable_description, variable_unit)
 
 elif selected_menu == "OpenStreetMap":
     with st.expander("Vergleich Ist-Zustand Planungsvariante", expanded=True):
@@ -350,12 +271,19 @@ elif selected_menu == "OpenStreetMap":
         # Display folium map with raster overlay
         with columns_main[1]:
             display_map.dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index, basemap)
-        
+            if domain == "Gesamtes Stadtgebiet":
+                st.markdown(f'<p class="note-text">Note: Resolution=16m</p>', unsafe_allow_html=True,)
+            elif domain == "Innenstadtbereich":
+                st.markdown(f'<p class="note-text">Note: Resolution=8m</p>', unsafe_allow_html=True,)
+            elif domain == "Zielregion":
+                st.markdown(f'<p class="note-text">Note: Resolution=2m</p>', unsafe_allow_html=True,)
+                
         # Display scale as image format
         with columns_main[2]:
             # Add image as scale
             image_url = r"./images/scale.png"
             st.image(image_url, use_column_width=True)
+
 
 elif selected_menu == "3D Visualisierung":
     with st.expander("3D Map Viewer", expanded=True):
@@ -365,22 +293,6 @@ elif selected_menu == "3D Visualisierung":
             # Select time of the day visualize the image overlay
             time_index_3d = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
 
-            # Take user input for map settings   
-            # Define opacity of overlayed image
-            # opacity_3d = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
-            # columns = st.columns((1,1))
-            # with columns[0]:
-            #     lat = st.number_input("Latitude", value = 47.661129)
-            # with columns[1]:
-            #     lon = st.number_input("Longitude", value = 9.175209)
-            # columns = st.columns((1,1,1))
-            # with columns[0]:
-            #     zoom = st.number_input("Zoom", value = 15.5)
-            # with columns[1]:
-            #     pitch = st.number_input("Pitch", value = 50)
-            # with columns[2]:
-            #     bearing = st.number_input("Bearing", value = -40)
-            
             opacity_3d = 0.75
             lat = 47.661129
             lon = 9.175209
