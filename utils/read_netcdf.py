@@ -16,7 +16,8 @@ variable_dict = {
     "rad_lw_in*_xy":  ["Incoming longwave radiation flux", "W/m²", "NA"],
     "rad_lw_out*_xy": ["Outgoing longwave radiation flux", "W/m²", "NA"],
     "rad_sw_in*_xy":  ["Incoming shortwave radiation flux", "W/m²", "NA"],
-    "rad_sw_out*_xy": ["Outgoing shortwave radiation flux", "W/m²", "NA"]
+    "rad_sw_out*_xy": ["Outgoing shortwave radiation flux", "W/m²", "NA"],
+    "ts_xy":          ["Thermal Sensation Index", "TS", "Thermal Sensation Index"]
 }
 
 # Read PALM output (base or test) and return list of variables with dimension > 2 and return Metadata

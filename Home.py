@@ -48,7 +48,7 @@ def band_time_sequence():
     elif simulation_domain == "N03_reduced":
         band_sequence = list(range(0,25))
         band_sequence_backup = band_sequence.copy()
-        time_sequence = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00']
+        time_sequence = ['0:10', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00']
         return band_sequence, band_sequence_backup, time_sequence
         
 band_sequence, band_sequence_backup, time_sequence = band_time_sequence()
@@ -195,8 +195,8 @@ elif selected_menu == "Flächenrepräsentation":
             
             cmap = "turbo"
             mask_color = "#474747"
-            vmin = min(np.nanmin(variable_data_1_masked), np.nanmin(variable_data_2_masked)) // 5 * 5
-            vmax = max(np.nanmax(variable_data_1_masked), np.nanmax(variable_data_2_masked) + 5 - 1) // 5 * 5
+            vmin = min(np.nanmin(variable_data_1_masked), np.nanmin(variable_data_2_masked)) // 2.5 * 2.5
+            vmax = max(np.nanmax(variable_data_1_masked), np.nanmax(variable_data_2_masked) + 2.5 - 1) // 2.5 * 2.5
             shapefile_color = "#FFFFFF"
             display_shapefile = True
             shapefile_url = r"./data/area_of_interest/aoi_sim.shp"

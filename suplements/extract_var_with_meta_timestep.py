@@ -7,9 +7,10 @@ input_file2 = r"F:\Simulation_Comparison\simulation_data\_kn_4096x4096_test - ba
 # Output NetCDF file
 output_file1 = r"F:\konstanz_4096x4096_v4_xy_N03_reduced.000.nc"
 output_file2 = r"F:\konstanz_4096x4096_v5_xy_N03_reduced.000.nc"
+output_file3 = r"F:\test.nc"
 
-input = input_file2
-output = output_file2
+input = input_file1
+output = output_file3
 
 x_tick_interval = 1  # 1 hour
 band_sequence = [0]
@@ -42,17 +43,28 @@ with nc.Dataset(input, mode="r") as ds:
                 out_file.setncattr(attr_name, ds.getncattr(attr_name))
 
         # Loop through the list of variables
-        for variable_name_1 in variable_list:
-            if variable_name_1 in ds.variables:
+        for variable_name in variable_list:
+            if variable_name in ds.variables:
                 # Create a variable in the output file with the same name, data type, and dimensions
-                out_variable = out_file.createVariable(variable_name_1, ds[variable_name_1].dtype,
-                                                       ds[variable_name_1].dimensions)
+                out_variable = out_file.createVariable(variable_name, ds[variable_name].dtype,
+                                                       ds[variable_name].dimensions)
 
-                for band_index in band_sequence:
+                for i, band_index in enumerate(band_sequence):
                     # Extract the subset of data and save it to the output variable
-                    band_data = ds[variable_name_1][band_index, :, :, :]
-                    out_variable[band_index] = band_data
+                    band_data = ds[variable_name][band_index, :, :, :]
+                    out_variable[i,:,:,:] = band_data
                     
-                print(f"Variable data with name '{variable_name_1}' has been extracted and saved to '{output}'")
+                print(f"Variable data with name '{variable_name}' has been extracted and saved to '{output}'")
             else:
-                print(f"Variable '{variable_name_1}' not found in the input dataset")
+                print(f"Variable '{variable_name}' not found in the input dataset")
+
+        # create and add new variable
+        ref_variable = 'ta_2m*_xy'
+        new_variable = 'test_xy'
+        
+        test_variable = out_file.createVariable(new_variable, ds[ref_variable].dtype, ds[ref_variable].dimensions)
+        for i, band_index in enumerate(band_sequence):
+            # Extract the subset of data and save it to the output variable
+            band_data = ds[ref_variable][band_index, :, :, :] * 2
+            test_variable[i,:,:,:] = band_data
+            

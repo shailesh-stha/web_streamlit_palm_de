@@ -5,8 +5,8 @@ import geopandas as gpd
 
 file = r"F:\Simulation_Comparison\simulation_data\_kn_4096x4096_base - backup\konstanz_4096x4096_v4_xy_N03.000.nc"
 file = r"F:\Simulation_Comparison\simulation_data\kn_4096x4096_base\konstanz_4096x4096_v4_xy_N03.000.nc"
-file = r"F:\Simulation_Comparison\simulation_data\konstanz_4096x4096_v4_static_N03"
-
+file = r"F:\konstanz_4096x4096_v5_xy_N03_reduced.000.nc"
+file = r"F:\test.nc"
 
 # file = r"F:\konstanz_4096x4096_v5_xy_N03.000.nc"
 # Read NetCDF file as dataset
@@ -19,3 +19,4 @@ print(variable_names)
 for var in variable_names:
     print(var, np.shape(ds[var]))
 
+print(ds['ts_xy'][0,:,:,:])
