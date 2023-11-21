@@ -328,7 +328,7 @@ elif selected_menu == "Info":
             st.write("""
                 >> * **Farbige Flächenrepräsentation:** Die intuitive Visualisierung ermöglicht es Ihnen, auf einen Blick die Unterschiede zwischen den Szenarien zu erfassen.
                 >> * **Informativen Diagramme:** Die Diagramme ermöglichen eine qualitative, vergleichende Analyse der Dynamik des Mikroklimas, um Ihnen ein umfassendes Verständnis zu vermitteln.
-                >> * **OpenStreet Map Integration:**: Nutzen Sie unsere interaktive OpenStreet Map, um die Mikroklima-2m-Lufttemperatur visuell über Konstanz zu erforschen. Die Kombination von Kartenmaterial und Echtzeitdaten ermöglicht es Ihnen, die Stadt aus einer neuen Perspektive zu betrachten.
+                >> * **OpenStreetMap Integration:**: Nutzen Sie unsere interaktive OpenStreet Map, um die Mikroklima-2m-Lufttemperatur visuell über Konstanz zu erforschen. Die Kombination von Kartenmaterial und Echtzeitdaten ermöglicht es Ihnen, die Stadt aus einer neuen Perspektive zu betrachten.
                 """)
             # https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 
