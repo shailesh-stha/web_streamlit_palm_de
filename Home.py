@@ -310,7 +310,7 @@ elif selected_menu == "3D Visualisierung":
 
 elif selected_menu == "Info":
     # Website Introduction
-    with st.expander("About the Project", expanded=True):
+    with st.expander("Über das Projekt", expanded=True):
         st.header("Technologie:")
         st.write("""Die rasche Verstädterung und die städtischen Wärmeinseln (Urban Heat Islands, UHI) stellen neben der wachsenden Bedrohung durch den Klimawandel eine große Herausforderung für die städtische Nachhaltigkeit und die öffentliche Gesundheit dar.
                  Mikroklimamodellierung und -simulationen, die unter Verwendung verschiedener Szenarien durchgeführt werden, können zur Untersuchung von UHI, ihren Auswirkungen und anschließenden Anpassungsmaßnahmen verwendet werden.
@@ -327,13 +327,13 @@ elif selected_menu == "Info":
                  >> * Die Modelldaten werden aus verschiedenen digitalen und analogen Datenquellen wie dem Stadtmodell in LOD2-Qualität, Geoinformationen der Stadtverwaltung Konstanz und punktwolkenbasierten Informationen aus LiDAR-Daten generiert.
                  >> * Die Stadtklimasimulationen werden für statische (Klarhimmel-Approximation) und dynamische Klimabedingungen berechnet, wobei für letztere eine Anbindung an ein regionales numerisches Wettervorhersagemodell (COSMO-DE) des Deutschen Wetterdienstes (DWD) erfolgt.
                  >> * Berechnungsgebiete und Auflösung:
-                 >>> - Gesamtes Stadtgebiet: L=4096m, B=4096m, H=2048 m, Elementgröße: 16m, Auflösung: 256 x 256 x 128
-                 >>> - Innenstadtbereich: L=2048m, B=2048m, H=1024m, Elementgröße: 8m, Auflösung: 256 x 256 x 128
-                 >>> - Zielregion: L=512m, B=512m, H=256m, Elementgröße 2m, Auflösung: 256 x 256 x 128
+                 >>>> - Gesamtes Stadtgebiet: L=4096m, B=4096m, H=2048 m, Elementgröße: 16m, Auflösung: 256 x 256 x 128
+                 >>>> - Innenstadtbereich: L=2048m, B=2048m, H=1024m, Elementgröße: 8m, Auflösung: 256 x 256 x 128
+                 >>>> - Zielregion: L=512m, B=512m, H=256m, Elementgröße 2m, Auflösung: 256 x 256 x 128
                  >> * Berechnete Umweltdaten: Lufttemperatur (2m), Oberflächentemperatur, Wassertemperatur, Luftfeuchtigkeit, Windgeschwindigkeit, Nettostrahlung, Thermal Sensation Index
                  """)
         
-    with st.expander("About Us", expanded=True):
+    with st.expander("Über uns", expanded=True):
         st.header("Wir sind str.ucture…")
         st.write("""…ein Architektur- und Ingenieurbüro mit Sitz in Stuttgart.
                  Als Unternehmen setzen wir uns dafür ein, **eine nachhaltige und CO&#8322;-neutrale gebaute Umwelt zu schaffen**.
