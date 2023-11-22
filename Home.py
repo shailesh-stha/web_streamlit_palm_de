@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from streamlit_option_menu import option_menu
 import streamlit as st
+import pandas as pd
 import geopandas as gpd
 from PIL import Image
 
@@ -67,20 +68,26 @@ st.divider()
 option_menu_styles = {
     "container": {
         "width": "100%",  # Set the width of the entire menu container
-        "color": "#DD0065",
-        # "border": "1px solid grey",
+        "max-width": "initial",
+        "background": "#ececec",
+        "border-radius": "0rem",
+        # "border": "0.5px solid #DD0065",
     },
     "nav-link": {
+        "width": "95%",
         "color": "black",
-        "padding": "1.5px",
+        "background": "#d4d4d4",
         "font-size": "1.2rem",
-        "font-family": "Times New Roman"
+        "border": "1px solid #DD0065",
+        "border-radius": "1rem",
+        # "font-family": "Franklin Gothic Demi",
     },
     "nav-link-selected": {
         "background-color": "#DD0065",
         "color": "white",
         "font-size": "1.2rem",
-        "font-family": "Times New Roman"
+        "border-radius": "1rem",
+        # "font-family": "Franklin Gothic Demi",
     },
 }
 
@@ -305,111 +312,82 @@ elif selected_menu == "3D Visualisierung":
 elif selected_menu == "Info":
     # Website Introduction
     with st.expander("About the Project", expanded=True):
-        with st.container():
-            st.header("Urbane Hitzeinseln - Planungsvarianten zur Reduktion von Hitzestress")
-            st.write("""Entdecken Sie die Möglichkeiten der hochaufgelösten, mikroskaligen Stadtklimasimulation mit der innovativen Software PALM4U!
-                    Optimieren Sie Ihre Entscheidungsprozesse und gestalten Sie städtische Umgebungen nachhaltiger durch die präzise Analyse verschiedenster Szenarien.
-                    Erhalten Sie detaillierte Einblicke in die Temperaturverteilung im Außenraum.
-                    Bewerten Sie den thermischen Komfort und steigern Sie den Komfort für Bewohner.
-                    Analysieren Sie den Kaltlufthaushalt und urbane Luftleitbahnen.
-                    Verstehen Sie die Wege, die kühle Luft in der Stadt nimmt, und optimieren Sie die Luftzirkulation für ein angenehmes Stadtklima.
-                    Analysieren Sie Windmuster, um den Windkomfort zu verbessern und Gefahren im Zusammenhang mit Stürmen zu erkennen.
-                    Erfassen Sie die Auswirkungen des Klimawandels auf städtische Strukturen und entwickeln Sie zukunftsweisende Anpassungsstrategien.
-                    """)
-            st.subheader("Zwei Szenarien - Eine aufschlussreiche Analyse:")
-            st.write("""Wir zeigen Ihnen anhand der Stadt Konstanz, wie eine nachhaltige und klimagerechte Stadtentwicklung in der Lage sein kann, die stadtklimatischen Belange in der Stadtplanung zu berücksichtigen.
-                    Wir haben hierzu von Konstanz ein PALM4U Simulationsmodelle unter Berücksichtigung der realistische Stadtkonﬁguration erstellt und 2 Szenarien untersucht.
-                    """)
-            st.write("""
-                    >> 1. **Ausgangslage: Ist-Zustand**
-                    >> 1. **Planungsvariante: Entsiegelung des Augustinerplatzes und Nachbegründung der Marktstätte**
-                    """)
-            st.write("""Die folgenden Ergebnisse der feinskaligen PALM4U Stadtklimaanalyse vergleichen die Dynamik des Stadtklimas""")
-            st.write("""
-                >> * **Farbige Flächenrepräsentation:** Die intuitive Visualisierung ermöglicht es Ihnen, auf einen Blick die Unterschiede zwischen den Szenarien zu erfassen.
-                >> * **Informativen Diagramme:** Die Diagramme ermöglichen eine qualitative, vergleichende Analyse der Dynamik des Mikroklimas, um Ihnen ein umfassendes Verständnis zu vermitteln.
-                >> * **OpenStreetMap Integration:**: Nutzen Sie unsere interaktive OpenStreet Map, um die Mikroklima-2m-Lufttemperatur visuell über Konstanz zu erforschen. Die Kombination von Kartenmaterial und Echtzeitdaten ermöglicht es Ihnen, die Stadt aus einer neuen Perspektive zu betrachten.
+        st.header("Urbane Hitzeinseln - Planungsvarianten zur Reduktion von Hitzestress")
+        st.write("""Entdecken Sie die Möglichkeiten der hochaufgelösten, mikroskaligen Stadtklimasimulation mit der innovativen Software PALM4U!
+                Optimieren Sie Ihre Entscheidungsprozesse und gestalten Sie städtische Umgebungen nachhaltiger durch die präzise Analyse verschiedenster Szenarien.
+                Erhalten Sie detaillierte Einblicke in die Temperaturverteilung im Außenraum.
+                Bewerten Sie den thermischen Komfort und steigern Sie den Komfort für Bewohner.
+                Analysieren Sie den Kaltlufthaushalt und urbane Luftleitbahnen.
+                Verstehen Sie die Wege, die kühle Luft in der Stadt nimmt, und optimieren Sie die Luftzirkulation für ein angenehmes Stadtklima.
+                Analysieren Sie Windmuster, um den Windkomfort zu verbessern und Gefahren im Zusammenhang mit Stürmen zu erkennen.
+                Erfassen Sie die Auswirkungen des Klimawandels auf städtische Strukturen und entwickeln Sie zukunftsweisende Anpassungsstrategien.
                 """)
-            # https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
-
-
-# --------BACKUP PAGES------------ #
-# elif selected_menu == "OSM new":
-#     with st.expander("Map Viewer", expanded=True): 
-#         # Create columns for variable and maps
-#         columns_main = st.columns((2,3.5,3.5,1), gap="small")
-#         with columns_main[0]:
-#             time_index = st.select_slider(label="Select a time of the day: ", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-#             opacity = st.number_input(label="Overlay Opacity", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
-
-#             # Option to select which domain to visualize
-#             options=["Large (Low Resolution)", "Medium (Medium Resolution)", "Small (High Resolution)"]
-#             domain = st.selectbox(label="Select the domain to visualize:", options=options, index=2)
-#             domain_index = options.index(domain) + 1
-
-#             # Read AOI shapefile and toggle plot display
-#             display_shapefile = st.checkbox(label="Domain Boundary", value=True)
-#             shapefile_url = r"./data/area_of_interest/aoi_sim.shp" if display_shapefile else None
-#             # Toggle marker display
-#             display_markers = st.checkbox(label="Location Markers ", value=True)
-              
-#         with columns_main[1]:
-#             simulation_run = "base"
-#             display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
+        st.header("Domain Overview")
+        df_domain_overview = pd.DataFrame(
+            {
+                "Domain": ["Parent", "Child 1", "Child 2"],
+                "Domain Size / Grid Size": ["4096x4096m² / 16m", "2048x2048m² / 8m", "512x512m² / 2m"],
+            }
+        )
+        st.dataframe(df_domain_overview, hide_index=True)
         
-#         with columns_main[2]:
-#             simulation_run = "test"
-#             display_map.single_raster_overlay(time_index, opacity, display_shapefile, display_markers, domain_index)
-
-#         # Display scale as image format
-#         with columns_main[3]:
-#             # Add image as scale
-#             image_url = r"./images/scale.png"
-#             st.image(image_url, width = 85)
-
-# elif selected_menu == "Image folders":
-#     def get_file_name_without_extension(file_path):
-#         return os.path.splitext(os.path.basename(file_path))[0]
-    
-#     def show_next():
-#         # Increments the counter to get the next images (Aug: len=5)
-#         if st.session_state.counter < len(paths_images)-1:
-#             st.session_state.counter += 1
-#         else:
-#             st.session_state.counter = len(paths_images)-1
-#     def show_previous():
-#         if st.session_state.counter > 0:
-#             st.session_state.counter -= 1
-#         else:
-#             st.session_state.counter = 0
-    
-#     # Initialize Streamlit columns
-#     columns_main = st.columns((1,4))
-    
-#     with columns_main[0]:
-#         location = st.selectbox(label="Location", options=["Augustinerplatz", "Marktstätte"])
+        # https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
         
-#         if location == "Augustinerplatz":
-#             folder_path = r"./data/image_reimagined/AugustinerPlatz/"
-#         elif location == "Marktstätte":
-#             folder_path = r"./data/image_reimagined/Marktstätte/"
+    with st.expander("About Us", expanded=True):
+        st.header("Wir sind str.ucture…")
+        st.write("""…ein Architektur- und Ingenieurbüro mit Sitz in Stuttgart.
+                 Als Unternehmen setzen wir uns dafür ein, **eine nachhaltige und CO&#8322;-neutrale gebaute Umwelt zu schaffen**.
+                 Unser Fokus liegt dabei auf einem Leichtbauansatz, der die **Minimierung des Materialverbrauchs** sowie den Einsatz von natürlichen und nachhaltigen Materialien in den Vordergrund stellt.
+                 **Digitale Werkzeuge und vernetzte Planungstechnologien** helfen uns in interdisziplinären Teams innovative und nachhaltige Lösungen mit unseren Partnern zu entwickeln.
+                 **Simulationstechniken** wie die **Strömungs- oder Stadtklimasimulation** ermöglichen uns die Auswirkungen von Gebäuden auf das Mikroklima in Städten zu verstehen und zu minimieren.
+                 Dabei setzen wir auch auf **datenbasierte Planung** und Methoden der **künstlichen Intelligenz**.
+                 Wir arbeiten in zahlreichen Kooperationen mit Unternehmen und Fachleuten sowie im Kontext von nationalen und internationalen Forschungsprogrammen daran, State-of-the-Art Entwicklungen in die Planungsprozesse einzubinden und weiterzuentwickeln.""")
+        st.write("""Wir sind **Ihr Partner** für die **digitale Transformation im Bereich Stadtklima** und stehen Ihnen zur Seite, um städtische Resilienz zu stärken und Klimaanpassungsmaßnahmen effektiv zu gestalten.
+                 """)
+        st.write("""**Unsere Leistungen im Überblick:**""")
+        st.write("""
+                 >> 1. **Digitales Stadtklima Modell (Palm4U):** Erstellung eines digitalen Stadtklima-Modells Ihrer Stadt basierend auf Ihren verfügbaren Daten.
+                 >> 1. **Mikroklima-Simulationsdaten:** Bereitstellung von Simulationsdaten für das städtische Mikroklima zu ausgewählten Tages- und Nachtzeiten. Spezielle Auswertung dieser Daten an kritischen Zielgebieten unter Berücksichtigung von Bebauungsstrukturen, Umweltfaktoren und Mikroklimaparametern.
+                 >> 1. **Digitale Datenverarbeitung:** Digitalisierung und Aufbereitung der Simulationsdaten in Form von benutzerfreundlichen Webanwendungen und Informationsseiten für Bürger.
+                 >> 1. **Integration in GIS-Systeme:** Nahtlose Integration der Simulationsdaten in lokale GIS (Geoinformationssysteme) zur optimalen Nutzung und Verwaltung der Informationen.
+                 """)
+        st.write("""**Gemeinsam gestalten wir unsere Ziele:**""")
+        st.write("""
+                 >> 1. **Klimaresilienzmaßnahmen planen und Hitzeinseln bekämpfen:** Simulationen zur Bewertung und Optimierung von Maßnahmen wie Dach- und Fassadenbegrünung, Baumbestand, innovative Gebäude- und Belagoberflächen sowie blauer Infrastruktur zur Steigerung der städtischen Klimaresilienz, insbesondere im Kampf gegen Hitzeinseln.
+                 >> 1. **Visualisierung von Lösungen:** Bereitstellung standortspezifischen Lösungen und Szenarioanalysen, um einfache Applikationen für Bürger zur Verfügung zu stellen und deren Informiertheit zu erhöhen.
+                 >> 1. **Kosten-Nutzen-Bewertung:** Evidenzbasierte Bewertung von Resilienz- und Klimaschutzmaßnahmen, die als Werkzeug für eine fundierte Infrastrukturplanung, Überwachung und Berichterstattung in Entscheidungsprozessen dienen.
+                 >> 1. **Wettervorhersagemodelle nutzen:** Einbindung digitaler und weltraumgestützter globaler und lokaler Klimamodell und Dienste zur Verbesserung der Prognose, Überwachung und Berichterstattung von Klimaereignissen. Dies unterstützt die Planung und Auslösung angemessener Risikomanagement- und Notfallverfahren.
+                 """)
+        st.write("""**Unsere Referenz: Projekt CoKLIMAx - Anwendung von COPERNICUS-Daten für klimaresiliente Stadtplanung (https://coklimax.net)**""")
+        st.write("""
+                 >> * Die Fallstudie deckt die Innenstadt von Konstanz (Süddeutschland) ab und zeigt die Möglichkeiten der Mikroklimasimulationsplattform Palm4U (https://palm.muk.uni-hannover.de).
+                 >> * Die realistische Stadtkonﬁguration umfasst alle typischen Merkmale der städtischen Komplexität, die für eine physikalisch fundierte Stadtklimasimulation erforderlich sind: Unterschiedliche Gebäudehöhen und -grundrisse, Straßenkonﬁgurationen, Bäume und Freiflächen, reale Orografie-Höhen, die Merkmale der Oberflächenbedeckung, Versiegelung und Vegetation, Gewässer (Bodensee) und Bodeneigenschaften.
+                 >> * Die Modelldaten werden aus verschiedenen digitalen und analogen Datenquellen wie dem Stadtmodell in LOD2-Qualität, Geoinformationen der Stadtverwaltung Konstanz und punktwolkenbasierten Informationen aus LiDAR-Daten generiert.
+                 >> * Die Stadtklimasimulationen werden für statische (Klarhimmel-Approximation) und dynamische Klimabedingungen berechnet, wobei für letztere eine Anbindung an ein regionales numerisches Wettervorhersagemodell (COSMO-DE) des Deutschen Wetterdienstes (DWD) erfolgt.
+                 """)
+        
+        with st.container():
+            columns_main = st.columns((0.25,3,2.05,0.25))
+            columns_main[1].image(image=r"./data/images/static_input_vector.jpeg", use_column_width=True)
+            columns_main[2].image(image=r"./data/images/colormesh.png", use_column_width=True)
             
-#         # Get list of images in folder
-#         file_names = os.listdir(folder_path)
-#         paths_images = []
-#         for file_name in file_names:
-#             full_path = os.path.join(folder_path, file_name)
-#             paths_images.append(full_path)
-            
-#         # st.write(f"Image Index: {st.session_state.counter}")
+        st.markdown(f'<p class="custom-text"><strong>Ansprechpartner</strong></p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">Dr.-Ing. Sami Bidier</p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">T +49 (0)711 286 937-13</p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">bidier@str-ucture.com</p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">bidier@str-ucture.com</p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">&#160</p>', unsafe_allow_html=True,)
         
-#         # Define columns for buttons
-#         columns = st.columns((1,1))
-#         columns[0].button("Prevous", on_click=show_previous)
-#         columns[1].button("Next", on_click=show_next)
-#         # Show current image   
-#     with columns_main[1]:
-#         st.image(image=paths_images[st.session_state.counter], use_column_width="always")
+footer_container = st.container()
+with footer_container:
+    columns_footer = st.columns((3,1,1))
+    with columns_footer[0]:
+        st.image(image="https://www.str-ucture.com/fileadmin/templates/images/structure_logo_RGB.gif", width=250,)
+        st.markdown(f'<p class="footer-text"><strong>© str.ucture GmbH</strong></p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="footer-text">Lightweight Design. Made in Stuttgart.</p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="footer-text">Lindenspürstr. 32 </p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="footer-text">70176 Stuttgart</p>', unsafe_allow_html=True,)
+
 
 end_time = time.time()
 # st.write(f"Time taken to load: {end_time - start_time:.2f} seconds")

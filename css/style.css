@@ -1,100 +1,133 @@
+@font-face {
+    font-family: 'Cedarville Cursive', cursive;
+    src: url('./css/fonts/CedarvilleCursive-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Franklin Gothic Demi', sans-serif;
+    src: url('./css/fonts/ITC Franklin Gothic Demi.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Franklin Gothic Demi', sans-serif;
+    font-size: 10px;
+}
+
+
 /* layout */
 .st-emotion-cache-1y4p8pa {
-    width: 80%;
+    width: 85%;
     padding: 1rem 1rem 1rem 1rem;
     margin-top: 2.5rem;
-    background-color: #c8c8c8;
     min-width: 800px;
     max-width: initial;
+    /* background-image: url("https://images.unsplash.com/photo-1557227065-a68aa0bb1673?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); */
+    /* background-size: 100%;  */
+    background: #ececec;
 }
-/* header and footer*/
+
+/* header and footer */
 [tabindex="-1"][data-testid="stHeader"]{
-    /* background-color:#DD0065; */
-    opacity: 1;
-    height: 2.5rem;
+    background-color:#DD0065;
+    height: 3rem;
     visibility: hidden;
 }
-header{visibility: hidden;}
-footer{visibility: hidden;}
-#MainMenu {visibility: hidden;}
+/* #MainMenu {visibility: hidden;} */
+.st-emotion-cache-h5rgaw {
+    width: 80%;
+    min-width: 800px;
+    max-width: initial;
+    background-color:#DD0065;
+    visibility: hidden;
+}
 
 /* sidebar width */
 [data-testid="stSidebar"][aria-expanded="true"]{
-    min-width: 350px; max-width: 350px;}
+    min-width: 300px; max-width: 300px;}
 
 /* expander style */
 [data-testid="stExpander"]{
-    background-color: #dfdfdf;
+    background-color: #d5d5d5;
     border-radius: 0.5rem;
 }
 .st-emotion-cache-p5msec {
     background-color: #DD0065;
     color: white;
-    height: 2.25rem;
-    border-radius: 0.25rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
 }
 [data-testid="stExpanderDetails"]{
     padding: 0.5rem;
     border: 1px solid #DD0065;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
 }
 
 /* header and paragraphs */
 h1, h2 {
     padding: 2px; margin: 2px;
     font-size: 1.8rem;
-    font-family: 'Times New Roman', Times, serif;
-    /* color: yellow; */
 }
 h3, h4 {
     padding: 2px; margin: 2px;
     font-size: 1.6rem;
-    font-family: 'Times New Roman', Times, serif;
-    /* color: yellow; */
 }
 p {
     padding: 2px;
     margin: 2px;
-    padding-top: 1px;
-    margin-top: 1px;
     font-size: 1.2rem;
-    font-family: 'Times New Roman', Times, serif;
     text-align: justify;
-    /* color: yellow; */
 }
 
+/* ----------additional font styles--------- */
 /* expander button and text*/
 .st-emotion-cache-16idsys p {
-    font-size: 1.1rem;
-    font-family: 'Times New Roman', Times, serif;
-    
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Demi', sans-serif;
 }
-
+/* checkbox */
 .st-emotion-cache-1vbkxwb p {
-    font-size: 1.1rem;
-    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
+    font-family: 'Franklin Gothic Demi', sans-serif;
 }
+/* Dropdown text */
 .st-ae {
-    font-size: 1.1rem;
-    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
+    font-family: 'Franklin Gothic Demi', sans-serif;
+}
+/* list font size */
+.st-emotion-cache-5rimss li {
+    font-size: 1.2rem;
+    text-align: justify;
+    font-family: 'Franklin Gothic Demi', sans-serif;
+}
+/* slider texts */
+[data-testid="stTickBarMax"], [data-testid="stTickBarMin"], [data-testid="stThumbValue"] {
+    font-size: 1rem;
+    font-family: 'Franklin Gothic Demi', sans-serif;
 }
 
-/* text classes */
+/* --------markdown text classes-----------*/
 .centered-text {
     text-align: center;
     font-size: 1.6rem;
     font-weight: bold;
-    /* color: yellow; */
 }
 .note-text {
     font-size: 0.9rem;
     font-style: italic;
-    /* color: yellow; */
 }
 
+.custom-text {
+    padding: 0;
+}
 
-[data-testid="stTickBarMax"], [data-testid="stTickBarMin"], [data-testid="stThumbValue"] {
-    font-size: 1rem;
-    font-family: 'Times New Roman', Times, serif;
-    /* color: yellow; */
+.footer-text {
+    padding: 0;
+    margin: 0;
+    font-size: 0.8rem;
 }
