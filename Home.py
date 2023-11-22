@@ -311,26 +311,27 @@ elif selected_menu == "3D Visualisierung":
 elif selected_menu == "Info":
     # Website Introduction
     with st.expander("About the Project", expanded=True):
-        st.header("Urbane Hitzeinseln - Planungsvarianten zur Reduktion von Hitzestress")
-        st.write("""Entdecken Sie die Möglichkeiten der hochaufgelösten, mikroskaligen Stadtklimasimulation mit der innovativen Software PALM4U!
-                Optimieren Sie Ihre Entscheidungsprozesse und gestalten Sie städtische Umgebungen nachhaltiger durch die präzise Analyse verschiedenster Szenarien.
-                Erhalten Sie detaillierte Einblicke in die Temperaturverteilung im Außenraum.
-                Bewerten Sie den thermischen Komfort und steigern Sie den Komfort für Bewohner.
-                Analysieren Sie den Kaltlufthaushalt und urbane Luftleitbahnen.
-                Verstehen Sie die Wege, die kühle Luft in der Stadt nimmt, und optimieren Sie die Luftzirkulation für ein angenehmes Stadtklima.
-                Analysieren Sie Windmuster, um den Windkomfort zu verbessern und Gefahren im Zusammenhang mit Stürmen zu erkennen.
-                Erfassen Sie die Auswirkungen des Klimawandels auf städtische Strukturen und entwickeln Sie zukunftsweisende Anpassungsstrategien.
+        st.header("Technologie:")
+        st.write("""Die rasche Verstädterung und die städtischen Wärmeinseln (Urban Heat Islands, UHI) stellen neben der wachsenden Bedrohung durch den Klimawandel eine große Herausforderung für die städtische Nachhaltigkeit und die öffentliche Gesundheit dar.
+                 Mikroklimamodellierung und -simulationen, die unter Verwendung verschiedener Szenarien durchgeführt werden, können zur Untersuchung von UHI, ihren Auswirkungen und anschließenden Anpassungsmaßnahmen verwendet werden.
+                 Das PALM-System (Parallelized Large-eddy Simulation Model, https://palm.muk.uni-hannover.de), eine hochmoderne Mikroklima-Simulationssoftware, kann erfolgreich zur Simulation und Vorhersage des Mikroklimas in städtischen Gebieten und von UHIs eingesetzt werden.
+                 In dieser Studie wird PALM-4U verwendet, um das Mikroklima in Konstanz, Deutschland zu simulieren.
+                 Der Schwerpunkt liegt dabei auf der Untersuchung der Auswirkungen städtischer Infrastrukturen.
                 """)
-        st.header("Domain Overview")
-        df_domain_overview = pd.DataFrame(
-            {
-                "Domain": ["Parent", "Child 1", "Child 2"],
-                "Domain Size / Grid Size": ["4096x4096m² / 16m", "2048x2048m² / 8m", "512x512m² / 2m"],
-            }
-        )
-        st.dataframe(df_domain_overview, hide_index=True)
-        
-        # https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+        st.write("""
+                 Unsere Referenz: Projekt CoKLIMAx - Anwendung von COPERNICUS-Daten für klimaresiliente Stadtplanung. (https://maps.coklimax.net/portal/apps/sites/#/coklimax)
+                 """)
+        st.write("""
+                 >> * Die Fallstudie deckt die Innenstadt von Konstanz (Süddeutschland) ab und zeigt die Möglichkeiten der Mikroklimasimulationsplattform Palm4U. 
+                 >> * Die realistische Stadtkonﬁguration umfasst alle typischen Merkmale der städtischen Komplexität, die für eine physikalisch fundierte Stadtklimasimulation erforderlich sind: Unterschiedliche Gebäudehöhen und -grundrisse, Straßenkonﬁgurationen, Bäume und Freiflächen, reale Orografie-Höhen, die Merkmale der Oberflächenbedeckung, Versiegelung und Vegetation, Gewässer (Bodensee) und Bodeneigenschaften.
+                 >> * Die Modelldaten werden aus verschiedenen digitalen und analogen Datenquellen wie dem Stadtmodell in LOD2-Qualität, Geoinformationen der Stadtverwaltung Konstanz und punktwolkenbasierten Informationen aus LiDAR-Daten generiert.
+                 >> * Die Stadtklimasimulationen werden für statische (Klarhimmel-Approximation) und dynamische Klimabedingungen berechnet, wobei für letztere eine Anbindung an ein regionales numerisches Wettervorhersagemodell (COSMO-DE) des Deutschen Wetterdienstes (DWD) erfolgt.
+                 >> * Berechnungsgebiete und Auflösung:
+                 >>> - Gesamtes Stadtgebiet: L=4096m, B=4096m, H=2048 m, Elementgröße: 16m, Auflösung: 256 x 256 x 128
+                 >>> - Innenstadtbereich: L=2048m, B=2048m, H=1024m, Elementgröße: 8m, Auflösung: 256 x 256 x 128
+                 >>> - Zielregion: L=512m, B=512m, H=256m, Elementgröße 2m, Auflösung: 256 x 256 x 128
+                 >> * Berechnete Umweltdaten: Lufttemperatur (2m), Oberflächentemperatur, Wassertemperatur, Luftfeuchtigkeit, Windgeschwindigkeit, Nettostrahlung, Thermal Sensation Index
+                 """)
         
     with st.expander("About Us", expanded=True):
         st.header("Wir sind str.ucture…")
@@ -340,40 +341,25 @@ elif selected_menu == "Info":
                  **Digitale Werkzeuge und vernetzte Planungstechnologien** helfen uns in interdisziplinären Teams innovative und nachhaltige Lösungen mit unseren Partnern zu entwickeln.
                  **Simulationstechniken** wie die **Strömungs- oder Stadtklimasimulation** ermöglichen uns die Auswirkungen von Gebäuden auf das Mikroklima in Städten zu verstehen und zu minimieren.
                  Dabei setzen wir auch auf **datenbasierte Planung** und Methoden der **künstlichen Intelligenz**.
-                 Wir arbeiten in zahlreichen Kooperationen mit Unternehmen und Fachleuten sowie im Kontext von nationalen und internationalen Forschungsprogrammen daran, State-of-the-Art Entwicklungen in die Planungsprozesse einzubinden und weiterzuentwickeln.""")
-        st.write("""Wir sind **Ihr Partner** für die **digitale Transformation im Bereich Stadtklima** und stehen Ihnen zur Seite, um städtische Resilienz zu stärken und Klimaanpassungsmaßnahmen effektiv zu gestalten.
+                 Wir arbeiten in zahlreichen Kooperationen mit Unternehmen und Fachleuten sowie im Kontext von nationalen und internationalen Forschungsprogrammen daran, State-of-the-Art Entwicklungen in die Planungsprozesse einzubinden und weiterzuentwickeln.
+                 Wir sind **Ihr Partner** für die **digitale Transformation im Bereich Stadtklima** und stehen Ihnen zur Seite, um städtische Resilienz zu stärken und Klimaanpassungsmaßnahmen effektiv zu gestalten. 
                  """)
+
         st.write("""**Unsere Leistungen im Überblick:**""")
         st.write("""
                  >> 1. **Digitales Stadtklima Modell (Palm4U):** Erstellung eines digitalen Stadtklima-Modells Ihrer Stadt basierend auf Ihren verfügbaren Daten.
                  >> 1. **Mikroklima-Simulationsdaten:** Bereitstellung von Simulationsdaten für das städtische Mikroklima zu ausgewählten Tages- und Nachtzeiten. Spezielle Auswertung dieser Daten an kritischen Zielgebieten unter Berücksichtigung von Bebauungsstrukturen, Umweltfaktoren und Mikroklimaparametern.
                  >> 1. **Digitale Datenverarbeitung:** Digitalisierung und Aufbereitung der Simulationsdaten in Form von benutzerfreundlichen Webanwendungen und Informationsseiten für Bürger.
                  >> 1. **Integration in GIS-Systeme:** Nahtlose Integration der Simulationsdaten in lokale GIS (Geoinformationssysteme) zur optimalen Nutzung und Verwaltung der Informationen.
-                 """)
-        st.write("""**Gemeinsam gestalten wir unsere Ziele:**""")
-        st.write("""
-                 >> 1. **Klimaresilienzmaßnahmen planen und Hitzeinseln bekämpfen:** Simulationen zur Bewertung und Optimierung von Maßnahmen wie Dach- und Fassadenbegrünung, Baumbestand, innovative Gebäude- und Belagoberflächen sowie blauer Infrastruktur zur Steigerung der städtischen Klimaresilienz, insbesondere im Kampf gegen Hitzeinseln.
                  >> 1. **Visualisierung von Lösungen:** Bereitstellung standortspezifischen Lösungen und Szenarioanalysen, um einfache Applikationen für Bürger zur Verfügung zu stellen und deren Informiertheit zu erhöhen.
                  >> 1. **Kosten-Nutzen-Bewertung:** Evidenzbasierte Bewertung von Resilienz- und Klimaschutzmaßnahmen, die als Werkzeug für eine fundierte Infrastrukturplanung, Überwachung und Berichterstattung in Entscheidungsprozessen dienen.
-                 >> 1. **Wettervorhersagemodelle nutzen:** Einbindung digitaler und weltraumgestützter globaler und lokaler Klimamodell und Dienste zur Verbesserung der Prognose, Überwachung und Berichterstattung von Klimaereignissen. Dies unterstützt die Planung und Auslösung angemessener Risikomanagement- und Notfallverfahren.
-                 """)
-        st.write("""**Unsere Referenz: Projekt CoKLIMAx - Anwendung von COPERNICUS-Daten für klimaresiliente Stadtplanung (https://coklimax.net)**""")
-        st.write("""
-                 >> * Die Fallstudie deckt die Innenstadt von Konstanz (Süddeutschland) ab und zeigt die Möglichkeiten der Mikroklimasimulationsplattform Palm4U (https://palm.muk.uni-hannover.de).
-                 >> * Die realistische Stadtkonﬁguration umfasst alle typischen Merkmale der städtischen Komplexität, die für eine physikalisch fundierte Stadtklimasimulation erforderlich sind: Unterschiedliche Gebäudehöhen und -grundrisse, Straßenkonﬁgurationen, Bäume und Freiflächen, reale Orografie-Höhen, die Merkmale der Oberflächenbedeckung, Versiegelung und Vegetation, Gewässer (Bodensee) und Bodeneigenschaften.
-                 >> * Die Modelldaten werden aus verschiedenen digitalen und analogen Datenquellen wie dem Stadtmodell in LOD2-Qualität, Geoinformationen der Stadtverwaltung Konstanz und punktwolkenbasierten Informationen aus LiDAR-Daten generiert.
-                 >> * Die Stadtklimasimulationen werden für statische (Klarhimmel-Approximation) und dynamische Klimabedingungen berechnet, wobei für letztere eine Anbindung an ein regionales numerisches Wettervorhersagemodell (COSMO-DE) des Deutschen Wetterdienstes (DWD) erfolgt.
+                 >> 1. **Wettervorhersagemodelle nutzen:** Einbindung globaler und lokaler Klimamodell und Dienste zur Verbesserung der Prognose, Überwachung und Berichterstattung von Klimaereignissen. 
                  """)
         
-        with st.container():
-            columns_main = st.columns((0.25,3,2.05,0.25))
-            columns_main[1].image(image=r"./data/images/static_input_vector.jpeg", use_column_width=True)
-            columns_main[2].image(image=r"./data/images/colormesh.png", use_column_width=True)
-            
         st.markdown(f'<p class="custom-text"><strong>Ansprechpartner</strong></p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">Dr.-Ing. Sami Bidier</p>', unsafe_allow_html=True,)
-        st.markdown(f'<p class="custom-text">T +49 (0)711 286 937-13</p>', unsafe_allow_html=True,)
-        st.markdown(f'<p class="custom-text">bidier@str-ucture.com</p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">📞 +49 (0)711 286 937-13</p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">✉️ bidier@str-ucture.com</p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">&#160</p>', unsafe_allow_html=True,)
         
 footer_container = st.container()
