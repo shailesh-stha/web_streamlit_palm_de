@@ -375,7 +375,6 @@ elif selected_menu == "Info":
         st.markdown(f'<p class="custom-text">Dr.-Ing. Sami Bidier</p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">T +49 (0)711 286 937-13</p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">bidier@str-ucture.com</p>', unsafe_allow_html=True,)
-        st.markdown(f'<p class="custom-text">bidier@str-ucture.com</p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">&#160</p>', unsafe_allow_html=True,)
         
 footer_container = st.container()
