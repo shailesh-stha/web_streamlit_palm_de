@@ -285,7 +285,6 @@ elif selected_menu == "OpenStreetMap":
             image_url = r"./images/scale.png"
             st.image(image_url, use_column_width=True)
 
-
 elif selected_menu == "3D Visualisierung":
     with st.expander("3D Map Viewer", expanded=True):
         # Create columns for variable and maps
@@ -302,7 +301,7 @@ elif selected_menu == "3D Visualisierung":
             bearing = -40 
             
             # Toggle image overlay
-            display_image = st.checkbox(label="Flächenrepräsentation", value=True)
+            display_image = st.checkbox(label="Lufttemperatur (2m)", value=True)
             # Toggle added trees
             display_added_trees = st.checkbox(label="Variante Nachbegrünung", value=True)
             
