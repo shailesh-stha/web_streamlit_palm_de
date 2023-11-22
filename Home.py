@@ -77,7 +77,7 @@ option_menu_styles = {
         "width": "95%",
         "color": "black",
         "background": "#d4d4d4",
-        "font-size": "1.2rem",
+        "font-size": "1.0rem",
         "border": "1px solid #DD0065",
         "border-radius": "1rem",
         # "font-family": "Franklin Gothic Demi",
