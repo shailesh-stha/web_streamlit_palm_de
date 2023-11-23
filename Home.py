@@ -363,7 +363,9 @@ footer_container = st.container()
 with footer_container:
     columns_footer = st.columns(4)
     with columns_footer[0]:
-        st.image(image="https://www.str-ucture.com/fileadmin/templates/images/structure_logo_RGB.gif", width=250,)
+        
+        
+        st.image(image=r"./data/images/structure_logo_RGB.png", width=250,)
         # st.markdown(f'<p class="footer-text"><strong>© str.ucture GmbH</strong></p>', unsafe_allow_html=True,)
         # st.markdown(f'<p class="footer-text">Lightweight Design. Made in Stuttgart.</p>', unsafe_allow_html=True,)
         # st.markdown(f'<p class="footer-text">Lindenspürstr. 32 </p>', unsafe_allow_html=True,)
