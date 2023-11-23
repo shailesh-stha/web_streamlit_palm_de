@@ -11,9 +11,8 @@ import pandas as pd
 import geopandas as gpd
 from PIL import Image
 
-
 # local imports
-from utils import read_netcdf, display_map, display_matplots, display_plotly, display_images, useful_functions
+from utils import read_netcdf, display_map, display_matplots, display_plotly, useful_functions
 
 # Start clock to test out site load time
 start_time = time.time()
@@ -209,7 +208,7 @@ elif selected_menu == "Flächenrepräsentation":
         columns_input = st.columns(4)
         with columns_input[0]:
             # Fetch locations
-            location_list = ["Altstadt", "Augstinerplatz", "Markstätte", "Räumlicher Knoten 1", "Räumlicher Knoten 2", "Räumlicher Knoten 3"]
+            location_list = ["Altstadt", "Augstinerplatz", "Markstätte", "Position 1", "Position 2", "Position 3"]
             location = st.selectbox(label="Standort: ", options=location_list, index=location_list.index(location_list[1]))
         
         columns_main = st.columns(1)
@@ -220,11 +219,11 @@ elif selected_menu == "Flächenrepräsentation":
                 display_plotly.bar_graph(dataframe_run_1_aoi_1, dataframe_run_2_aoi_1, band_sequence, time_sequence, variable_description_de, variable_unit)
             elif location == "Markstätte":
                 display_plotly.bar_graph(dataframe_run_1_aoi_2, dataframe_run_2_aoi_2, band_sequence_backup, time_sequence, variable_description_de, variable_unit)
-            elif location == "Räumlicher Knoten 1":
+            elif location == "Position 1":
                 display_plotly.bar_graph(dataframe_run_1_stn_1, dataframe_run_2_stn_1, band_sequence, time_sequence, variable_description_de, variable_unit)
-            elif location == "Räumlicher Knoten 2":
+            elif location == "Position 2":
                 display_plotly.bar_graph(dataframe_run_1_stn_2, dataframe_run_2_stn_2, band_sequence, time_sequence, variable_description_de, variable_unit)
-            elif location == "Räumlicher Knoten 3":
+            elif location == "Position 3":
                 display_plotly.bar_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, variable_description_de, variable_unit)
 
 elif selected_menu == "3D Visualisierung":
@@ -255,7 +254,7 @@ elif selected_menu == "3D Visualisierung":
             display_map.pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing)
 
 elif selected_menu == "OpenStreetMap":
-    with st.expander("Vergleich Ist-Zustand Planungsvariante", expanded=True):
+    with st.expander("Vergleich Lufttemperatur (2m) Ist-Zustand Planungsvariante", expanded=True):
         # User Input
         columns_input = st.columns(4)
         with columns_input[0]:

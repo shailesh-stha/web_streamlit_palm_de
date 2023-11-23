@@ -132,11 +132,22 @@ def dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_marke
     ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N03)", image=f"./images/test_simulation/N03/test_{image_index}.png",
                     bounds=bounds_N03, opacity=opacity_2d).add_to(m.m2)
 
+    custom_icon = folium.Icon(
+        icon='star',
+        prefix='fa',
+        icon_color='yellow',
+        icon_size=(30, 30)  # Adjust the size to 30x30 pixels
+        )
+
     # Insert Location Markers to map
     if display_markers:
         folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz").add_to(m)
         folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
         # folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
+    
+        folium.Marker(location=[47.6594934, 9.1732702],popup= "Position 1", icon=folium.Icon(color='green', icon='map-pin', prefix='fa',)).add_to(m)
+        folium.Marker(location=[47.6603006, 9.1750043],popup= "Position 2", icon=folium.Icon(color='green', icon='map-pin', prefix='fa',)).add_to(m)
+        folium.Marker(location=[47.6603883, 9.1764696],popup= "Position 3", icon=folium.Icon(color='green', icon='map-pin', prefix='fa',)).add_to(m)
 
     # Display folium map
     st_folium(m, width='100%', height=400)

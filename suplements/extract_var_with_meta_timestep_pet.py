@@ -16,6 +16,7 @@ output = output_file2
 x_tick_interval = 1  # 1 hour
 band_sequence = [0]
 band_sequence.extend(np.arange(5, 144, 6 * x_tick_interval))
+band_sequence[15] = band_sequence[15]+1
 
 # List of variables to extract
 variable_list = ['ta_2m*_xy', 'tsurf*_xy', 'wspeed_10m*_xy', 'rad_net*_xy']
