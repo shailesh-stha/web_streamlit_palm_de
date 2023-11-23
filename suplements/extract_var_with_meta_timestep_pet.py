@@ -70,22 +70,28 @@ with nc.Dataset(input, mode="r") as ds:
         #     test_variable[i,:,:,:] = band_data
             
         # Create variable to store thermal sensation index
+        # TS = 1.7 + 0.0018 x Ta + 0.0019 x SR - 0.322 x WS - 0.0073 x RH + 0.0054 * ST
+        
         ref_variable = 'ta_2m*_xy'
         # Define values for new variable
         variable_name_ts = 'ts_xy'
         variable_description = 'Thermal Sensation Index'
         variable_unit = "NA"
 
-
         variable_ts = out_file.createVariable(variable_name_ts, ds[ref_variable].dtype, ds[ref_variable].dimensions)
 
         for i, band_index in enumerate(band_sequence):
                 band_data_tair = ds["ta_2m*_xy"][band_index, :, :, :]
-                band_data_ih = ds["rad_sw_in*_xy"][band_index, :, :, :]
-                band_data_v = ds["wspeed_10m*_xy"][band_index, :, :, :]
+                band_data_rad = ds["rad_sw_in*_xy"][band_index, :, :, :]
+                band_data_wind = ds["wspeed_10m*_xy"][band_index, :, :, :]
                 ur = 36
                 band_data_tsurf = ds["tsurf*_xy"][band_index, :, :, :]
                 
-                data_ts = 1.7 + 0.118*band_data_tair + 0.0019*band_data_ih - 0.322*band_data_v - 0.0073*ur + 0.0054*band_data_tsurf
+                # Compute TS with humidity
+                data_ts = 1.7 + 0.1118*band_data_tair + 0.0019*band_data_rad - 0.322*band_data_wind - 0.0073*ur + 0.0054*band_data_tsurf
+                
+                # Compute TS without humidity
+                data_ts_no_RH = 1.2 + 0.1115*band_data_tair + 0.0019 * band_data_rad - 0.3185 * band_data_wind
+                
                 # TS_data = 1.7 + 0.118*tair[band_index, 0, :, :] + 0.0019*ih[band_index, 0, :, :] - 0.322*v[band_index, 0, :, :] - 0.0073*ur +0.0054*tsurf[band_index, 0, :, :]
                 variable_ts[i,:,:,:] = data_ts

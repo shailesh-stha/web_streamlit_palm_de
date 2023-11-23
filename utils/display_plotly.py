@@ -66,7 +66,7 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
     fig.update_layout(height = 450, # width=500,
                       margin=dict(l=20, r=20, t=20, b=20),
                       plot_bgcolor='white',
-                      paper_bgcolor="#F2F2F2",
+                    #   paper_bgcolor="#F2F2F2",
                       legend_font = dict(size=14,),
                       )
     fig.update_xaxes(title='Zeit',

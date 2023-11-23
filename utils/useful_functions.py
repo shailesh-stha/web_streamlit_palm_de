@@ -1,4 +1,5 @@
 # Useful functions
+
 # convert band number to time in (hr:min:sec) or vice-versa
 def band_index_to_time(band_index):
     # Calculate the total seconds

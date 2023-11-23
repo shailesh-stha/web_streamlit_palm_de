@@ -75,7 +75,7 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     if display_markers:
         folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz")
         folium.Marker(location=[47.660351,9.175822],popup="Markstätte")
-        folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz")
+        # folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz")
     
     folium.plugins.Fullscreen(
         position="topleft", 
@@ -91,12 +91,10 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     # Use streamlit_folium to display the map
     st_folium(m, width='100%', height=500)
     
-def dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index):
+def dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers):
     # Create a Folium map
     latlong = [47.660029, 9.175209]
-    
-    if domain_index:
-        zoom_start = 17
+    zoom_start = 17
         
     # Add custom basemap to folium
     basemaps = {
@@ -129,20 +127,19 @@ def dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_marke
     bounds_N03 = [[47.6588733206033766, 9.1718298413872255], [47.6634905475628230, 9.1786643808656230]]
     # Overlay saved image
     image_index = time_index.replace(":","")
-    if domain_index:
-        ImageOverlay(name=f"Color Map: {time_index} (Base Simulation N03)", image=f"./images/base_simulation/N03/base_{image_index}.png",
-                     bounds=bounds_N03, opacity=opacity_2d).add_to(m.m1)
-        ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N03)", image=f"./images/test_simulation/N03/test_{image_index}.png",
-                     bounds=bounds_N03, opacity=opacity_2d).add_to(m.m2)
+    ImageOverlay(name=f"Color Map: {time_index} (Base Simulation N03)", image=f"./images/base_simulation/N03/base_{image_index}.png",
+                    bounds=bounds_N03, opacity=opacity_2d).add_to(m.m1)
+    ImageOverlay(name=f"Color Map: {time_index} (Test Simulation N03)", image=f"./images/test_simulation/N03/test_{image_index}.png",
+                    bounds=bounds_N03, opacity=opacity_2d).add_to(m.m2)
 
     # Insert Location Markers to map
     if display_markers:
         folium.Marker(location=[47.659553,9.173430],popup= "Augstinerplatz").add_to(m)
         folium.Marker(location=[47.660351,9.175822],popup="Markstätte").add_to(m)
-        folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
+        # folium.Marker(location=[47.661975,9.173732],popup="Sankt-Stephans-Platz").add_to(m)
 
     # Display folium map
-    st_folium(m, width='100%', height=350)
+    st_folium(m, width='100%', height=400)
 
 def pydeck_3d_shapefile(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing):
     latlong = [47.661129, 9.175209]

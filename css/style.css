@@ -17,7 +17,6 @@ p, h1, h2, h3, h4, h5, h6 {
     font-size: 10px;
 }
 
-
 /* layout */
 .st-emotion-cache-1y4p8pa {
     width: 85%;
@@ -27,7 +26,7 @@ p, h1, h2, h3, h4, h5, h6 {
     max-width: initial;
     /* background-image: url("https://images.unsplash.com/photo-1557227065-a68aa0bb1673?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); */
     /* background-size: 100%;  */
-    background: #ececec;
+    background: #ffffff;
 }
 
 /* header and footer */
@@ -51,7 +50,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 /* expander style */
 [data-testid="stExpander"]{
-    background-color: #d5d5d5;
+    /* background-color: #d5d5d5; */
     border-radius: 0.5rem;
 }
 .st-emotion-cache-p5msec {
@@ -88,27 +87,32 @@ p {
     font-size: 1.2rem;
     font-weight: bold;
     font-family: 'Franklin Gothic Demi', sans-serif;
+    text-align: left;
 }
 /* checkbox */
 .st-emotion-cache-1vbkxwb p {
     font-size: 1.2rem;
     font-family: 'Franklin Gothic Demi', sans-serif;
+    text-align: auto;
 }
 /* Dropdown text */
 .st-ae {
     font-size: 1.2rem;
     font-family: 'Franklin Gothic Demi', sans-serif;
+    text-align: auto;
 }
 /* list font size */
 .st-emotion-cache-5rimss li {
     font-size: 1.2rem;
     text-align: justify;
     font-family: 'Franklin Gothic Demi', sans-serif;
+    text-align: auto;
 }
 /* slider texts */
 [data-testid="stTickBarMax"], [data-testid="stTickBarMin"], [data-testid="stThumbValue"] {
     font-size: 1.2rem;
     font-family: 'Franklin Gothic Demi', sans-serif;
+    text-align: auto;
 }
 
 /* --------markdown text classes-----------*/
@@ -124,10 +128,4 @@ p {
 
 .custom-text {
     padding: 0;
-}
-
-.footer-text {
-    padding: 0;
-    margin: 0;
-    font-size: 0.8rem;
 }
