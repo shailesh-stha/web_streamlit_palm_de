@@ -71,8 +71,8 @@ def colormesh(variable_description, variable_unit, variable_data, location, buil
         ax.set_xlim(x[0]+0,x[-1]-0)
         ax.set_ylim(y[0]+0,y[-1]-0)
     elif location == "Augstinerplatz":
-        ax.set_xlim(x[0]+30,x[-1]-292)
-        ax.set_ylim(y[0]+0,y[-1]-322)
+        ax.set_xlim(x[0]+30,x[-1]-294)
+        ax.set_ylim(y[0]+0,y[-1]-324)
     elif location == "Markstätte":
         ax.set_xlim(x[0]+180,x[-1]-62)
         ax.set_ylim(y[0]+20,y[-1]-202)

@@ -136,7 +136,7 @@ elif selected_menu == "Flächenrepräsentation":
             # Fetch locations
             simulation_domain = "N03"
             location_list = ["Altstadt", "Augstinerplatz", "Markstätte"] # "Sankt-Stephans-Platz"
-            location = st.selectbox(label="Standort:", options=location_list, index=location_list.index(location_list[0]))
+            location = st.selectbox(label="Standort:", options=location_list, index=location_list.index(location_list[1]))
         with columns_input[1]:
             # Fetch masked data from the selected variable
             variable_description = st.selectbox(label="Dargestellte Variable:", options=read_netcdf.variable_list()[3])

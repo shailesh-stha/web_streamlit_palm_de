@@ -93,8 +93,8 @@ def single_raster_overlay(time_index, opacity, display_shapefile, display_marker
     
 def dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers):
     # Create a Folium map
-    latlong = [47.660029, 9.175209]
-    zoom_start = 17
+    latlong = [47.660029, 9.17480]
+    zoom_start = 18
         
     # Add custom basemap to folium
     basemaps = {
