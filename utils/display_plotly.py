@@ -67,10 +67,12 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
                       margin=dict(l=20, r=20, t=20, b=20),
                       plot_bgcolor='white',
                     #   paper_bgcolor="#F2F2F2",
-                      legend=dict(yanchor="top",
-                                  y=0.99,
-                                  xanchor="left",
-                                  x=0.01),
+                    #   legend=dict(
+                    #       yanchor="top",
+                    #       y=0.99,
+                    #       xanchor="left",
+                    #       x=0.01
+                    #       ),
                       legend_font = dict(size=14),
                       )
     
@@ -82,11 +84,13 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
                      tickvals = band_sequence,
                      ticktext = time_sequence,
                      )
+    
+    legend_increase = 0
 
     fig.update_yaxes(title= f'{variable_description} [{variable_unit}]',
                      title_font = dict(size=18),
                      tickfont = dict(size=14),
-                     range=[value_min, value_max], # increasement of legend
+                     range=[value_min, value_max+legend_increase], # increasement of legend
                      nticks=10,
                      showspikes=True,)
     
