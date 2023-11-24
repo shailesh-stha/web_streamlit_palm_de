@@ -1,20 +1,14 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.colors import Normalize
-from matplotlib.colorbar import ColorbarBase
+import pandas as pd
 
-# Create a sample data array for demonstration
-data = np.random.uniform(low=15, high=37.5, size=(10, 10))
+def load_bundle(locale):
+    df = pd.read_csv(r"./i18n/text_bundle.csv")
+    df = df.query(f"locale == '{locale}'")
 
-# Set up the plot
-fig, ax = plt.subplots()
+    lang_dict = {df.key.to_list()[i]: df.value.to_list()[i] for i in range(len(df.key.to_list()))}
+    return lang_dict
 
-# Plot the data using the 'turbo' colormap and specified range
-im = ax.imshow(data, cmap='turbo', vmin=15, vmax=37.5)
+lang = input("Please select EN or DE: ")
+lang_dict = load_bundle(lang)
 
-# Create a horizontal colorbar legend
-cbar = ColorbarBase(ax=ax, cmap='turbo', norm=Normalize(vmin=15, vmax=37.5),
-                    orientation='horizontal', label='2m Air Temperature')
-
-# Show the plot
-plt.show()
+print(lang_dict['greeting'])
+print(lang_dict['bye'])

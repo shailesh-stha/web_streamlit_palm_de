@@ -3,13 +3,10 @@ import os
 import time
 # third-party library
 import numpy as np
-import matplotlib.pyplot as plt
 import streamlit as st
 from streamlit_option_menu import option_menu
 import streamlit as st
 import pandas as pd
-import geopandas as gpd
-from PIL import Image
 
 # local imports
 from utils import read_netcdf, display_map, display_matplots, display_plotly, useful_functions
@@ -17,9 +14,44 @@ from utils import read_netcdf, display_map, display_matplots, display_plotly, us
 # Start clock to test out site load time
 start_time = time.time()
 # Define Page layout
-st.set_page_config(page_title="PALM output Visualization",
+st.set_page_config(page_title="Mikroklima-Visualisierung",
                    layout="centered",
                    initial_sidebar_state="collapsed") #collapsed/expanded
+
+
+# Inside the container, add the title and content
+with st.container():
+    columns_main = st.columns((3,3,0.5))
+    with columns_main[2]:
+        selected_language = st.selectbox(label="Language", options=["DE", "EN"], label_visibility="hidden") #🌐
+    st.markdown("""<div class='fixed-header'/>""", unsafe_allow_html=True)
+
+def load_language_bundle(locale):
+    df = pd.read_csv(r"./i18n/text_bundle.csv")
+    df = df.query(f"locale == '{locale}'")
+
+    lang_dict = {df.key.to_list()[i]:df.value.to_list()[i] for i in range(len(df.key.to_list()))}
+    return lang_dict
+
+lang_dict = load_language_bundle(selected_language)
+
+# Custom CSS for the sticky header
+st.markdown(
+    """
+<style>
+    div[data-testid="stVerticalBlock"] div:has(div.fixed-header) {
+        position: sticky;
+        top: 0rem;
+        background-color: rgb(0,0,0,0);
+        z-index: 999;
+    }
+    .fixed-header {
+        # border-bottom: 1px solid black;
+    }
+</style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Import CSS style
 with open('./css/style.css') as f:
@@ -50,17 +82,16 @@ def band_time_sequence():
         band_sequence_backup = band_sequence.copy()
         time_sequence = ['0:10', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00']
         return band_sequence, band_sequence_backup, time_sequence
-        
 band_sequence, band_sequence_backup, time_sequence = band_time_sequence()
+
 
 # Website Introduction
 with st.container():
-    st.header(body="Urbane Hitzeinseln - Planungsvarianten zur Reduktion von Hitzestress", anchor=False)
+    st.header(body=f"{lang_dict['website_intro_header']}", anchor=False)
     # st.write("""Entdecken Sie die Möglichkeiten der hochaufgelösten, mikroskaligen Stadtklimasimulation mit der innovativen Software PALM4U!""")
-    st.subheader(body="Zwei Szenarien - Eine aufschlussreiche Analyse:", anchor=False)
-    st.write("""Wir demonstrieren am Beispiel von Konstanz, wie eine nachhaltige und klimagerechte Stadtentwicklung funktionieren kann.
-             Dazu haben wir ein PALM-4U Simulationsmodell erstellt und die Auswirkung zweier realistische Klimaanpassungsmaßnahmen untersucht.""")
-
+    st.subheader(body=f"{lang_dict['website_intro_subheader']}", anchor=False)
+    st.write(f"{lang_dict['website_intro_subheader_details']}")
+             
 st.divider()
 
 option_menu_styles = {
