@@ -71,22 +71,22 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
                                   y=0.99,
                                   xanchor="left",
                                   x=0.01),
-                      legend_font = dict(size=15),
+                      legend_font = dict(size=14),
                       )
     
     fig.update_xaxes(title='Zeit',
                      title_font = dict(size=18),
-                     tickfont = dict(size=15),
+                     tickfont = dict(size=14),
                      tickangle = 90,
                      tickmode = 'array',
                      tickvals = band_sequence,
                      ticktext = time_sequence,
                      )
-    
+
     fig.update_yaxes(title= f'{variable_description} [{variable_unit}]',
                      title_font = dict(size=18),
-                     tickfont = dict(size=15),
-                     range=[value_min, value_max],
+                     tickfont = dict(size=14),
+                     range=[value_min, value_max], # increasement of legend
                      nticks=10,
                      showspikes=True,)
     

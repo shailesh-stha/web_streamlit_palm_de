@@ -150,7 +150,7 @@ def dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_marke
         folium.Marker(location=[47.6603883, 9.1764696],popup= "Position 3", icon=folium.Icon(color='green', icon='map-pin', prefix='fa',)).add_to(m)
 
     # Display folium map
-    st_folium(m, width='100%', height=400)
+    st_folium(m, width='100%', height=450)
 
 def pydeck_3d_shapefile(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing):
     latlong = [47.661129, 9.175209]
