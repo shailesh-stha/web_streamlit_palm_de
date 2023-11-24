@@ -56,8 +56,7 @@ band_sequence, band_sequence_backup, time_sequence = band_time_sequence()
 # Website Introduction
 with st.container():
     st.header(body="Urbane Hitzeinseln - Planungsvarianten zur Reduktion von Hitzestress", anchor=False)
-    st.write("""Entdecken Sie die Möglichkeiten der hochaufgelösten, mikroskaligen Stadtklimasimulation mit der innovativen Software PALM4U!
-             """)
+    # st.write("""Entdecken Sie die Möglichkeiten der hochaufgelösten, mikroskaligen Stadtklimasimulation mit der innovativen Software PALM4U!""")
     st.subheader(body="Zwei Szenarien - Eine aufschlussreiche Analyse:", anchor=False)
     st.write("""Wir demonstrieren am Beispiel von Konstanz, wie eine nachhaltige und klimagerechte Stadtentwicklung funktionieren kann.
              Dazu haben wir ein PALM-4U Simulationsmodell erstellt und die Auswirkung zweier realistische Klimaanpassungsmaßnahmen untersucht.""")
@@ -94,7 +93,7 @@ selected_menu = option_menu(
     menu_title = None,
     options=["Szenarien", "3D Visualisierung", "OpenStreetMap", "Flächenrepräsentation", "Info"],
     icons=["house", "globe2", "map", "palette", "info-circle"],
-    default_index=0,
+    default_index=3,
     orientation="horizontal",
     styles= option_menu_styles,
     )
@@ -140,7 +139,7 @@ elif selected_menu == "Flächenrepräsentation":
             location = st.selectbox(label="Standort:", options=location_list, index=location_list.index(location_list[0]))
         with columns_input[1]:
             # Fetch masked data from the selected variable
-            variable_description = st.selectbox(label="Wahl der zu visualisierenden Variable:", options=read_netcdf.variable_list()[3])
+            variable_description = st.selectbox(label="Dargestellte Variable:", options=read_netcdf.variable_list()[3])
             variable_index = read_netcdf.variable_list()[3].index(variable_description)
         with columns_input[2]:
             # Select time of day and equivanlent band_index for plot
@@ -354,8 +353,8 @@ elif selected_menu == "Info":
         
         st.markdown(f'<p class="custom-text"><strong>Ansprechpartner</strong></p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">Dr.-Ing. Sami Bidier</p>', unsafe_allow_html=True,)
-        st.markdown(f'<p class="custom-text">📞 +49 (0)711 286 937-13</p>', unsafe_allow_html=True,)
-        st.markdown(f'<p class="custom-text">✉️ bidier@str-ucture.com</p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">📞 <a href="tel:+4971128693713">+49 (0)711 286 937-13</a></p>', unsafe_allow_html=True,)
+        st.markdown(f'<p class="custom-text">✉️ <a href="mailto:bidier@str-ucture.com">bidier@str-ucture.com</a></p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">&#160</p>', unsafe_allow_html=True,)
         
 footer_container = st.container()
