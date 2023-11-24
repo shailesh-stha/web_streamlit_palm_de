@@ -66,13 +66,10 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
     fig.update_layout(height = 450, # width=500,
                       margin=dict(l=20, r=20, t=20, b=20),
                       plot_bgcolor='white',
-                    #   paper_bgcolor="#F2F2F2",
-                    #   legend=dict(
-                    #       yanchor="top",
-                    #       y=0.99,
-                    #       xanchor="left",
-                    #       x=0.01
-                    #       ),
+                      paper_bgcolor="#F2F2F2",
+                      legend_x = 0,
+                      legend_y = 1,
+                      legend=dict(bgcolor='rgba(0,0,0,0)'),
                       legend_font = dict(size=14),
                       )
     
@@ -85,7 +82,15 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
                      ticktext = time_sequence,
                      )
     
-    legend_increase = 0
+    legend_increase = 2
+    if variable_description == "Oberflächentemperatur":
+        legend_increase = 3
+    elif variable_description == "Windgeschwindigkeit":
+        legend_increase = 0.1
+    elif variable_description == "Nettostrahlung":
+        legend_increase = 75
+    elif variable_description == "Thermal Sensation Index":
+        legend_increase = 0
 
     fig.update_yaxes(title= f'{variable_description} [{variable_unit}]',
                      title_font = dict(size=18),
