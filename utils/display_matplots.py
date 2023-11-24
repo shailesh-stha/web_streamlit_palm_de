@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from matplotlib import ticker, patches
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+from matplotlib.colors import Normalize
+from matplotlib.colorbar import ColorbarBase
 
 from utils import read_netcdf
 
@@ -107,6 +109,28 @@ def colormesh(variable_description, variable_unit, variable_data, location, buil
         cb.ax.xaxis.set_ticks_position("top")
         cb.ax.set_ylabel(f"{variable_description} [{variable_unit}]", fontsize=font_size, weight="bold")
     
+    # plot
+    st.pyplot(fig)
+
+def display_cmap_legend():
+    # Create random data
+    data = np.random.uniform(low=15, high=37.5, size=(10, 10))
     
+    fig, ax = plt.subplots(figsize=(8, 6))
+    
+    im = ax.imshow(data, cmap='turbo', vmin=15, vmax=37.5)
+    
+    # Create a horizontal colorbar legend
+    cbar = ColorbarBase(ax=ax, cmap='turbo', norm=Normalize(vmin=15, vmax=37.5),
+                        orientation='horizontal', label='Lufttemperatur (2m) [°C]')
+
+    # Set the tick interval to 2.5
+    tick_interval = 2.5
+    cbar.set_ticks(np.arange(15, 37.6, tick_interval))
+    cbar.set_ticklabels([f'{tick:.1f}' for tick in np.arange(15, 37.6, tick_interval)])
+    
+    # Use tight_layout to ensure proper spacing
+    # plt.tight_layout(rect=[0.5, 0.6, 0.7, 0.8])
+
     # plot
     st.pyplot(fig)

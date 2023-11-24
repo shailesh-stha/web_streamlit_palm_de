@@ -93,7 +93,7 @@ selected_menu = option_menu(
     menu_title = None,
     options=["Szenarien", "3D Visualisierung", "OpenStreetMap", "Flächenrepräsentation", "Info"],
     icons=["house", "globe2", "map", "palette", "info-circle"],
-    default_index=3,
+    default_index=2,
     orientation="horizontal",
     styles= option_menu_styles,
     )
@@ -276,14 +276,21 @@ elif selected_menu == "OpenStreetMap":
             st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
         
         # Display dual Map
-        columns_main = st.columns((6,0.5))
+        columns_main = st.columns(1)
         # Display folium map with raster overlay
         with columns_main[0]:
             display_map.dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers)
-        # Add image as scale
-        with columns_main[1]:
-            image_url = r"./images/scale.png"
-            st.image(image_url, width=70)
+        # # Add image as scale
+        # with columns_main[1]:
+        #     image_url = r"./images/scale.png"
+        #     st.image(image_url, width=70)
+        
+        columns_legend = st.columns((2,4,0.5))
+        with columns_legend[0]:
+            image_url = r"./images/scale_hz.png"
+            st.image(image_url, use_column_width='auto', width=120)
+        #     display_matplots.display_cmap_legend()
+        # st.write("Legend goes here")
 
         # User Input
         columns_input = st.columns(4)
