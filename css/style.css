@@ -28,7 +28,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .st-emotion-cache-1y4p8pa {
     width: 85%;
     padding: 1rem 1rem 1rem 1rem;
-    margin-top: 2.5rem;
+    margin-top: 0rem;
     /* min-width: 800px; */
     max-width: initial;
     /* background-image: url("https://images.unsplash.com/photo-1557227065-a68aa0bb1673?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); */
@@ -39,7 +39,7 @@ p, h1, h2, h3, h4, h5, h6 {
 /* header and footer */
 [tabindex="-1"][data-testid="stHeader"]{
     background-color:#DD0065;
-    height: 3rem;
+    height: 0.1rem;
     visibility: hidden;
 }
 /* #MainMenu {visibility: hidden;} */

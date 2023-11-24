@@ -25,7 +25,7 @@ with st.container():
     with columns_main[2]:
         selected_language = st.selectbox(label="Language", options=["DE", "EN"], label_visibility="hidden") #🌐
     st.markdown("""<div class='fixed-header'/>""", unsafe_allow_html=True)
-
+    
 def load_language_bundle(locale):
     df = pd.read_csv(r"./i18n/text_bundle.csv")
     df = df.query(f"locale == '{locale}'")
@@ -42,7 +42,7 @@ st.markdown(
     div[data-testid="stVerticalBlock"] div:has(div.fixed-header) {
         position: sticky;
         top: 0rem;
-        background-color: rgb(0,0,0,0);
+        background-color: rgb(255,0,0,0);
         z-index: 999;
     }
     .fixed-header {
@@ -84,11 +84,9 @@ def band_time_sequence():
         return band_sequence, band_sequence_backup, time_sequence
 band_sequence, band_sequence_backup, time_sequence = band_time_sequence()
 
-
 # Website Introduction
 with st.container():
     st.header(body=f"{lang_dict['website_intro_header']}", anchor=False)
-    # st.write("""Entdecken Sie die Möglichkeiten der hochaufgelösten, mikroskaligen Stadtklimasimulation mit der innovativen Software PALM4U!""")
     st.subheader(body=f"{lang_dict['website_intro_subheader']}", anchor=False)
     st.write(f"{lang_dict['website_intro_subheader_details']}")
              
@@ -122,23 +120,20 @@ option_menu_styles = {
 
 selected_menu = option_menu(
     menu_title = None,
-    options=["Szenarien", "3D Visualisierung", "OpenStreetMap", "Flächenrepräsentation", "Info"],
+    options=[f"{lang_dict['option_menu_0']}", f"{lang_dict['option_menu_1']}", f"{lang_dict['option_menu_2']}", f"{lang_dict['option_menu_3']}", f"{lang_dict['option_menu_4']}"],
     icons=["house", "globe2", "map", "palette", "info-circle"],
     default_index=0,
     orientation="horizontal",
     styles= option_menu_styles,
     )
 
-# Define initial session states
-if 'counter' not in st.session_state:
-    st.session_state.counter = 0
-
-if selected_menu == "Szenarien":
-    with st.expander("Klimaanpassungsszenario", expanded=True):
+# Scenerio 0
+if selected_menu == f"{lang_dict['option_menu_0']}":
+    with st.expander(f"{lang_dict['menu_0_title']}", expanded=True):
         # User Input
         columns_input = st.columns(4)
         with columns_input[0]:
-            location = st.selectbox(label="Standort:", options=["Augustinerplatz", "Marktstätte"])
+            location = st.selectbox(label=f"{lang_dict['location']}", options=["Augustinerplatz", "Marktstätte"])
             if location == "Augustinerplatz":
                 folder_path = r"./data/landing_page/Augustinerplatz/"
             elif location == "Marktstätte":
@@ -151,15 +146,103 @@ if selected_menu == "Szenarien":
         # Display Images
         columns_main = st.columns((3,3))
         with columns_main[0]:
-            st.markdown(f'<p class="centered-text">Ist-Zustand</p>', unsafe_allow_html=True,)
+            st.markdown(f'<p class="centered-text">{lang_dict["current_state"]}</p>', unsafe_allow_html=True,)
             st.image(image = image_addresses[0])
             st.image(image = image_addresses[2])
         with columns_main[1]:
-            st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
+            st.markdown(f'<p class="centered-text">{lang_dict["after_change"]}</p>', unsafe_allow_html=True,)
             st.image(image = image_addresses[1])
             st.image(image = image_addresses[3])
 
-elif selected_menu == "Flächenrepräsentation":
+# 3D Visualization 1
+elif selected_menu == f"{lang_dict['option_menu_1']}":
+    with st.expander("3D Map Viewer", expanded=True):
+        # User Input
+        columns_input = st.columns(4)
+        with columns_input[0]:
+            # Select time of the day visualize the image overlay
+            time_index_3d = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+        with columns_input[1]:
+            st.markdown(f'<p class="title-text"><strong>Anzeigeoptionen:</strong></p>', unsafe_allow_html=True,)
+            # Toggle image overlay
+            display_image = st.checkbox(label="Lufttemperatur (2m)", value=True)
+            # Toggle added trees
+            display_added_trees = st.checkbox(label="Variante Nachbegrünung", value=True)
+        
+        # Assign Default Values
+        opacity_3d = 0.75
+        lat = 47.661129
+        lon = 9.175209
+        zoom = 15.5
+        pitch = 50
+        bearing = -40 
+     
+        # Display 3D Map
+        columns_main = st.columns(1)
+        with columns_main[0]:
+            display_map.pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing)
+
+# OSM 2
+elif selected_menu == f"{lang_dict['option_menu_2']}":
+    with st.expander("Vergleich Lufttemperatur (2m) Ist-Zustand Planungsvariante", expanded=True):
+        # User Input
+        columns_input = st.columns(4)
+        with columns_input[0]:
+            # Select time of the day visualize the image overlay
+            time_index = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+        with columns_input[1]:
+            st.markdown(f'<p class="title-text"><strong>Anzeigeoptionen:</strong></p>', unsafe_allow_html=True,)
+            # Toggle marker display
+            display_markers = st.checkbox(label="Position Zielszenario", value=True)
+
+        # Assign Default Values
+        opacity_2d = 0.75
+        display_shapefile = False
+        
+        # Columns for header
+        columns_header = st.columns((3,3,0.5))
+        with columns_header[0]:
+            st.markdown(f'<p class="centered-text">Ist-Zustand</p>', unsafe_allow_html=True,)
+        with columns_header[1]:
+            st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
+        
+        # Display dual Map
+        columns_main = st.columns(1)
+        # Display folium map with raster overlay
+        with columns_main[0]:
+            display_map.dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers)
+        # # Add image as scale
+        # with columns_main[1]:
+        #     image_url = r"./images/scale.png"
+        #     st.image(image_url, width=70)
+        
+        columns_legend = st.columns((2,4,0.5))
+        with columns_legend[0]:
+            image_url = r"./images/scale_hz.png"
+            st.image(image_url, use_column_width='auto', width=120)
+        #     display_matplots.display_cmap_legend()
+        # st.write("Legend goes here")
+
+        # User Input
+        columns_input = st.columns(4)
+        with columns_input[0]:
+            # Option to select which domain to visualize
+            options=["Gesamtes Stadtgebiet", "Innenstadtbereich", "Zielregion"]
+            domain = st.selectbox(label="Wähle den Auswertungsbereich:", options=options, index=2)
+            domain_index = options.index(domain) + 1
+        # Display single Map
+        columns_main = st.columns(1)
+        with columns_main[0]:
+            display_map.single_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index)
+            if domain == "Gesamtes Stadtgebiet":
+                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 4096 x 4096 m², Auflösung=16m</p>', unsafe_allow_html=True,)
+            elif domain == "Innenstadtbereich":
+                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 2048 x 2048 m², Auflösung=8m</p>', unsafe_allow_html=True,)
+            elif domain == "Zielregion":
+                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 512 x 512 m², Auflösung=2m</p>', unsafe_allow_html=True,)
+
+# Color Map 3
+elif selected_menu == f"{lang_dict['option_menu_3']}":
     with st.expander(label="Farbige Flächenrepräsentation", expanded=True):
         # User Input
         columns_input = st.columns(4)
@@ -256,92 +339,8 @@ elif selected_menu == "Flächenrepräsentation":
             elif location == "Position 3":
                 display_plotly.bar_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, variable_description_de, variable_unit)
 
-elif selected_menu == "3D Visualisierung":
-    with st.expander("3D Map Viewer", expanded=True):
-        # User Input
-        columns_input = st.columns(4)
-        with columns_input[0]:
-            # Select time of the day visualize the image overlay
-            time_index_3d = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-        with columns_input[1]:
-            st.markdown(f'<p class="title-text"><strong>Anzeigeoptionen:</strong></p>', unsafe_allow_html=True,)
-            # Toggle image overlay
-            display_image = st.checkbox(label="Lufttemperatur (2m)", value=True)
-            # Toggle added trees
-            display_added_trees = st.checkbox(label="Variante Nachbegrünung", value=True)
-        
-        # Assign Default Values
-        opacity_3d = 0.75
-        lat = 47.661129
-        lon = 9.175209
-        zoom = 15.5
-        pitch = 50
-        bearing = -40 
-     
-        # Display 3D Map
-        columns_main = st.columns(1)
-        with columns_main[0]:
-            display_map.pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_trees, lat, lon, zoom, pitch, bearing)
-
-elif selected_menu == "OpenStreetMap":
-    with st.expander("Vergleich Lufttemperatur (2m) Ist-Zustand Planungsvariante", expanded=True):
-        # User Input
-        columns_input = st.columns(4)
-        with columns_input[0]:
-            # Select time of the day visualize the image overlay
-            time_index = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
-        with columns_input[1]:
-            st.markdown(f'<p class="title-text"><strong>Anzeigeoptionen:</strong></p>', unsafe_allow_html=True,)
-            # Toggle marker display
-            display_markers = st.checkbox(label="Position Zielszenario", value=True)
-
-        # Assign Default Values
-        opacity_2d = 0.75
-        display_shapefile = False
-        
-        # Columns for header
-        columns_header = st.columns((3,3,0.5))
-        with columns_header[0]:
-            st.markdown(f'<p class="centered-text">Ist-Zustand</p>', unsafe_allow_html=True,)
-        with columns_header[1]:
-            st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
-        
-        # Display dual Map
-        columns_main = st.columns(1)
-        # Display folium map with raster overlay
-        with columns_main[0]:
-            display_map.dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers)
-        # # Add image as scale
-        # with columns_main[1]:
-        #     image_url = r"./images/scale.png"
-        #     st.image(image_url, width=70)
-        
-        columns_legend = st.columns((2,4,0.5))
-        with columns_legend[0]:
-            image_url = r"./images/scale_hz.png"
-            st.image(image_url, use_column_width='auto', width=120)
-        #     display_matplots.display_cmap_legend()
-        # st.write("Legend goes here")
-
-        # User Input
-        columns_input = st.columns(4)
-        with columns_input[0]:
-            # Option to select which domain to visualize
-            options=["Gesamtes Stadtgebiet", "Innenstadtbereich", "Zielregion"]
-            domain = st.selectbox(label="Wähle den Auswertungsbereich:", options=options, index=2)
-            domain_index = options.index(domain) + 1
-        # Display single Map
-        columns_main = st.columns(1)
-        with columns_main[0]:
-            display_map.single_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers, domain_index)
-            if domain == "Gesamtes Stadtgebiet":
-                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 4096 x 4096 m², Auflösung=16m</p>', unsafe_allow_html=True,)
-            elif domain == "Innenstadtbereich":
-                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 2048 x 2048 m², Auflösung=8m</p>', unsafe_allow_html=True,)
-            elif domain == "Zielregion":
-                st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 512 x 512 m², Auflösung=2m</p>', unsafe_allow_html=True,)
-
-elif selected_menu == "Info":
+# Info 4
+elif selected_menu == f"{lang_dict['option_menu_4']}":
     # Website Introduction
     with st.expander("Über das Projekt", expanded=True):
         st.header("Technologie:")
@@ -399,8 +398,6 @@ footer_container = st.container()
 with footer_container:
     columns_footer = st.columns(4)
     with columns_footer[0]:
-        
-        
         st.image(image=r"./data/images/structure_logo_RGB.png", width=250)
         # st.markdown(f'<p class="footer-text"><strong>© str.ucture GmbH</strong></p>', unsafe_allow_html=True,)
         # st.markdown(f'<p class="footer-text">Lightweight Design. Made in Stuttgart.</p>', unsafe_allow_html=True,)
