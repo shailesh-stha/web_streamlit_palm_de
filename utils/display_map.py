@@ -395,3 +395,30 @@ def pydeck_3d_geojson(time_index_3d, opacity_3d, display_image, display_added_tr
                  )
     
     st.pydeck_chart(r)
+
+
+def pydeck_3d_test():   
+    # Assign Default Values
+    opacity_3d = 0.75
+    lat = 47.661129
+    lon = 9.175209
+    zoom = 15.5
+    pitch = 50
+    bearing = -40
+    
+    # Define initial view state of pydeck map
+    view_state = pdk.ViewState(latitude=lat, longitude=lon,
+                               zoom=zoom, pitch=pitch, bearing=bearing,
+                               height=750,)
+
+    # Define layers to visualize in pydeck map
+    layers = []
+    
+    # Display pydeck map
+    r = pdk.Deck(layers=layers,
+                 initial_view_state=view_state,
+                 map_provider="mapbox",
+                 map_style=pdk.map_styles.SATELLITE,
+                 )
+    
+    st.pydeck_chart(r)

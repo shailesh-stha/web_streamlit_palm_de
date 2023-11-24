@@ -363,6 +363,8 @@ elif selected_menu == "Info":
         st.markdown(f'<p class="custom-text">📞 <a href="tel:+4971128693713">+49 (0)711 286 937-13</a></p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">✉️ <a href="mailto:bidier@str-ucture.com">bidier@str-ucture.com</a></p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">&#160</p>', unsafe_allow_html=True,)
+
+display_map.pydeck_3d_test()
         
 footer_container = st.container()
 with footer_container:
@@ -378,3 +380,4 @@ with footer_container:
 
 end_time = time.time()
 # st.write(f"Time taken to load: {end_time - start_time:.2f} seconds")
+
