@@ -85,7 +85,7 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
     legend_increase = 2
     if variable_description == "Oberflächentemperatur" or "Surface Temperature":
         legend_increase = 3
-    elif variable_description == "Windgeschwindigkeit" or "10-m wind Speed":
+    elif variable_description == "Windgeschwindigkeit" or "10-m wind speed":
         legend_increase = 0.1
     elif variable_description == "Nettostrahlung" or "Net radiation flux at the surface":
         legend_increase = 75
