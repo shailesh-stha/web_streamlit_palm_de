@@ -44,7 +44,7 @@ st.markdown(
     div[data-testid="stVerticalBlock"] div:has(div.fixed-header) {
         position: sticky;
         top: 0rem;
-        background-color: rgb(255,0,0,1);
+        background-color: rgb(255,0,0,0);
         z-index: 999;
     }
     .fixed-header {
@@ -236,9 +236,6 @@ elif selected_menu == f"{lang_dict['option_menu_2']}":
                 st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 2048 x 2048 m², Auflösung=8m</p>', unsafe_allow_html=True,)
             elif domain == "Zielregion":
                 st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 512 x 512 m², Auflösung=2m</p>', unsafe_allow_html=True,)
-
-
-#  return variable_names, variable_descriptions_en, variable_units, variable_descriptions_de
 
 # Color Map 3
 elif selected_menu == f"{lang_dict['option_menu_3']}":
