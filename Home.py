@@ -7,12 +7,14 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import streamlit as st
 import pandas as pd
+import base64
 
 # local imports
 from utils import read_netcdf, display_map, display_matplots, display_plotly, useful_functions
 
 # Start clock to test out site load time
 start_time = time.time()
+
 # Define Page layout
 st.set_page_config(page_title="Mikroklima-Visualisierung",
                    layout="centered",
@@ -24,7 +26,7 @@ with st.container():
     columns_main = st.columns((3,3,0.5))
     with columns_main[2]:
         selected_language = st.selectbox(label="Language", options=["DE", "EN"], label_visibility="hidden") #🌐
-    st.markdown("""<div class='fixed-header'/>""", unsafe_allow_html=True)
+    st.markdown("<div class='fixed-header'/>", unsafe_allow_html=True)
     
 def load_language_bundle(locale):
     df = pd.read_csv(r"./i18n/text_bundle.csv")
@@ -42,11 +44,11 @@ st.markdown(
     div[data-testid="stVerticalBlock"] div:has(div.fixed-header) {
         position: sticky;
         top: 0rem;
-        background-color: rgb(255,0,0,0);
+        background-color: rgb(255,0,0,1);
         z-index: 999;
     }
     .fixed-header {
-        # border-bottom: 1px solid black;
+        border-bottom: 1px solid black;
     }
 </style>
     """,
@@ -129,28 +131,28 @@ selected_menu = option_menu(
 
 # Scenerio 0
 if selected_menu == f"{lang_dict['option_menu_0']}":
-    with st.expander(f"{lang_dict['menu_0_title']}", expanded=True):
+    with st.expander(f"{lang_dict['menu_0_title']}:", expanded=True):
         # User Input
         columns_input = st.columns(4)
         with columns_input[0]:
-            location = st.selectbox(label=f"{lang_dict['location']}", options=["Augustinerplatz", "Marktstätte"])
+            location = st.selectbox(label=f"{lang_dict['location']}:", options=["Augustinerplatz", "Marktstätte"])
             if location == "Augustinerplatz":
                 folder_path = r"./data/landing_page/Augustinerplatz/"
             elif location == "Marktstätte":
                 folder_path = r"./data/landing_page/Marktstätte/"
         
         # Read images
-        image_names = ["before.png", "after.png", "before_heatmap.png", "after_heatmap.png", "before_heatmap_with_text.png", "after_heatmap_with_text.png"]
+        image_names = ["before.png", "after.png", f"before_heatmap_{selected_language}.png", f"after_heatmap_{selected_language}.png"]
         image_addresses = [os.path.join(folder_path, image_name) for image_name in image_names]
         
         # Display Images
         columns_main = st.columns((3,3))
         with columns_main[0]:
-            st.markdown(f'<p class="centered-text">{lang_dict["current_state"]}</p>', unsafe_allow_html=True,)
+            st.markdown(f"<p class='centered-text'>{lang_dict['current_state']}</p>", unsafe_allow_html=True,)
             st.image(image = image_addresses[0])
             st.image(image = image_addresses[2])
         with columns_main[1]:
-            st.markdown(f'<p class="centered-text">{lang_dict["after_change"]}</p>', unsafe_allow_html=True,)
+            st.markdown(f"<p class='centered-text'>{lang_dict['after_change']}</p>", unsafe_allow_html=True,)
             st.image(image = image_addresses[1])
             st.image(image = image_addresses[3])
 
@@ -161,13 +163,13 @@ elif selected_menu == f"{lang_dict['option_menu_1']}":
         columns_input = st.columns(4)
         with columns_input[0]:
             # Select time of the day visualize the image overlay
-            time_index_3d = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+            time_index_3d = st.select_slider(label= f"{lang_dict['time_of_day']}:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
         with columns_input[1]:
-            st.markdown(f'<p class="title-text"><strong>Anzeigeoptionen:</strong></p>', unsafe_allow_html=True,)
+            st.markdown(f"<p class='title-text'><strong>{lang_dict['layer_options']}:</strong></p>", unsafe_allow_html=True,)
             # Toggle image overlay
-            display_image = st.checkbox(label="Lufttemperatur (2m)", value=True)
+            display_image = st.checkbox(label=f"{lang_dict['var_air_temp']}", value=True)
             # Toggle added trees
-            display_added_trees = st.checkbox(label="Variante Nachbegrünung", value=True)
+            display_added_trees = st.checkbox(label=f"{lang_dict['after_change']}", value=True)
         
         # Assign Default Values
         opacity_3d = 0.75
@@ -184,16 +186,16 @@ elif selected_menu == f"{lang_dict['option_menu_1']}":
 
 # OSM 2
 elif selected_menu == f"{lang_dict['option_menu_2']}":
-    with st.expander("Vergleich Lufttemperatur (2m) Ist-Zustand Planungsvariante", expanded=True):
+    with st.expander(f"{lang_dict['menu_2_title']}", expanded=True):
         # User Input
         columns_input = st.columns(4)
         with columns_input[0]:
             # Select time of the day visualize the image overlay
-            time_index = st.select_slider(label="Wähle die Tageszeit:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+            time_index = st.select_slider(label=f"{lang_dict['time_of_day']}:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
         with columns_input[1]:
-            st.markdown(f'<p class="title-text"><strong>Anzeigeoptionen:</strong></p>', unsafe_allow_html=True,)
+            st.markdown(f"<p class='title-text'><strong>{lang_dict['layer_options']}:</strong></p>", unsafe_allow_html=True,)
             # Toggle marker display
-            display_markers = st.checkbox(label="Position Zielszenario", value=True)
+            display_markers = st.checkbox(label=f"{lang_dict['scenario_positions']}", value=True)
 
         # Assign Default Values
         opacity_2d = 0.75
@@ -202,9 +204,9 @@ elif selected_menu == f"{lang_dict['option_menu_2']}":
         # Columns for header
         columns_header = st.columns((3,3,0.5))
         with columns_header[0]:
-            st.markdown(f'<p class="centered-text">Ist-Zustand</p>', unsafe_allow_html=True,)
+            st.markdown(f"<p class='centered-text'>{lang_dict['current_state']}</p>", unsafe_allow_html=True,)
         with columns_header[1]:
-            st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
+            st.markdown(f"<p class='centered-text'>{lang_dict['after_change']}</p>", unsafe_allow_html=True,)
         
         # Display dual Map
         columns_main = st.columns(1)
@@ -212,23 +214,17 @@ elif selected_menu == f"{lang_dict['option_menu_2']}":
         with columns_main[0]:
             display_map.dual_raster_overlay(time_index, opacity_2d, display_shapefile, display_markers)
         # # Add image as scale
-        # with columns_main[1]:
-        #     image_url = r"./images/scale.png"
-        #     st.image(image_url, width=70)
-        
         columns_legend = st.columns((2,4,0.5))
         with columns_legend[0]:
             image_url = r"./images/scale_hz.png"
             st.image(image_url, use_column_width='auto', width=120)
-        #     display_matplots.display_cmap_legend()
-        # st.write("Legend goes here")
 
         # User Input
         columns_input = st.columns(4)
         with columns_input[0]:
             # Option to select which domain to visualize
-            options=["Gesamtes Stadtgebiet", "Innenstadtbereich", "Zielregion"]
-            domain = st.selectbox(label="Wähle den Auswertungsbereich:", options=options, index=2)
+            options=[f"{lang_dict['area_parent']}", f"{lang_dict['area_child1']}", f"{lang_dict['area_child2']}"]
+            domain = st.selectbox(label=f"{lang_dict['analysis_area']}:", options=options, index=2)
             domain_index = options.index(domain) + 1
         # Display single Map
         columns_main = st.columns(1)
@@ -241,29 +237,40 @@ elif selected_menu == f"{lang_dict['option_menu_2']}":
             elif domain == "Zielregion":
                 st.markdown(f'<p class="note-text">Grade: Auswertungsbereich= 512 x 512 m², Auflösung=2m</p>', unsafe_allow_html=True,)
 
+
+#  return variable_names, variable_descriptions_en, variable_units, variable_descriptions_de
+
 # Color Map 3
 elif selected_menu == f"{lang_dict['option_menu_3']}":
-    with st.expander(label="Farbige Flächenrepräsentation", expanded=True):
+    with st.expander(label=f"{lang_dict['menu_3_title']}", expanded=True):
         # User Input
         columns_input = st.columns(4)
         with columns_input[0]:
             # Fetch locations
             simulation_domain = "N03"
-            location_list = ["Altstadt", "Augstinerplatz", "Markstätte"] # "Sankt-Stephans-Platz"
-            location = st.selectbox(label="Standort:", options=location_list, index=location_list.index(location_list[1]))
+            location_list = ["Altstadt", "Augstinerplatz", "Markstätte"]
+            location = st.selectbox(label=f"{lang_dict['location']}:", options=location_list, index=location_list.index(location_list[1]))
         with columns_input[1]:
-            # Fetch masked data from the selected variable
-            variable_description = st.selectbox(label="Dargestellte Variable:", options=read_netcdf.variable_list()[3])
-            variable_index = read_netcdf.variable_list()[3].index(variable_description)
+            if selected_language == "DE":
+                # Fetch masked data from the selected variable
+                variable_description = st.selectbox(label=f"{lang_dict['displayed_variable']}:", options=read_netcdf.variable_list()[3])
+                variable_index = read_netcdf.variable_list()[3].index(variable_description)
+            elif selected_language == "EN":
+                variable_description = st.selectbox(label=f"{lang_dict['displayed_variable']}:", options=read_netcdf.variable_list()[1])
+                variable_index = read_netcdf.variable_list()[1].index(variable_description)
         with columns_input[2]:
             # Select time of day and equivanlent band_index for plot
-            time_index = st.select_slider(label="Wähle die Tageszeit:", options=time_sequence, value="15:00")
+            time_index = st.select_slider(label=f"{lang_dict['time_of_day']}:", options=time_sequence, value="15:00")
             band_index = band_sequence[time_sequence.index(time_index)]
             
         # Read variable name and variable unit from variable dictionary
         variable_name = read_netcdf.variable_list()[0][variable_index]
         variable_unit = read_netcdf.variable_list()[2][variable_index]
-        variable_description_de = read_netcdf.variable_list()[3][variable_index]
+        
+        if selected_language == "DE":
+            variable_description_selected = read_netcdf.variable_list()[3][variable_index]
+        elif selected_language == "EN":
+            variable_description_selected = read_netcdf.variable_list()[1][variable_index]
 
         # Read data from masked variable data based on variable name
         variable_data_1_masked, variable_data_2_masked, building_id_mask = read_netcdf.variable_data_masked(variable_name)[0:3]
@@ -284,16 +291,16 @@ elif selected_menu == f"{lang_dict['option_menu_3']}":
         columns_main = st.columns(2)
         # Plot color maps as per the variables
         with columns_main[0]:
-            st.markdown(f'<p class="centered-text">Ist-Zustand</p>', unsafe_allow_html=True,)
+            st.markdown(f"<p class='centered-text'>{lang_dict['current_state']}</p>", unsafe_allow_html=True,)
             # Plot color map for base simulation
-            display_matplots.colormesh(variable_description_de, variable_unit,
+            display_matplots.colormesh(variable_description_selected, variable_unit,
                                     variable_data_1_masked, location,
                                     building_id_mask, band_index, cmap, mask_color,
                                     vmin, vmax, shapefile_color, shapefile_url, hatch, shapefile_url_2)
         with columns_main[1]:
-            st.markdown(f'<p class="centered-text">Variante Nachbegrünung</p>', unsafe_allow_html=True,)
+            st.markdown(f"<p class='centered-text'>{lang_dict['after_change']}</p>", unsafe_allow_html=True,)
             # Plot color map for test simulation
-            display_matplots.colormesh(variable_description_de, variable_unit,
+            display_matplots.colormesh(variable_description_selected, variable_unit,
                                     variable_data_2_masked, location,
                                     building_id_mask, band_index, cmap, mask_color,
                                     vmin, vmax, shapefile_color, shapefile_url, hatch, shapefile_url_2)
@@ -315,29 +322,29 @@ elif selected_menu == f"{lang_dict['option_menu_3']}":
     dataframe_run_2_stn_2 = read_netcdf.compute_statistics_2d(data_run_2_stn_2)
     dataframe_run_2_stn_3 = read_netcdf.compute_statistics_2d(data_run_2_stn_3)
 
-    expander_name = f"Grafische Datenauswertung: {variable_description_de}"
+    expander_name = f"{lang_dict['menu_3_title_2']}: {variable_description_selected}"
     with st.expander(expander_name, expanded=True):
         # User Input
         columns_input = st.columns(4)
         with columns_input[0]:
             # Fetch locations
             location_list = ["Altstadt", "Augstinerplatz", "Markstätte", "Position 1", "Position 2", "Position 3"]
-            location = st.selectbox(label="Standort: ", options=location_list, index=location_list.index(location_list[1]))
+            location = st.selectbox(label=f"{lang_dict['location']}:", options=location_list, index=location_list.index(location_list[1]))
         
         columns_main = st.columns(1)
         with columns_main[0]:
             if location == "Altstadt":
-                display_plotly.bar_graph(dataframe_run_1, dataframe_run_2, band_sequence, time_sequence, variable_description_de, variable_unit)
+                display_plotly.bar_graph(dataframe_run_1, dataframe_run_2, band_sequence, time_sequence, variable_description_selected, variable_unit, lang_dict)
             elif location == "Augstinerplatz":
-                display_plotly.bar_graph(dataframe_run_1_aoi_1, dataframe_run_2_aoi_1, band_sequence, time_sequence, variable_description_de, variable_unit)
+                display_plotly.bar_graph(dataframe_run_1_aoi_1, dataframe_run_2_aoi_1, band_sequence, time_sequence, variable_description_selected, variable_unit, lang_dict)
             elif location == "Markstätte":
-                display_plotly.bar_graph(dataframe_run_1_aoi_2, dataframe_run_2_aoi_2, band_sequence_backup, time_sequence, variable_description_de, variable_unit)
+                display_plotly.bar_graph(dataframe_run_1_aoi_2, dataframe_run_2_aoi_2, band_sequence_backup, time_sequence, variable_description_selected, variable_unit, lang_dict)
             elif location == "Position 1":
-                display_plotly.bar_graph(dataframe_run_1_stn_1, dataframe_run_2_stn_1, band_sequence, time_sequence, variable_description_de, variable_unit)
+                display_plotly.bar_graph(dataframe_run_1_stn_1, dataframe_run_2_stn_1, band_sequence, time_sequence, variable_description_selected, variable_unit, lang_dict)
             elif location == "Position 2":
-                display_plotly.bar_graph(dataframe_run_1_stn_2, dataframe_run_2_stn_2, band_sequence, time_sequence, variable_description_de, variable_unit)
+                display_plotly.bar_graph(dataframe_run_1_stn_2, dataframe_run_2_stn_2, band_sequence, time_sequence, variable_description_selected, variable_unit, lang_dict)
             elif location == "Position 3":
-                display_plotly.bar_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, variable_description_de, variable_unit)
+                display_plotly.bar_graph(dataframe_run_1_stn_3, dataframe_run_2_stn_3, band_sequence_backup, time_sequence, variable_description_selected, variable_unit, lang_dict)
 
 # Info 4
 elif selected_menu == f"{lang_dict['option_menu_4']}":
@@ -399,6 +406,13 @@ with footer_container:
     columns_footer = st.columns(4)
     with columns_footer[0]:
         st.image(image=r"./data/images/structure_logo_RGB.png", width=250)
+        
+        # # Path to your GIF file
+        # gif_path = r"F:\Simulation_Comparison\wind.gif"
+        # with open(gif_path, "rb") as gif_file:
+        #     gif_url = base64.b64encode(gif_file.read()).decode("utf-8")
+        # st.markdown(f'<img src="data:image/gif;base64,{gif_url}" alt="Test GIF">', unsafe_allow_html=True,)
+
         # st.markdown(f'<p class="footer-text"><strong>© str.ucture GmbH</strong></p>', unsafe_allow_html=True,)
         # st.markdown(f'<p class="footer-text">Lightweight Design. Made in Stuttgart.</p>', unsafe_allow_html=True,)
         # st.markdown(f'<p class="footer-text">Lindenspürstr. 32 </p>', unsafe_allow_html=True,)

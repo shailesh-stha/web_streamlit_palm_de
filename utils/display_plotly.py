@@ -43,7 +43,7 @@ def line_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, band_inde
     
     st.plotly_chart(fig, use_container_width=True, theme="streamlit", )
 
-def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_description, variable_unit):
+def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_description, variable_unit, lang_dict):
     # Create a Plotly bar graph using traces
     fig = go.Figure()
     
@@ -57,11 +57,11 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
     # Add bar traces to the figure for each band
     fig.add_trace(go.Bar(x=filtered_df1['band_index'],
                          y=filtered_df1['mean'],
-                         name='Ist-Zustand',))
+                         name=f"{lang_dict['current_state']}",))
     
     fig.add_trace(go.Bar(x=filtered_df2['band_index'],
                          y=filtered_df2['mean'],
-                         name='Variante Nachbegrünung',))
+                         name=f"{lang_dict['after_change']}",))
     
     fig.update_layout(height = 450, # width=500,
                       margin=dict(l=20, r=20, t=20, b=20),
@@ -83,11 +83,11 @@ def bar_graph(dataframe_1, dataframe_2, band_sequence, time_sequence, variable_d
                      )
     
     legend_increase = 2
-    if variable_description == "Oberflächentemperatur":
+    if variable_description == "Oberflächentemperatur" or "Surface Temperature":
         legend_increase = 3
-    elif variable_description == "Windgeschwindigkeit":
+    elif variable_description == "Windgeschwindigkeit" or "10-m wind Speed":
         legend_increase = 0.1
-    elif variable_description == "Nettostrahlung":
+    elif variable_description == "Nettostrahlung" or "Net radiation flux at the surface":
         legend_increase = 75
     elif variable_description == "Thermal Sensation Index":
         legend_increase = 0

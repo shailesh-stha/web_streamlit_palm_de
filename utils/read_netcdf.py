@@ -33,16 +33,16 @@ def variable_list():
             variable_names.append(i)
     
     # Create list of variable descriptions and variable units
-    variable_descriptions = []
+    variable_descriptions_en = []
     variable_units = []
     variable_descriptions_de = []
     for variable in variable_names:
         if variable in variable_dict:
-            variable_descriptions.append(variable_dict[variable][0])
+            variable_descriptions_en.append(variable_dict[variable][0])
             variable_units.append(variable_dict[variable][1])
             variable_descriptions_de.append(variable_dict[variable][2])
 
-    return variable_names, variable_descriptions, variable_units, variable_descriptions_de
+    return variable_names, variable_descriptions_en, variable_units, variable_descriptions_de
 
 # Retrun netcdf Metadata
 def grid_information():
