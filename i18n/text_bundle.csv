@@ -6,39 +6,39 @@ DE,website_intro_subheader,"Zwei Szenarien - Eine aufschlussreiche Analyse:"
 EN,website_intro_subheader,"Two Scenarios - An Insightful Analysis:"
 
 DE,website_intro_subheader_details,"Wir demonstrieren am Beispiel von Konstanz, wie eine nachhaltige und klimagerechte Stadtentwicklung funktionieren kann. Dazu haben wir ein PALM-4U Simulationsmodell erstellt und die Auswirkung zweier realistische Klimaanpassungsmaßnahmen untersucht."
-EN,website_intro_subheader_details,"We demonstrate, using the example of Konstanz, how sustainable and climate-friendly urban development can work. To do this, we have created a PALM-4U simulation model and examined the effects of two realistic climate adaptation measures."
+EN,website_intro_subheader_details,"We demonstrate, using the example of Konstanz, how sustainable and climate-friendly urban development can be achieved. To do this, we have created a PALM-4U simulation model and examined the impact of two realistic climate adaptation measures."
 
-DE,option_menu_0,Szenarian
-EN,option_menu_0,Scenario"
-DE,option_menu_1,3D Visualisierung
-EN,option_menu_1,3D Visualization
-DE,option_menu_2,OpenStreetMap
-EN,option_menu_2,OpenStreetMap
-DE,option_menu_3,Flächenrepräsentation
-EN,option_menu_3,Surface Representation
-DE,option_menu_4,Info
-EN,option_menu_4,Info
+DE,option_menu_0,"Szenarian"
+EN,option_menu_0,"Scenario"
+DE,option_menu_1,"3D Visualisierung"
+EN,option_menu_1,"3D Visualization"
+DE,option_menu_2,"OpenStreetMap"
+EN,option_menu_2,"OpenStreetMap"
+DE,option_menu_3,"Flächenrepräsentation"
+EN,option_menu_3,"Surface Representation"
+DE,option_menu_4,"Info"
+EN,option_menu_4,"Info"
 
-DE,menu_0_title,Klimaanpassungsszenario
-EN,menu_0_title,Climate Adaptation Scenerio
+DE,menu_0_title,"Klimaanpassungsszenario:"
+EN,menu_0_title,"Climate Adaptation Scenario:"
 
-DE,location,Standort
-EN,location,Location
-DE,current_state,Ist-Zustand
-EN,current_state,Current State
-DE,after_change,Variante Nachbegrünung
-EN,after_change,Re-vegetation
+DE,location,"Standort:"
+EN,location,"Location:"
+DE,current_state,"Ist-Zustand"
+EN,current_state,"Current State"
+DE,after_change,"Variante Nachbegrünung"
+EN,after_change,"Re-greening"
 
-DE,time_of_day,Wähle die Tageszeit
-EN,time_of_day,Select the time of day
-DE,layer_options,Anzeigeoptionen
-EN,layer_options,Layer Options
-DE,scenario_positions,Position Zielszenario
-EN,scenario_positions,Scenario Positions
-DE,analysis_area,Wähle den Auswertungsbereich
-EN,analysis_area,Select the analysis area
-DE,displayed_variable,Dargestellte Variable
-EN,displayed_variable,Displayed Variable
+DE,time_of_day,"Wähle die Tageszeit:"
+EN,time_of_day,"Select the time of day:"
+DE,layer_options,"Anzeigeoptionen:"
+EN,layer_options,"Layer Options:"
+DE,scenario_positions,"Position Zielszenario"
+EN,scenario_positions,"Scenario Positions"
+DE,analysis_area,"Wähle den Auswertungsbereich:"
+EN,analysis_area,"Select the Analysis Area:"
+DE,displayed_variable,"Dargestellte Variable:"
+EN,displayed_variable,"Displayed Variable:"
 
 DE,area_parent,Gesamtes Stadtgebiet
 EN,area_parent,Entire city area
@@ -51,7 +51,7 @@ DE,var_air_temp,Lufttemperatur (2m)
 EN,var_air_temp,2m Air Temperature
 
 DE,menu_2_title,Vergleich Lufttemperatur (2m) Ist-Zustand Planungsvariante
-EN,menu_2_title,Comparison of 2m Air Temperature at Current State and Re-vegetation
+EN,menu_2_title,Comparison of 2m Air Temperature at Current State and Re-greening
 DE,menu_3_title,Farbige Flächenrepräsentation
 EN,menu_3_title,Colormap Representation
 DE,menu_3_title_2,Grafische Datenauswertung
@@ -121,3 +121,6 @@ EN,about_us_sections,"
 >> 1. **Visualization of Solutions**: Provide location-specific solutions and scenario analysis to provide simple applications available to the public and increase their awareness.
 >> 1. **Cost-Benefit Assessment**: Evidence-based evaluation of resilience and climate protection measures, serving as a tool for informed infrastructure planning, monitoring, and reporting in decision-making processes.
 >> 1. **Utilizing Weather Forecast Models**: Incorporating global and local climate models and services to enhance the prediction, monitoring, and reporting of climate events."
+
+DE,contact_person,"Ansprechpartner:"
+EN,contact_person,"Contact Person:"

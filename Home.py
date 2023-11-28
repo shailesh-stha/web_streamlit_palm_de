@@ -27,9 +27,8 @@ with st.container():
     with columns_main[2]:
         selected_language = st.selectbox(label="Language", options=["DE", "EN"], label_visibility="hidden")  #🌐
     st.markdown("<div class='fixed-header'/>", unsafe_allow_html=True)
- 
-     
-    
+
+         
 def load_language_bundle(locale):
     df = pd.read_csv(r"./i18n/text_bundle.csv")
     df = df.query(f"locale == '{locale}'")
@@ -115,11 +114,11 @@ selected_menu = option_menu(
 
 # Scenerio 0
 if selected_menu == f"{lang_dict['option_menu_0']}":
-    with st.expander(f"{lang_dict['menu_0_title']}:", expanded=True):
+    with st.expander(f"{lang_dict['menu_0_title']}", expanded=True):
         # User Input
         columns_input = st.columns(4)
         with columns_input[0]:
-            location = st.selectbox(label=f"{lang_dict['location']}:", options=["Augustinerplatz", "Marktstätte"])
+            location = st.selectbox(label=f"{lang_dict['location']}", options=["Augustinerplatz", "Marktstätte"])
             if location == "Augustinerplatz":
                 folder_path = r"./data/landing_page/Augustinerplatz/"
             elif location == "Marktstätte":
@@ -147,9 +146,9 @@ elif selected_menu == f"{lang_dict['option_menu_1']}":
         columns_input = st.columns(4)
         with columns_input[0]:
             # Select time of the day visualize the image overlay
-            time_index_3d = st.select_slider(label= f"{lang_dict['time_of_day']}:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+            time_index_3d = st.select_slider(label= f"{lang_dict['time_of_day']}", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
         with columns_input[1]:
-            st.markdown(f"<p class='title-text'><strong>{lang_dict['layer_options']}:</strong></p>", unsafe_allow_html=True,)
+            st.markdown(f"<p class='title-text'><strong>{lang_dict['layer_options']}</strong></p>", unsafe_allow_html=True,)
             # Toggle image overlay
             display_image = st.checkbox(label=f"{lang_dict['var_air_temp']}", value=True)
             # Toggle added trees
@@ -175,9 +174,9 @@ elif selected_menu == f"{lang_dict['option_menu_2']}":
         columns_input = st.columns(4)
         with columns_input[0]:
             # Select time of the day visualize the image overlay
-            time_index = st.select_slider(label=f"{lang_dict['time_of_day']}:", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
+            time_index = st.select_slider(label=f"{lang_dict['time_of_day']}", options=["09:00", "12:00", "15:00", "18:00", "21:00"], value="12:00")
         with columns_input[1]:
-            st.markdown(f"<p class='title-text'><strong>{lang_dict['layer_options']}:</strong></p>", unsafe_allow_html=True,)
+            st.markdown(f"<p class='title-text'><strong>{lang_dict['layer_options']}</strong></p>", unsafe_allow_html=True,)
             # Toggle marker display
             display_markers = st.checkbox(label=f"{lang_dict['scenario_positions']}", value=True)
 
@@ -208,7 +207,7 @@ elif selected_menu == f"{lang_dict['option_menu_2']}":
         with columns_input[0]:
             # Option to select which domain to visualize
             options=[f"{lang_dict['area_parent']}", f"{lang_dict['area_child1']}", f"{lang_dict['area_child2']}"]
-            domain = st.selectbox(label=f"{lang_dict['analysis_area']}:", options=options, index=2)
+            domain = st.selectbox(label=f"{lang_dict['analysis_area']}", options=options, index=2)
             domain_index = options.index(domain) + 1
         # Display single Map
         columns_main = st.columns(1)
@@ -230,18 +229,18 @@ elif selected_menu == f"{lang_dict['option_menu_3']}":
             # Fetch locations
             simulation_domain = "N03"
             location_list = ["Altstadt", "Augstinerplatz", "Markstätte"]
-            location = st.selectbox(label=f"{lang_dict['location']}:", options=location_list, index=location_list.index(location_list[1]))
+            location = st.selectbox(label=f"{lang_dict['location']}", options=location_list, index=location_list.index(location_list[1]))
         with columns_input[1]:
             if selected_language == "DE":
                 # Fetch masked data from the selected variable
-                variable_description = st.selectbox(label=f"{lang_dict['displayed_variable']}:", options=read_netcdf.variable_list()[3])
+                variable_description = st.selectbox(label=f"{lang_dict['displayed_variable']}", options=read_netcdf.variable_list()[3])
                 variable_index = read_netcdf.variable_list()[3].index(variable_description)
             elif selected_language == "EN":
-                variable_description = st.selectbox(label=f"{lang_dict['displayed_variable']}:", options=read_netcdf.variable_list()[1])
+                variable_description = st.selectbox(label=f"{lang_dict['displayed_variable']}", options=read_netcdf.variable_list()[1])
                 variable_index = read_netcdf.variable_list()[1].index(variable_description)
         with columns_input[2]:
             # Select time of day and equivanlent band_index for plot
-            time_index = st.select_slider(label=f"{lang_dict['time_of_day']}:", options=time_sequence, value="15:00")
+            time_index = st.select_slider(label=f"{lang_dict['time_of_day']}", options=time_sequence, value="15:00")
             band_index = band_sequence[time_sequence.index(time_index)]
             
         # Read variable name and variable unit from variable dictionary
@@ -310,7 +309,7 @@ elif selected_menu == f"{lang_dict['option_menu_3']}":
         with columns_input[0]:
             # Fetch locations
             location_list = ["Altstadt", "Augstinerplatz", "Markstätte", "Position 1", "Position 2", "Position 3"]
-            location = st.selectbox(label=f"{lang_dict['location']}:", options=location_list, index=location_list.index(location_list[1]))
+            location = st.selectbox(label=f"{lang_dict['location']}", options=location_list, index=location_list.index(location_list[1]))
         
         columns_main = st.columns(1)
         with columns_main[0]:
@@ -342,7 +341,7 @@ elif selected_menu == f"{lang_dict['option_menu_4']}":
         st.write(f"{lang_dict['about_us_header']}")
         st.write(f"{lang_dict['about_us_sections']}")
         
-        st.markdown(f'<p class="custom-text"><strong>Ansprechpartner</strong></p>', unsafe_allow_html=True,)
+        st.markdown(f"<p class='custom-text'><strong>{lang_dict['contact_person']}</strong></p>", unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">Dr.-Ing. Sami Bidier</p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">📞 <a href="tel:+4971128693713">+49 (0)711 286 937-13</a></p>', unsafe_allow_html=True,)
         st.markdown(f'<p class="custom-text">✉️ <a href="mailto:bidier@str-ucture.com">bidier@str-ucture.com</a></p>', unsafe_allow_html=True,)
