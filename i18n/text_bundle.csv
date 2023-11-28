@@ -19,7 +19,6 @@ EN,option_menu_3,Surface Representation
 DE,option_menu_4,Info
 EN,option_menu_4,Info
 
-
 DE,menu_0_title,Klimaanpassungsszenario
 EN,menu_0_title,Climate Adaptation Scenerio
 
@@ -41,7 +40,6 @@ EN,analysis_area,Select the analysis area
 DE,displayed_variable,Dargestellte Variable
 EN,displayed_variable,Displayed Variable
 
-
 DE,area_parent,Gesamtes Stadtgebiet
 EN,area_parent,Entire city area
 DE,area_child1,Innenstadtbereich
@@ -59,4 +57,67 @@ EN,menu_3_title,Colormap Representation
 DE,menu_3_title_2,Grafische Datenauswertung
 EN,menu_3_title_2,Graphical Representation
 
+DE,menu_4_title,"Über das Projekt"
+EN,menu_4_title,"About the Project"
+DE,about_title_1,"Technologie:"
+EN,about_title_1,"Technology:"
 
+DE,about_project_content,"Die rasche Verstädterung und die städtischen Wärmeinseln (Urban Heat Islands, UHI) stellen neben der wachsenden Bedrohung durch den Klimawandel eine große Herausforderung für die städtische Nachhaltigkeit und die öffentliche Gesundheit dar. Mikroklimamodellierung und -simulationen, die unter Verwendung verschiedener Szenarien durchgeführt werden, können zur Untersuchung von UHI, ihren Auswirkungen und anschließenden Anpassungsmaßnahmen verwendet werden. Das PALM-System (Parallelized Large-eddy Simulation Model, https://palm.muk.uni-hannover.de), eine hochmoderne Mikroklima-Simulationssoftware, kann erfolgreich zur Simulation und Vorhersage des Mikroklimas in städtischen Gebieten und von UHIs eingesetzt werden. In dieser Studie wird PALM-4U verwendet, um das Mikroklima in Konstanz, Deutschland zu simulieren. Der Schwerpunkt liegt dabei auf der Untersuchung der Auswirkungen städtischer Infrastrukturen.
+
+Unsere Referenz: Projekt CoKLIMAx - Anwendung von COPERNICUS-Daten für klimaresiliente Stadtplanung. (https://maps.coklimax.net/portal/apps/sites/#/coklimax)"
+
+EN,about_project_content,"Rapid urbanization and Urban Heat Islands (UHI), in addition to the growing threat of climate change, pose a major challenge to urban sustainability and public health. Microclimate modeling and simulations performed using different scenarios can be used to study UHI, their impacts and subsequent adaptation measures. The PALM system (Parallelized Large-eddy Simulation Model, https://palm.muk.uni-hannover.de), a state-of-the-art microclimate simulation software, can be successfully used to simulate and predict the microclimate in urban areas and UHIs. In this study, PALM-4U is used to simulate the microclimate in Constance, Germany. The focus is on investigating the impact of urban infrastructures.
+
+Our reference: Project CoKLIMAx - Application of COPERNICUS data for climate resilient urban planning. (https://maps.coklimax.net/portal/apps/sites/#/coklimax)"
+
+DE,about_project_sections,"
+>> * Die Fallstudie deckt die Innenstadt von Konstanz (Süddeutschland) ab und zeigt die Möglichkeiten der Mikroklimasimulationsplattform Palm4U.
+>> * Die realistische Stadtkonﬁguration umfasst alle typischen Merkmale der städtischen Komplexität, die für eine physikalisch fundierte Stadtklimasimulation erforderlich sind: Unterschiedliche Gebäudehöhen und -grundrisse, Straßenkonﬁgurationen, Bäume und Freiflächen, reale Orografie-Höhen, die Merkmale der Oberflächenbedeckung, Versiegelung und Vegetation, Gewässer (Bodensee) und Bodeneigenschaften.
+>> * Die Modelldaten werden aus verschiedenen digitalen und analogen Datenquellen wie dem Stadtmodell in LOD2-Qualität, Geoinformationen der Stadtverwaltung Konstanz und punktwolkenbasierten Informationen aus LiDAR-Daten generiert.
+>> * Die Stadtklimasimulationen werden für statische (Klarhimmel-Approximation) und dynamische Klimabedingungen berechnet, wobei für letztere eine Anbindung an ein regionales numerisches Wettervorhersagemodell (COSMO-DE) des Deutschen Wetterdienstes (DWD) erfolgt.
+>> * Berechnungsgebiete und Auflösung:
+>>>> - Gesamtes Stadtgebiet: L=4096m, B=4096m, H=2048 m, Elementgröße: 16m, Auflösung: 256 x 256 x 128
+>>>> - Innenstadtbereich: L=2048m, B=2048m, H=1024m, Elementgröße: 8m, Auflösung: 256 x 256 x 128
+>>>> - Zielregion: L=512m, B=512m, H=256m, Elementgröße 2m, Auflösung: 256 x 256 x 128
+>> * Berechnete Umweltdaten: Lufttemperatur (2m), Oberflächentemperatur, Wassertemperatur, Luftfeuchtigkeit, Windgeschwindigkeit, Nettostrahlung, Thermal Sensation Index."
+
+EN,about_project_sections,"
+>> * The case study covers the city center of Konstanz (Southern Germany) and demonstrates the capabilities of the Palm4U microclimate simulation platform.
+>> * The realistic city conﬁguration includes all typical features of urban complexity required for a physical based urban climate simulation: Different building heights and footprints, street conﬁgurations, trees and open spaces, real orography heights, the characteristics of surface cover, sealing and vegetation, water bodies and soil properties.
+>> * The model data is generated from various digital and analog data sources such as the LOD-2 city model, geoinformation from the city administration of Konstanz and point cloud information from LiDAR data.
+>> * The urban climate simulations are calculated for static (clear-sky approximation) and dynamic climate conditions, with the latter being linked to a regional numerical weather forecast model (COSMO-DE) of the German Weather Service (DWD).
+>> * Calculation areas and resolution:
+>>>> - Entire city area: L=4096m, W=4096m, H=2048 m, element size: 16m, resolution: 256 x 256 x 128
+>>>> - City center: L=2048m, W=2048m, H=1024m, element size: 8m, resolution: 256 x 256 x 128
+>>>> - Target region: L=512m, W=512m, H=256m, element size 2m, resolution: 256 x 256 x 128
+>> * Calculated environmental data: 2m Air temperature, Surface Temperature, Water Temperature, Humidity, Wind Speed, Net Radiation, Thermal Sensation Index."
+
+DE,about_title_2,"Über uns"
+EN,about_title_2,"About us"
+
+DE,about_us_title,"Wir sind str.ucture..."
+EN,about_us_title,"We are str.ucture..."
+
+DE,about_us_content,"…ein Architektur- und Ingenieurbüro mit Sitz in Stuttgart. Als Unternehmen setzen wir uns dafür ein, **eine nachhaltige und CO₂-neutrale gebaute Umwelt zu schaffen**. Unser Fokus liegt dabei auf einem Leichtbauansatz, der die **Minimierung des Materialverbrauchs** sowie den Einsatz von natürlichen und nachhaltigen Materialien in den Vordergrund stellt. **Digitale Werkzeuge und vernetzte Planungstechnologien** helfen uns in interdisziplinären Teams innovative und nachhaltige Lösungen mit unseren Partnern zu entwickeln. **Simulationstechniken** wie die **Strömungs- oder Stadtklimasimulation** ermöglichen uns die Auswirkungen von Gebäuden auf das Mikroklima in Städten zu verstehen und zu minimieren. Dabei setzen wir auch auf **datenbasierte Planung** und Methoden der **künstlichen Intelligenz**. Wir arbeiten in zahlreichen Kooperationen mit Unternehmen und Fachleuten sowie im Kontext von nationalen und internationalen Forschungsprogrammen daran, State-of-the-Art Entwicklungen in die Planungsprozesse einzubinden und weiterzuentwickeln. Wir sind **Ihr Partner** für die **digitale Transformation im Bereich Stadtklima** und stehen Ihnen zur Seite, um städtische Resilienz zu stärken und Klimaanpassungsmaßnahmen effektiv zu gestalten."
+EN,about_us_content,"...an architecture and engineering firm based in Stuttgart. As a company, we are committed to **creating a sustainable and CO₂-neutral built environment**. Our focus is on a lightweight construction approach that emphasizes the **minimization of material consumption and the use of natural and sustainable materials. Digital tools and networked planning technologies** help us to develop innovative and sustainable solutions with our partners in interdisciplinary teams. **Simulation techniques** such as **flow or urban climate simulation** enable us to understand and minimize the impact of buildings on the microclimate in cities. We also rely on **data-based planning and artificial intelligence** methods. We work in numerous collaborations with companies and experts as well as in the context of national and international research programs to integrate state-of-the-art developments into planning processes and develop them further. We are **your partner** for **digital transformation in the field of urban climate** and are at your side to strengthen urban resilience and effectively design climate adaptation measures."
+
+DE,about_us_header,"**Unsere Leistungen im Überblick:**"
+EN,about_us_header,"**Our Service at a glance:**"
+
+DE,about_us_sections,"
+>> 1. **Digitales Stadtklima Modell (Palm4U)**: Erstellung eines digitalen Stadtklima-Modells Ihrer Stadt basierend auf Ihren verfügbaren Daten.
+>> 1. **Mikroklima-Simulationsdaten**: Bereitstellung von Simulationsdaten für das städtische Mikroklima zu ausgewählten Tages- und Nachtzeiten. Spezielle Auswertung dieser Daten an kritischen Zielgebieten unter Berücksichtigung von Bebauungsstrukturen, Umweltfaktoren und Mikroklimaparametern.
+>> 1. **Digitale Datenverarbeitung**: Digitalisierung und Aufbereitung der Simulationsdaten in Form von benutzerfreundlichen Webanwendungen und Informationsseiten für Bürger.
+>> 1. **Integration in GIS-Systeme**: Nahtlose Integration der Simulationsdaten in lokale GIS (Geoinformationssysteme) zur optimalen Nutzung und Verwaltung der Informationen.
+>> 1. **Visualisierung von Lösungen**: Bereitstellung standortspezifischen Lösungen und Szenarioanalysen, um einfache Applikationen für Bürger zur Verfügung zu stellen und deren Informiertheit zu erhöhen.
+>> 1. **Kosten-Nutzen-Bewertung**: Evidenzbasierte Bewertung von Resilienz- und Klimaschutzmaßnahmen, die als Werkzeug für eine fundierte Infrastrukturplanung, Überwachung und Berichterstattung in Entscheidungsprozessen dienen.
+>> 1. **Wettervorhersagemodelle nutzen**: Einbindung globaler und lokaler Klimamodell und Dienste zur Verbesserung der Prognose, Überwachung und Berichterstattung von Klimaereignissen."
+
+EN,about_us_sections,"
+>> 1. **Digital Urban Climate Model (Palm4U)**: Creation of a digital urban climate model of your city based on your available data.
+>> 1. **Microclimate Simulation data**: Provide urban microclimate simulation data at specific times of the day and night. Conduct a specialized assessment of this data in critical target areas, considering development structures, environmental factors, and microclimate parameters.
+>> 1. **Digital Data Processing**: Digitization and preparation of simulation data into user-friendly web applications and information pages for the public.
+>> 1. **Integration in GIS Systems**: Seamless integration of simulation data into local GIS (Geographic Information Systems) for optimal use and management of the information.
+>> 1. **Visualization of Solutions**: Provide location-specific solutions and scenario analysis to provide simple applications available to the public and increase their awareness.
+>> 1. **Cost-Benefit Assessment**: Evidence-based evaluation of resilience and climate protection measures, serving as a tool for informed infrastructure planning, monitoring, and reporting in decision-making processes.
+>> 1. **Utilizing Weather Forecast Models**: Incorporating global and local climate models and services to enhance the prediction, monitoring, and reporting of climate events."
