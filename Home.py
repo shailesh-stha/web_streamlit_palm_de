@@ -352,6 +352,8 @@ with footer_container:
     columns_footer = st.columns(4)
     with columns_footer[0]:
         st.image(image=r"./data/images/structure_logo_RGB.png", width=250)
+        url = "https://www.str-ucture.com/projekte/coklimax"
+        st.write("[str.ucture GmbH](%s)" % url)
         
         # # Path to your GIF file
         # gif_path = r"F:\Simulation_Comparison\wind.gif"
